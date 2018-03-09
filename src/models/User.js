@@ -38,11 +38,11 @@ schema.methods.setConfirmationToken = function setConfirmationToken() {
 };
 
 schema.methods.generateConfirmationUrl = function generateConfirmationUrl() {
-  return `${process.env.HOST}/confirmation/${this.confirmationToken}`;
+  return `${process.env.HOST}/confirmation/${this.confirmationToken}`; //TODO: Change URL
 };
 
 schema.methods.generateResetPasswordLink = function generateResetPasswordLink() {
-  return `${process.env.HOST}/reset_password/${this.generateResetPasswordToken()}`;
+  return `${process.env.HOST}/reset_password/${this.generateResetPasswordToken()}`; //TODO: Change URL
 };
 
 schema.methods.generateJWT = function generateJWT() {
