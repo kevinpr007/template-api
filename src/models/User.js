@@ -77,8 +77,11 @@ schema.methods.toAuthJSON = function toAuthJSON() {
   };
 };
 
-schema.plugin(uniqueValidator, {
-  message: "It is already taken, try another one."
-});
+//TODO: Test validation
+// schema.plugin(uniqueValidator, {
+//   message: "It is already taken, try another one."
+// });
+
+schema.plugin(uniqueValidator);
 
 export default mongoose.model("User", schema);

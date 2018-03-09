@@ -24,7 +24,7 @@ router.post("/confirmation", (req, res) => {
   User.findOneAndUpdate(
     { confirmationToken: token },
     { confirmationToken: "", confirmed: true },
-    { new: true } //??????
+    { new: true } //??????   { runValidators: true, context: 'query' }
   ).then(
     user => user ? res.json({ user: user.toAuthJSON() }) : 
     res.status(HttpStatus.BAD_REQUEST).json({ errors: { global: "The confirmation token is not valid" } })//TODO: Create object in utils
