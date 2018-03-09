@@ -1,4 +1,5 @@
 import express from "express";
+import HttpStatus from "http-status-codes"
 import User from "../models/User";
 import parseErrors from "../utils/parseErrors";
 import { sendConfirmationEmail } from "../utils/mailer";
@@ -16,7 +17,7 @@ router.post("/", (req, res) => {
       sendConfirmationEmail(userRecord); //TODO: Validate urls
       res.json({ user: userRecord.toAuthJSON() });
     })
-    .catch(err => res.status(400).json({ errors: parseErrors(err.errors) }));
+    .catch(err => res.status(HttpStatus.BAD_REQUEST).json({ errors: parseErrors(err.errors) }));
 });
 
 router.get("/current_user", authenticate, (req, res) => {

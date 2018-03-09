@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import HttpStatus from "http-status-codes"
 import User from "../models/User";
 
 export default (req, res, next) => {
@@ -10,8 +11,7 @@ export default (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
-          //TODO: Change hardcode number
-        res.status(401).json({ errors: { global: "Invalid token" } });
+        res.status(HttpStatus.UNAUTHORIZED).json({ errors: { global: "Invalid token" } });
       } else {
         User.findOne({ email: decoded.email }).then(user => {
           req.currentUser = user;
@@ -20,6 +20,6 @@ export default (req, res, next) => {
       }
     });
   } else {
-    res.status(401).json({ errors: { global: "No token found" } });
+    res.status(HttpStatus.UNAUTHORIZED).json({ errors: { global: "No token found" } });
   }
 };
