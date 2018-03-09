@@ -30,7 +30,7 @@ schema.methods.isValidPassword = function isValidPassword(password) {
 };
 
 schema.methods.setPassword = function setPassword(password) {
-  this.passwordHash = bcrypt.hashSync(password, process.env.SALT_ROUNDS);
+  this.passwordHash = bcrypt.hashSync(password, parseInt(process.env.SALT_ROUNDS, 10));
 };
 
 schema.methods.setConfirmationToken = function setConfirmationToken() {

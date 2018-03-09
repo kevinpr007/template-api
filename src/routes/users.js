@@ -11,8 +11,7 @@ router.post("/", (req, res) => {
   const user = new User({ email, username });
   user.setPassword(password);
   user.setConfirmationToken();
-  user
-    .save()
+  user.save()
     .then(userRecord => {
       sendConfirmationEmail(userRecord);
       res.json({ user: userRecord.toAuthJSON() });
@@ -22,6 +21,7 @@ router.post("/", (req, res) => {
 
 router.get("/current_user", authenticate, (req, res) => {
   res.json({
+    //TODO: Set user object
     user: {
       email: req.currentUser.email,
       confirmed: req.currentUser.confirmed,
