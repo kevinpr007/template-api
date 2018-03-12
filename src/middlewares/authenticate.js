@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import HttpStatus from "http-status-codes"
 import User from "../models/User";
+import globalError from '../utils/globalError';
 
 export default (req, res, next) => {
   const header = req.headers.authorization;
@@ -12,7 +13,7 @@ export default (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
       if (err) {
-        res.status(HttpStatus.UNAUTHORIZED).json({ errors: { global: "Invalid token" } }); //TODO: Add object
+        res.status(HttpStatus.UNAUTHORIZED).json(globalError("Invalid token"));
       } else {
         //TODO: Check validation all times.
         User.findOne({ email: decodedToken.email }).then(user => {
@@ -22,6 +23,6 @@ export default (req, res, next) => {
       }
     });
   } else {
-    res.status(HttpStatus.UNAUTHORIZED).json({ errors: { global: "No token found" } }); //TODO: Add object
+    res.status(HttpStatus.UNAUTHORIZED).json(globalError("No token found"));
   }
 };

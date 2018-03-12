@@ -2,6 +2,7 @@ import express from "express";
 import HttpStatus from "http-status-codes"
 import User from "../models/User";
 import parseErrors from "../utils/parseErrors";
+import globalError from '../utils/globalError';
 import { sendConfirmationEmail } from "../utils/mailer";
 import authenticate from "../middlewares/authenticate";
 
@@ -17,7 +18,7 @@ router.post("/", (req, res) => {
       sendConfirmationEmail(userRecord); //TODO: Validate urls
       res.json({ user: userRecord.toAuthJSON() });
     })
-    .catch(err => res.status(HttpStatus.BAD_REQUEST).json({ errors: parseErrors(err.errors) }));
+    .catch(err => res.status(HttpStatus.BAD_REQUEST).json(globalError("Error saving User", parseErrors(err.errors) ))); //Fix
 });
 
 router.get("/current_user", authenticate, (req, res) => {

@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import HttpStatus from "http-status-codes"
 import User from "../models/User";
 import { sendResetPasswordEmail } from "../utils/mailer"; //TODO: change to utils
+import globalError from '../utils/globalError';
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.post("/", (req, res) => {
     if (user && user.isValidPassword(credentials.password)) {
       res.json({ user: user.toAuthJSON() });
     } else {
-      res.status(HttpStatus.BAD_REQUEST).json({ errors: { global: "Invalid credentials" } }); //TODO: Create object in utils
+      res.status(HttpStatus.BAD_REQUEST).json(globalError("Invalid credentials"));
     }
   });
 });
@@ -27,7 +28,7 @@ router.post("/confirmation", (req, res) => {
     { new: true } //??????   { runValidators: true, context: 'query' }
   ).then(
     user => user ? res.json({ user: user.toAuthJSON() }) : 
-    res.status(HttpStatus.BAD_REQUEST).json({ errors: { global: "The confirmation token is not valid" } })//TODO: Create object in utils
+    res.status(HttpStatus.BAD_REQUEST).json(globalError("The confirmation token is not valid"))
   );
 });
 
@@ -38,7 +39,7 @@ router.post("/reset_password_request", (req, res) => {
       sendResetPasswordEmail(user); //TODO: Validate urls
       res.json({});
     } else {
-      res.status(HttpStatus.BAD_REQUEST).json({ errors: { global: "There is no user with this email" } }); //TODO: change this
+      res.status(HttpStatus.BAD_REQUEST).json(globalError("There is no user with this email"));
     }
   });
 });
@@ -47,7 +48,7 @@ router.post("/validate_token", (req, res) => {
     const { token } = req.body
   jwt.verify(token, process.env.JWT_SECRET, err => {
     if (err) {
-      res.status(HttpStatus.UNAUTHORIZED).json({ errors: { global: "The token is not valid" } }); //TODO: Change
+      res.status(HttpStatus.UNAUTHORIZED).json(globalError("The token is not valid"))
     } else {
       res.json({});
     }
@@ -59,7 +60,7 @@ router.post("/reset_password", (req, res) => {
   //TODO: Change token variable to other name
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
-      res.status(HttpStatus.UNAUTHORIZED).json({ errors: { global: "Invalid token" } }); //TODO: change
+      res.status(HttpStatus.UNAUTHORIZED).json(globalError("Invalid token"))
     } else {
       User.findOne({ _id: decoded._id }).then(user => {
         if (user) {
@@ -67,7 +68,7 @@ router.post("/reset_password", (req, res) => {
           user.setPassword(password);
           user.save().then(() => res.json({}));
         } else {
-          res.status(404).json({ errors: { global: "User not found" } }); //TODO: change
+          res.status(404).json(globalError("User not found"))
         }
       });
     }
