@@ -3,7 +3,10 @@ import jwt from "jsonwebtoken";
 import HttpStatus from "http-status-codes"
 import uuidv1 from 'uuid/v1';
 import User from "../models/User";
-import { sendResetPasswordEmail } from "../utils/mailer"; //TODO: change to utils
+import { 
+  sendResetPasswordEmailValidation, 
+  sendResetPasswordEmail, 
+  sendConfirmationEmail } from "../utils/mailer";
 import globalError from '../utils/globalError';
 import parseErrors from "../utils/parseErrors";
 
@@ -13,7 +16,6 @@ router.post("/", (req, res) => {
   const { credentials } = req.body;
 
   User.findOne({ email: credentials.email }).then(user => {
-    //TODO: Add confirmation email validation
     if (user && user.isValidPassword(credentials.password)) {
       res.json({ user: user.toAuthJSON() });
     } else {
@@ -29,10 +31,15 @@ router.get("/confirmation", (req, res) => {
     { confirmationToken: token },
     { confirmationToken: "", confirmed: true },
     { new: true } //TODO: ??????   { runValidators: true, context: 'query' } 
-  ).then(
-    user => user ? 
-      res.json({ user: user.toAuthJSON() }) : 
-      res.status(HttpStatus.BAD_REQUEST).json(globalError("The confirmation token is not valid"))
+  ).then(user => {
+      if(user){
+        sendConfirmationEmail(user)
+        res.json({ user: user.toAuthJSON() })
+      }
+      else{
+        res.status(HttpStatus.BAD_REQUEST).json(globalError("The confirmation token is not valid"))
+      }
+    }
   );
 });
 
@@ -40,11 +47,10 @@ router.post("/reset_password_request", (req, res) => {
     const { email } = req.body
   User.findOne({ email: email }).then(user => {
     if (user) {
-      sendResetPasswordEmail(user);
+      sendResetPasswordEmailValidation(user);
       user.setPassword(uuidv1())
       user.save()
-        .then(userRecord => {
-          //TODO: Send Email Reset Password
+        .then(() => {
           res.json({});
         })
         .catch(err => res.status(HttpStatus.BAD_REQUEST).json(globalError("Error saving User", parseErrors(err.errors) )));
@@ -67,7 +73,7 @@ router.post("/validate_token", (req, res) => {
 
 router.post("/reset_password", (req, res) => {
   const { password, token } = req.body.data;
-  //TODO: Change token variable to other name
+
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       res.status(HttpStatus.UNAUTHORIZED).json(globalError("Invalid token"))
@@ -76,7 +82,12 @@ router.post("/reset_password", (req, res) => {
         if (user) {
           //TODO: Add password lenght validation
           user.setPassword(password);
-          user.save().then(() => res.json({}));
+          user.save()
+          .then(userRecord => {
+            sendResetPasswordEmail(userRecord)
+            res.json({})
+          })
+          .catch(err => res.status(HttpStatus.BAD_REQUEST).json(globalError("Error saving User", parseErrors(err.errors) )));
         } else {
           res.status(HttpStatus.NOT_FOUND).json(globalError("User not found"))
         }

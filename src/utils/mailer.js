@@ -13,7 +13,7 @@ function setup() {
   });
 }
 
-export function sendConfirmationEmail(user) {
+export function sendConfirmationEmailValidation(user) {
   const tranport = setup();
   const email = {
     from,
@@ -23,9 +23,36 @@ export function sendConfirmationEmail(user) {
     Welcome to Template-API. Please, confirm your email.
     ${user.generateConfirmationUrl()}
     `
-  };
+  }
+
+  tranport.sendMail(email);
+};
+
+  export function sendConfirmationEmail(user) {
+    const tranport = setup();
+    const email = {
+      from,
+      to: user.email,
+      subject: "Template-API - Confirmation Email",
+      text: `Welcome to Template-API. Your email has been confirmed. Thank you.`
+    };
 
   //TODO: Send Email Async
+  tranport.sendMail(email);
+};
+
+export function sendResetPasswordEmailValidation(user) {
+  const tranport = setup();
+  const email = {
+    from,
+    to: user.email,
+    subject: "Template-API - Reset Password",
+    text: `
+    To reset password follow this link
+    ${user.generateResetPasswordLink()}
+    `
+  };
+
   tranport.sendMail(email);
 }
 
@@ -34,11 +61,8 @@ export function sendResetPasswordEmail(user) {
   const email = {
     from,
     to: user.email,
-    subject: "Reset Password",
-    text: `
-    To reset password follow this link
-    ${user.generateResetPasswordLink()}
-    `
+    subject: "Template-API - Reset Password Confirmation",
+    text: `Your password has been reset. Thank you for use Template-API`
   };
 
   tranport.sendMail(email);

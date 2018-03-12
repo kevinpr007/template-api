@@ -39,11 +39,11 @@ schema.methods.setConfirmationToken = function setConfirmationToken() {
 };
 
 schema.methods.generateConfirmationUrl = function generateConfirmationUrl() {
-  return `${process.env.HOST}:${process.env.API_PORT}/api/auth/confirmation?token=${this.confirmationToken}`; //TODO: Change URL
+  return `${process.env.HOST}:${process.env.API_PORT}/api/auth/confirmation?token=${this.confirmationToken}`;
 };
 
 schema.methods.generateResetPasswordLink = function generateResetPasswordLink() {
-  return `${process.env.HOST}:${process.env.API_PORT}/api/auth/reset_password?token=${this.generateResetPasswordToken()}`; //TODO: Change URL
+  return `${process.env.HOST}:${process.env.API_PORT}/api/auth/reset_password?token=${this.generateResetPasswordToken()}`;
 };
 
 schema.methods.generateJWT = function generateJWT() {

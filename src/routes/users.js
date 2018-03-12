@@ -3,7 +3,7 @@ import HttpStatus from "http-status-codes"
 import User from "../models/User";
 import parseErrors from "../utils/parseErrors";
 import globalError from '../utils/globalError';
-import { sendConfirmationEmail } from "../utils/mailer";
+import { sendConfirmationEmailValidation } from "../utils/mailer";
 import authenticate from "../middlewares/authenticate";
 
 const router = express.Router();
@@ -15,7 +15,7 @@ router.post("/", (req, res) => {
   user.setConfirmationToken();
   user.save()
     .then(userRecord => {
-      sendConfirmationEmail(userRecord);
+      sendConfirmationEmailValidation(userRecord);
       res.json({ user: userRecord.toAuthJSON() });
     })
     .catch(err => res.status(HttpStatus.BAD_REQUEST).json(globalError("Error saving User", parseErrors(err.errors) )));
