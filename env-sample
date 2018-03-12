@@ -1,8 +1,8 @@
 MONGODB_URL=mongodb://template-api-user:template-api-user@ds063899.mlab.com:63899/template-api
 JWT_SECRET=mysecretkeyhere
-HOST=http://localhost:3000
-EMAIL_HOST=
-EMAIL_PORT=
+HOST=http://localhost
+EMAIL_HOST=smtp.mailtrap.io
+EMAIL_PORT=25
 EMAIL_USER=
 EMAIL_PASS=
 EMAIL_APP=info@template_api.com
