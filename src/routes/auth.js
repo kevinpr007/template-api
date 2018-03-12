@@ -1,9 +1,11 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import HttpStatus from "http-status-codes"
+import uuidv1 from 'uuid/v1';
 import User from "../models/User";
 import { sendResetPasswordEmail } from "../utils/mailer"; //TODO: change to utils
 import globalError from '../utils/globalError';
+import parseErrors from "../utils/parseErrors";
 
 const router = express.Router();
 
@@ -20,15 +22,17 @@ router.post("/", (req, res) => {
   });
 });
 
-router.post("/confirmation", (req, res) => {
-  const { token } = req.body;
+router.get("/confirmation", (req, res) => {
+  const { token } = req.query;
+
   User.findOneAndUpdate(
     { confirmationToken: token },
     { confirmationToken: "", confirmed: true },
-    { new: true } //??????   { runValidators: true, context: 'query' }
+    { new: true } //TODO: ??????   { runValidators: true, context: 'query' } 
   ).then(
-    user => user ? res.json({ user: user.toAuthJSON() }) : 
-    res.status(HttpStatus.BAD_REQUEST).json(globalError("The confirmation token is not valid"))
+    user => user ? 
+      res.json({ user: user.toAuthJSON() }) : 
+      res.status(HttpStatus.BAD_REQUEST).json(globalError("The confirmation token is not valid"))
   );
 });
 
@@ -36,8 +40,14 @@ router.post("/reset_password_request", (req, res) => {
     const { email } = req.body
   User.findOne({ email: email }).then(user => {
     if (user) {
-      sendResetPasswordEmail(user); //TODO: Validate urls
-      res.json({});
+      sendResetPasswordEmail(user);
+      user.setPassword(uuidv1())
+      user.save()
+        .then(userRecord => {
+          //TODO: Send Email Reset Password
+          res.json({});
+        })
+        .catch(err => res.status(HttpStatus.BAD_REQUEST).json(globalError("Error saving User", parseErrors(err.errors) )));
     } else {
       res.status(HttpStatus.BAD_REQUEST).json(globalError("There is no user with this email"));
     }
@@ -68,7 +78,7 @@ router.post("/reset_password", (req, res) => {
           user.setPassword(password);
           user.save().then(() => res.json({}));
         } else {
-          res.status(404).json(globalError("User not found"))
+          res.status(HttpStatus.NOT_FOUND).json(globalError("User not found"))
         }
       });
     }

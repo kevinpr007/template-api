@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import uniqueValidator from "mongoose-unique-validator";
+import uuidv1 from 'uuid/v1';
 
 const schema = new mongoose.Schema(
   {
@@ -34,15 +35,15 @@ schema.methods.setPassword = function setPassword(password) {
 };
 
 schema.methods.setConfirmationToken = function setConfirmationToken() {
-  this.confirmationToken = this.generateJWT();
+  this.confirmationToken = uuidv1() 
 };
 
 schema.methods.generateConfirmationUrl = function generateConfirmationUrl() {
-  return `${process.env.HOST}/confirmation/${this.confirmationToken}`; //TODO: Change URL
+  return `${process.env.HOST}:${process.env.API_PORT}/api/auth/confirmation?token=${this.confirmationToken}`; //TODO: Change URL
 };
 
 schema.methods.generateResetPasswordLink = function generateResetPasswordLink() {
-  return `${process.env.HOST}/reset_password/${this.generateResetPasswordToken()}`; //TODO: Change URL
+  return `${process.env.HOST}:${process.env.API_PORT}/api/auth/reset_password?token=${this.generateResetPasswordToken()}`; //TODO: Change URL
 };
 
 schema.methods.generateJWT = function generateJWT() {

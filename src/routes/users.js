@@ -15,10 +15,10 @@ router.post("/", (req, res) => {
   user.setConfirmationToken();
   user.save()
     .then(userRecord => {
-      sendConfirmationEmail(userRecord); //TODO: Validate urls
+      sendConfirmationEmail(userRecord);
       res.json({ user: userRecord.toAuthJSON() });
     })
-    .catch(err => res.status(HttpStatus.BAD_REQUEST).json(globalError("Error saving User", parseErrors(err.errors) ))); //Fix
+    .catch(err => res.status(HttpStatus.BAD_REQUEST).json(globalError("Error saving User", parseErrors(err.errors) )));
 });
 
 router.get("/current_user", authenticate, (req, res) => {

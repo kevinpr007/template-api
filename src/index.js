@@ -31,5 +31,5 @@ app.get("/*", (req, res) => {
 
 //Start service
 app.listen(process.env.API_PORT, () =>
-  console.log(`Running on localhost:${process.env.API_PORT}`)
+  console.log(`Running on ${process.env.HOST}:${process.env.API_PORT}`)
 );
