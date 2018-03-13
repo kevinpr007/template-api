@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import Promise from "bluebird";
+import HttpStatus from "http-status-codes"
+import globalError from './utils/globalError';
 
 //Routes Configuration Area
 import auth from "./routes/auth";
@@ -24,11 +26,15 @@ mongoose.connect(process.env.MONGODB_URL);
 app.use("/api/users", users);
 app.use("/api/auth", auth);
 
-//Set Main Page
+//Set static Pages
 app.use(express.static('public'))
 
-app.get("/*", (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
+});
+
+app.get("/*", (req, res) => {
+  res.status(HttpStatus.NOT_FOUND).json()
 });
 
 //Start service
