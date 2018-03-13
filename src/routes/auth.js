@@ -78,20 +78,24 @@ router.post("/reset_password", (req, res) => {
     if (err) {
       res.status(HttpStatus.UNAUTHORIZED).json(globalError("Invalid token"))
     } else {
-      User.findOne({ _id: decoded._id }).then(user => {
-        if (user) {
-          //TODO: Add password lenght validation
-          user.setPassword(password);
-          user.save()
-          .then(userRecord => {
-            sendResetPasswordEmail(userRecord)
-            res.json({})
-          })
-          .catch(err => res.status(HttpStatus.BAD_REQUEST).json(globalError("Error saving User", parseErrors(err.errors) )));
-        } else {
-          res.status(HttpStatus.NOT_FOUND).json(globalError("User not found"))
-        }
-      });
+        User.findOne({ _id: decoded._id }).then(user => {
+          if (user) {
+            if(user.isPasswordLength(password)){
+              user.setPassword(password);
+              user.save()
+              .then(userRecord => {
+                sendResetPasswordEmail(userRecord)
+                res.json({})
+              })
+              .catch(err => res.status(HttpStatus.BAD_REQUEST).json(globalError("Error saving User", parseErrors(err.errors) )));
+            }
+            else{
+              res.status(HttpStatus.BAD_REQUEST).json(globalError(`You have entered less than ${process.env.PASSWORD_LENGTH} characters for password`))
+            }
+          } else {
+            res.status(HttpStatus.NOT_FOUND).json(globalError("User not found"))
+          }
+        });
     }
   });
 });

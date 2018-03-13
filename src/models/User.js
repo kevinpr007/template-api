@@ -30,6 +30,10 @@ schema.methods.isValidPassword = function isValidPassword(password) {
   return bcrypt.compareSync(password, this.passwordHash);
 };
 
+schema.methods.isPasswordLength = function isPasswordLength(password = "") {
+  return password.length >= process.env.PASSWORD_LENGTH
+};
+
 schema.methods.setPassword = function setPassword(password) {
   this.passwordHash = bcrypt.hashSync(password, parseInt(process.env.SALT_ROUNDS, 10));
 };

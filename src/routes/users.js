@@ -10,20 +10,26 @@ const router = express.Router();
 
 router.post("/", (req, res) => {
   const { email, password, username } = req.body.user;
+
   const user = new User({ email, username });
-  user.setPassword(password);
-  user.setConfirmationToken();
-  user.save()
-    .then(userRecord => {
-      sendConfirmationEmailValidation(userRecord);
-      res.json({ user: userRecord.toAuthJSON() });
-    })
-    .catch(err => res.status(HttpStatus.BAD_REQUEST).json(globalError("Error saving User", parseErrors(err.errors) )));
+  if(user.isPasswordLength(password)){
+    user.setPassword(password);
+    user.setConfirmationToken();
+    user.save()
+      .then(userRecord => {
+        sendConfirmationEmailValidation(userRecord);
+        res.json({ user: userRecord.toAuthJSON() });
+      })
+      .catch(err => res.status(HttpStatus.BAD_REQUEST).json(globalError("Error saving User", parseErrors(err.errors) )));
+  }
+  else{
+    res.status(HttpStatus.BAD_REQUEST).json(globalError(`You have entered less than ${process.env.PASSWORD_LENGTH} characters for password`))
+  }
 });
 
 router.get("/current_user", authenticate, (req, res) => {
   res.json({
-    //TODO: Set user object
+    //TODO: Add all user object
     user: {
       email: req.currentUser.email,
       confirmed: req.currentUser.confirmed,
