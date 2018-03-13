@@ -64,7 +64,7 @@ schema.methods.generateResetPasswordToken = function generateResetPasswordToken(
       _id: this._id
     },
     process.env.JWT_SECRET,
-    { expiresIn: "1h" } //TODO: Remove hard code
+    { expiresIn: process.env.EXPIRATION_TIME }
   );
 };
 
