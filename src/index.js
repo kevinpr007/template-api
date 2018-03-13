@@ -25,8 +25,10 @@ app.use("/api/users", users);
 app.use("/api/auth", auth);
 
 //Set Main Page
+app.use(express.static('public'))
+
 app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
 //Start service
