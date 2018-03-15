@@ -5,6 +5,7 @@ import parseErrors from "../utils/parseErrors";
 import globalError from '../utils/globalError';
 import { sendConfirmationEmailValidation } from "../utils/mailer";
 import authenticate from "../middlewares/authenticate";
+import userFactory from '../utils/userFactory';
 
 const router = express.Router();
 
@@ -29,12 +30,7 @@ router.post("/", (req, res) => {
 
 router.get("/current_user", authenticate, (req, res) => {
   res.json({
-    //TODO: Add all user object
-    user: {
-      email: req.currentUser.email,
-      confirmed: req.currentUser.confirmed,
-      username: req.currentUser.username
-    }
+    user: userFactory(req.currentUser)
   });
 });
 

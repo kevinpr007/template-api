@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import uniqueValidator from "mongoose-unique-validator";
 import uuidv1 from 'uuid/v1';
+import userFactory from '../utils/userFactory';
 
 const schema = new mongoose.Schema(
   {
@@ -51,15 +52,7 @@ schema.methods.generateResetPasswordLink = function generateResetPasswordLink() 
 };
 
 schema.methods.generateJWT = function generateJWT() {
-  //TODO: Add all user object
-    return jwt.sign(
-    {
-      email: this.email,
-      username: this.username,
-      confirmed: this.confirmed
-    },
-    process.env.JWT_SECRET
-  );
+    return jwt.sign(userFactory(this), process.env.JWT_SECRET);
 };
 
 schema.methods.generateResetPasswordToken = function generateResetPasswordToken() {
@@ -73,13 +66,9 @@ schema.methods.generateResetPasswordToken = function generateResetPasswordToken(
 };
 
 schema.methods.toAuthJSON = function toAuthJSON() {
-    //TODO: Add all user object
-  return {
-    email: this.email,
-    confirmed: this.confirmed,
-    username: this.username,
-    token: this.generateJWT()
-  };
+  let object = userFactory(this)
+  object.token = this.generateJWT()
+  return object
 };
 
 schema.plugin(uniqueValidator);
