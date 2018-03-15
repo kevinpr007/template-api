@@ -1,9 +1,7 @@
 import express from "express";
 import path from "path";
-import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import Promise from "bluebird";
 import HttpStatus from "http-status-codes"
 import globalError from './utils/globalError';
 
@@ -19,8 +17,8 @@ const app = express();
 app.use(bodyParser.json());
 
 //Database Connection
-mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGODB_URL);
+import connectToDB from './config/mongoose';
+connectToDB()
 
 //Setting Routes
 app.use("/api/users", users);
