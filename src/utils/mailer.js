@@ -1,16 +1,17 @@
 import nodemailer from "nodemailer";
+import Promise from "bluebird";
 
 const from = `"Template API" <${process.env.EMAIL_APP}>`;
 
 function setup() {
-  return nodemailer.createTransport({
+  return Promise.promisifyAll(nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
     }
-  });
+  }));
 }
 
 export function sendConfirmationEmailValidation(user) {
@@ -25,7 +26,7 @@ export function sendConfirmationEmailValidation(user) {
     `
   }
 
-  tranport.sendMail(email);
+  tranport.sendMailAsync(email);
 };
 
   export function sendConfirmationEmail(user) {
@@ -37,8 +38,7 @@ export function sendConfirmationEmailValidation(user) {
       text: `Welcome to Template-API. Your email has been confirmed. Thank you.`
     };
 
-  //TODO: Send Email Async
-  tranport.sendMail(email);
+  tranport.sendMailAsync(email);
 };
 
 export function sendResetPasswordEmailValidation(user) {
@@ -53,7 +53,7 @@ export function sendResetPasswordEmailValidation(user) {
     `
   };
 
-  tranport.sendMail(email);
+  tranport.sendMailAsync(email);
 }
 
 export function sendResetPasswordEmail(user) {
@@ -65,5 +65,5 @@ export function sendResetPasswordEmail(user) {
     text: `Your password has been reset. Thank you for use Template-API`
   };
 
-  tranport.sendMail(email);
+  tranport.sendMailAsync(email);
 }

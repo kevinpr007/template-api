@@ -12,12 +12,10 @@ export default (req, res, next) => {
   if (header) token = header.split(" ")[TOKEN_PARAMETER];
 
   if (token) {
-    //TODO: Test modifying token
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
       if (err) {
         res.status(HttpStatus.UNAUTHORIZED).json(globalError("Invalid token"));
       } else {
-        //TODO: Check validation all times.
         // User.findOne({ email: decodedToken.email }).then(user => {
         //   req.currentUser = user;
         //   next();
