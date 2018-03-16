@@ -1,7 +1,6 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import HttpStatus from "http-status-codes"
-import uuidv1 from 'uuid/v1';
 import User from "../models/User";
 import { 
   sendResetPasswordEmailValidation, 
@@ -47,10 +46,11 @@ router.post("/reset_password_request", (req, res) => {
     const { email } = req.body
   User.findOne({ email: email }).then(user => {
     if (user) {
-      sendResetPasswordEmailValidation(user);
-      user.setPassword(uuidv1())
+      user.setResetPassword()
+      user.setResetPasswordToken()
       user.save()
-        .then(() => {
+        .then((updatedUser) => {
+          sendResetPasswordEmailValidation(updatedUser)
           res.json({});
         })
         .catch(err => res.status(HttpStatus.BAD_REQUEST).json(globalError("Error saving User", parseErrors(err.errors) )));
@@ -78,10 +78,12 @@ router.post("/reset_password", (req, res) => {
     if (err) {
       res.status(HttpStatus.UNAUTHORIZED).json(globalError("Invalid token"))
     } else {
-        User.findOne({ _id: decoded._id }).then(user => {
+        User.findOne({ _id: decoded._id, resetPasswordToken: decoded.resetPasswordToken })
+        .then(user => {
           if (user) {
             if(user.isPasswordLength(password)){
               user.setPassword(password);
+              user.resetPasswordToken = "";
               user.save()
               .then(userRecord => {
                 sendResetPasswordEmail(userRecord)
@@ -93,9 +95,9 @@ router.post("/reset_password", (req, res) => {
               res.status(HttpStatus.BAD_REQUEST).json(globalError(`You have entered less than ${process.env.PASSWORD_LENGTH} characters for password`))
             }
           } else {
-            res.status(HttpStatus.NOT_FOUND).json(globalError("User not found"))
+            res.status(HttpStatus.NOT_FOUND).json(globalError("User or token not found"))
           }
-        });
+        })
     }
   });
 });

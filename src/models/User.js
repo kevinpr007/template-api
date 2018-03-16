@@ -22,7 +22,8 @@ const schema = new mongoose.Schema(
     },
     passwordHash: { type: String, required: true },
     confirmed: { type: Boolean, default: false },
-    confirmationToken: { type: String, default: "" }
+    confirmationToken: { type: String, default: "" },
+    resetPasswordToken: { type: String, default: "" }
   },
   { timestamps: true }
 );
@@ -43,6 +44,14 @@ schema.methods.setConfirmationToken = function setConfirmationToken() {
   this.confirmationToken = uuidv1() 
 };
 
+schema.methods.setResetPassword = function setResetPassword() {
+  this.setPassword(uuidv1()) 
+};
+
+schema.methods.setResetPasswordToken = function setResetPasswordToken() {
+  this.resetPasswordToken = uuidv1() 
+};
+
 schema.methods.generateConfirmationUrl = function generateConfirmationUrl() {
   return `${process.env.HOST}:${process.env.API_PORT}/api/auth/confirmation?token=${this.confirmationToken}`;
 };
@@ -52,16 +61,17 @@ schema.methods.generateResetPasswordLink = function generateResetPasswordLink() 
 };
 
 schema.methods.generateJWT = function generateJWT() {
-    return jwt.sign(userFactory(this), process.env.JWT_SECRET);
+  return jwt.sign(userFactory(this), process.env.JWT_SECRET, { expiresIn: process.env.LOGIN_EXPIRATION_TIME });
 };
 
 schema.methods.generateResetPasswordToken = function generateResetPasswordToken() {
   return jwt.sign(
     {
-      _id: this._id
+      _id: this._id,
+      resetPasswordToken: this.resetPasswordToken
     },
     process.env.JWT_SECRET,
-    { expiresIn: process.env.EXPIRATION_TIME }
+    { expiresIn: process.env.EMAIL_EXPIRATION_TIME }
   );
 };
 
