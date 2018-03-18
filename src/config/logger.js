@@ -1,5 +1,10 @@
 import bunyan from 'bunyan';
 import moment from 'moment';
+import bformat from 'bunyan-format'
+
+//Options
+//simple, short, long, inspect, bunyan, { outputMode: 'json', jsonIndent: 2}, 
+const formatOut = bformat({ outputMode: 'short', levelInString: true})
 
 const reqSerializer = req => {
     return {
@@ -15,14 +20,14 @@ const dbSerializer = data => {
   
     return `db.${data.coll}.${data.method}(${query}, ${options})`
   }
-  
+
 export default bunyan.createLogger({
     name: `Template-API`,
     src: false,
     streams: [
         {
           level: 'debug',
-          stream: process.stdout     
+          stream: formatOut     
         },
         {
             type: 'rotating-file',
