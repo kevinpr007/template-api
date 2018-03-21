@@ -28,8 +28,8 @@ router.get("/confirmation", (req, res) => {
 
   User.findOneAndUpdate(
     { confirmationToken: token },
-    { confirmationToken: "", confirmed: true },
-    { new: true } //TODO: ??????   { runValidators: true, context: 'query' } 
+    { confirmationToken: "", confirmed: true},
+    { new: true }
   ).then(user => {
       if(user){
         sendConfirmationEmail(user)
@@ -39,7 +39,7 @@ router.get("/confirmation", (req, res) => {
         res.status(HttpStatus.BAD_REQUEST).json(globalError("The confirmation token is not valid"))
       }
     }
-  );
+  ).catch(err =>  res.status(HttpStatus.BAD_REQUEST).json(globalError("Error updating User")));
 });
 
 router.post("/reset_password_request", (req, res) => {
