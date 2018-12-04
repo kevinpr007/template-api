@@ -1,6 +1,6 @@
-import _ from 'lodash'
+const _ = require('lodash')
 
-export default function(errors) {
+module.exports = function(errors) {
 	const result = {}
 	_.forEach(errors, (val, key) => {
 		result[key] = val.message

@@ -1,6 +1,6 @@
-import bunyan from 'bunyan'
-import moment from 'moment'
-import bformat from 'bunyan-format'
+const bunyan = require('bunyan')
+const moment = require('moment')
+const bformat = require('bunyan-format')
 
 //Options
 //simple, short, long, inspect, bunyan, { outputMode: 'json', jsonIndent: 2},
@@ -20,33 +20,34 @@ const dbSerializer = (data) => {
 
 	return `db.${data.coll}.${data.method}(${query}, ${options})`
 }
+//TODO:Change debug level
+module.exports = () =>
+	bunyan.createLogger({
+		name: process.env.APP_NAME,
+		src: false,
+		streams: [
+			{
+				level: 'debug',
+				stream: formatOut,
+			},
+			{
+				type: 'rotating-file',
+				level: 'debug', //TODO: Change log levels
+				path: `./log/${moment(new Date()).format('YYYY-MM-DD')}.log`,
+				period: '1d', // daily rotation
+				count: 5, // keep 5 back copies
+			},
+		],
+		serializers: {
+			// Serializers
+			// req: reqSerializer,
+			dbQuery: dbSerializer,
 
-export default bunyan.createLogger({
-	name: `Template-API`,
-	src: false,
-	streams: [
-		{
-			level: 'debug',
-			stream: formatOut,
+			// req: bunyan.stdSerializers.req,
+			// res: bunyan.stdSerializers.res,
+
+			// Examples
+			// logger.debug({req: req})
+			// logger.debug({res: res})
 		},
-		{
-			type: 'rotating-file',
-			level: 'debug', //TODO: Change log levels
-			path: `./log/${moment(new Date()).format('YYYY-MM-DD')}.log`,
-			period: '1d', // daily rotation
-			count: 5, // keep 5 back copies
-		},
-	],
-	serializers: {
-		// Serializers
-		// req: reqSerializer,
-		dbQuery: dbSerializer,
-
-		// req: bunyan.stdSerializers.req,
-		// res: bunyan.stdSerializers.res,
-
-		// Examples
-		// logger.debug({req: req})
-		// logger.debug({res: res})
-	},
-})
+	})

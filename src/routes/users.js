@@ -1,14 +1,16 @@
-import express from 'express'
-import HttpStatus from 'http-status-codes'
-import User from '../models/User'
-import parseErrors from '../utils/parseErrors'
-import globalError from '../utils/globalError'
-import { sendConfirmationEmailValidation } from '../utils/mailer'
-import authenticate from '../middlewares/authenticate'
-import userFactory from '../utils/userFactory'
+const express = require('express')
+const HttpStatus = require('http-status-codes')
+const User = require('../models/User')
+const parseErrors = require('../utils/parseErrors')
+const globalError = require('../utils/globalError')
+const { sendConfirmationEmailValidation } = require('../utils/mailer')
+const authenticate = require('../middlewares/authenticate')
+const userFactory = require('../utils/userFactory')
 
 const router = express.Router()
 
+//TODO:Add Controllers
+//TODO:Add Sign Up
 router.post('/', (req, res) => {
 	const { email, password, username } = req.body.user
 
@@ -16,6 +18,7 @@ router.post('/', (req, res) => {
 	if (user.isPasswordLength(password)) {
 		user.setPassword(password)
 		user.setConfirmationToken()
+		//TODO:ASYNC AWAY
 		user
 			.save()
 			.then((userRecord) => {
@@ -46,4 +49,4 @@ router.get('/current_user', authenticate, (req, res) => {
 	})
 })
 
-export default router
+module.exports = router

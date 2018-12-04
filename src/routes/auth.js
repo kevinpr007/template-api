@@ -1,22 +1,24 @@
-import express from 'express'
-import jwt from 'jsonwebtoken'
-import HttpStatus from 'http-status-codes'
-import User from '../models/User'
-import {
+const express = require('express')
+const jwt = require('jsonwebtoken')
+const HttpStatus = require('http-status-codes')
+const User = require('../models/User')
+const {
 	sendResetPasswordEmailValidation,
 	sendResetPasswordEmail,
 	sendConfirmationEmail,
-} from '../utils/mailer'
-import globalError from '../utils/globalError'
-import parseErrors from '../utils/parseErrors'
+} = require('../utils/mailer')
+const globalError = require('../utils/globalError')
+const parseErrors = require('../utils/parseErrors')
 
 const router = express.Router()
 
+//TODO:Add Controllers
 router.post('/', (req, res) => {
 	const { credentials } = req.body
 
 	User.findOne({ email: credentials.email }).then((user) => {
 		if (user && user.isValidPassword(credentials.password)) {
+			//TODO:Add data object
 			res.json({ user: user.toAuthJSON() })
 		} else {
 			res
@@ -61,7 +63,7 @@ router.post('/reset_password_request', (req, res) => {
 				.save()
 				.then((updatedUser) => {
 					sendResetPasswordEmailValidation(updatedUser)
-					res.json({})
+					res.json()
 				})
 				.catch((err) =>
 					res
@@ -84,7 +86,7 @@ router.post('/validate_token', (req, res) => {
 				.status(HttpStatus.UNAUTHORIZED)
 				.json(globalError('The token is not valid'))
 		} else {
-			res.json({})
+			res.json()
 		}
 	})
 })
@@ -108,7 +110,7 @@ router.post('/reset_password', (req, res) => {
 							.save()
 							.then((userRecord) => {
 								sendResetPasswordEmail(userRecord)
-								res.json({})
+								res.json()
 							})
 							.catch((err) =>
 								res
@@ -138,4 +140,4 @@ router.post('/reset_password', (req, res) => {
 	})
 })
 
-export default router
+module.exports = router

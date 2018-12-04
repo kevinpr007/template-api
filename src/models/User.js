@@ -1,9 +1,9 @@
-import mongoose from 'mongoose'
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-import uniqueValidator from 'mongoose-unique-validator'
-import uuidv1 from 'uuid/v1'
-import userFactory from '../utils/userFactory'
+const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const uniqueValidator = require('mongoose-unique-validator')
+const uuidv1 = require('uuid/v1')
+const userFactory = require('../utils/userFactory')
 
 const schema = new mongoose.Schema(
 	{
@@ -92,4 +92,4 @@ schema.methods.toAuthJSON = function toAuthJSON() {
 
 schema.plugin(uniqueValidator)
 
-export default mongoose.model('User', schema)
+module.exports = mongoose.model('User', schema)

@@ -1,5 +1,5 @@
-import nodemailer from 'nodemailer'
-import Promise from 'bluebird'
+const nodemailer = require('nodemailer')
+const Promise = require('bluebird')
 
 const from = `"Template API" <${process.env.EMAIL_APP}>`
 
@@ -16,7 +16,8 @@ function setup() {
 	)
 }
 
-export function sendConfirmationEmailValidation(user) {
+//TODO:Change exports to object {}
+function sendConfirmationEmailValidation(user) {
 	const tranport = setup()
 	const email = {
 		from,
@@ -31,7 +32,7 @@ export function sendConfirmationEmailValidation(user) {
 	tranport.sendMailAsync(email)
 }
 
-export function sendConfirmationEmail(user) {
+function sendConfirmationEmail(user) {
 	const tranport = setup()
 	const email = {
 		from,
@@ -43,7 +44,7 @@ export function sendConfirmationEmail(user) {
 	tranport.sendMailAsync(email)
 }
 
-export function sendResetPasswordEmailValidation(user) {
+function sendResetPasswordEmailValidation(user) {
 	const tranport = setup()
 	const email = {
 		from,
@@ -58,7 +59,7 @@ export function sendResetPasswordEmailValidation(user) {
 	tranport.sendMailAsync(email)
 }
 
-export function sendResetPasswordEmail(user) {
+function sendResetPasswordEmail(user) {
 	const tranport = setup()
 	const email = {
 		from,
@@ -68,4 +69,11 @@ export function sendResetPasswordEmail(user) {
 	}
 
 	tranport.sendMailAsync(email)
+}
+
+module.exports = {
+	sendConfirmationEmailValidation,
+	sendConfirmationEmail,
+	sendResetPasswordEmailValidation,
+	sendResetPasswordEmail,
 }

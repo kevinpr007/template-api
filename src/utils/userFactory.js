@@ -1,4 +1,4 @@
-export default (user) => {
+module.exports = (user) => {
 	return {
 		email: user.email,
 		confirmed: user.confirmed,

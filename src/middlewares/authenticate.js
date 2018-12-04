@@ -1,10 +1,10 @@
-import jwt from 'jsonwebtoken'
-import HttpStatus from 'http-status-codes'
-import User from '../models/User'
-import globalError from '../utils/globalError'
-import userFactory from '../utils/userFactory'
+const jwt = require('jsonwebtoken')
+const HttpStatus = require('http-status-codes')
+const User = require('../models/User')
+const globalError = require('../utils/globalError')
+const userFactory = require('../utils/userFactory')
 
-export default (req, res, next) => {
+module.exports = (req, res, next) => {
 	const header = req.headers.authorization
 	const TOKEN_PARAMETER = 1
 

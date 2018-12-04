@@ -1,9 +1,9 @@
-import logger from './logger'
-import mongoose from 'mongoose'
-import Promise from 'bluebird'
+const logger = require('./logger')
+const mongoose = require('mongoose')
+const Promise = require('bluebird')
 mongoose.Promise = Promise
 
-export default () => {
+module.exports = () => {
 	//TODO: Change debug levels
 	mongoose.set('debug', true)
 
@@ -16,7 +16,7 @@ export default () => {
 			options: options,
 		}
 
-		logger.debug({
+		logger().debug({
 			dbQuery: set,
 		})
 	})

@@ -1,24 +1,21 @@
-import express from 'express'
-import path from 'path'
-import bodyParser from 'body-parser'
-import dotenv from 'dotenv'
-import HttpStatus from 'http-status-codes'
-import globalError from './utils/globalError'
+//Configuration Variables
+require('dotenv').config()
+
+const express = require('express')
+const path = require('path')
+const bodyParser = require('body-parser')
+const HttpStatus = require('http-status-codes')
 
 //Routes Configuration Area
-import auth from './routes/auth'
-import users from './routes/users'
-
-//Configuration Variables
-dotenv.config()
+const auth = require('./routes/auth')
+const users = require('./routes/users')
 
 //Setting Express App
 const app = express()
 app.use(bodyParser.json())
 
 //Database Connection
-import connectToDB from './config/mongoose'
-connectToDB()
+require('./config/mongoose')()
 
 //Setting Routes
 app.use('/api/users', users)
@@ -31,6 +28,7 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'))
 })
 
+//TODO:Add Global Error
 app.get('/*', (req, res) => {
 	res.status(HttpStatus.NOT_FOUND).json()
 })
