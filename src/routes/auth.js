@@ -6,7 +6,7 @@ const {
 	sendResetPasswordEmailValidation,
 	sendResetPasswordEmail,
 	sendConfirmationEmail,
-} = require('../utils/mailer')
+} = require('../utils/email/mailer')
 const globalError = require('../utils/globalError')
 const parseErrors = require('../utils/parseErrors')
 

@@ -5,21 +5,25 @@ mongoose.Promise = Promise
 
 module.exports = () => {
 	//TODO: Change debug levels
-	mongoose.set('debug', true)
+	mongoose.set(process.env.MONGODB_LOG_LEVEL, true)
 
-	mongoose.set('debug', (coll, method, query, doc, options) => {
-		const set = {
-			coll: coll,
-			method: method,
-			query: query,
-			doc: doc,
-			options: options,
+	mongoose.set(
+		process.env.MONGODB_LOG_LEVEL,
+		(coll, method, query, doc, options) => {
+			const set = {
+				coll: coll,
+				method: method,
+				query: query,
+				doc: doc,
+				options: options,
+			}
+
+			//TODO: Config with process.env.MONGODB_LOG_LEVEL
+			logger().debug({
+				dbQuery: set,
+			})
 		}
-
-		logger().debug({
-			dbQuery: set,
-		})
-	})
+	)
 
 	mongoose.connection.on('connecting', () => {
 		console.log('Trying to establish a connection to MongoDB')

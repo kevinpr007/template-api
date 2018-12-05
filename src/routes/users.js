@@ -3,7 +3,7 @@ const HttpStatus = require('http-status-codes')
 const User = require('../models/User')
 const parseErrors = require('../utils/parseErrors')
 const globalError = require('../utils/globalError')
-const { sendConfirmationEmailValidation } = require('../utils/mailer')
+const { sendConfirmationEmailValidation } = require('../utils/email/mailer')
 const authenticate = require('../middlewares/authenticate')
 const userFactory = require('../utils/userFactory')
 

@@ -1,4 +1,4 @@
-const bunyan = require('bunyan')
+const { createLogger } = require('bunyan')
 const moment = require('moment')
 const bformat = require('bunyan-format')
 
@@ -20,22 +20,22 @@ const dbSerializer = (data) => {
 
 	return `db.${data.coll}.${data.method}(${query}, ${options})`
 }
-//TODO:Change debug level
+
 module.exports = () =>
-	bunyan.createLogger({
-		name: process.env.APP_NAME,
+	createLogger({
+		name: process.env.APP_NAME_DEV,
 		src: false,
 		streams: [
 			{
-				level: 'debug',
+				level: process.env.BUNYAN_DEBUG_LEVEL,
 				stream: formatOut,
 			},
 			{
 				type: 'rotating-file',
-				level: 'debug', //TODO: Change log levels
+				level: process.env.BUNYAN_DEBUG_LEVEL,
 				path: `./log/${moment(new Date()).format('YYYY-MM-DD')}.log`,
-				period: '1d', // daily rotation
-				count: 5, // keep 5 back copies
+				period: process.env.BUNYAN_PERIOD, // daily rotation
+				count: parseInt(process.env.BUNYAN_BACK_COPIES), // keep 5 back copies
 			},
 		],
 		serializers: {

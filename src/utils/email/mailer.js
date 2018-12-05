@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer')
 const Promise = require('bluebird')
-
-const from = `"Template API" <${process.env.EMAIL_APP}>`
+const emailFactory = require('./emailFactory')
 
 function setup() {
 	return Promise.promisifyAll(
@@ -16,58 +15,27 @@ function setup() {
 	)
 }
 
-//TODO:Change exports to object {}
 function sendConfirmationEmailValidation(user) {
 	const tranport = setup()
-	const email = {
-		from,
-		to: user.email,
-		subject: 'Welcome to Template-API',
-		text: `
-    Welcome to Template-API. Please, confirm your email.
-    ${user.generateConfirmationUrl()}
-    `,
-	}
-
+	const email = emailFactory.confirmationEmailValidation(user)
 	tranport.sendMailAsync(email)
 }
 
 function sendConfirmationEmail(user) {
 	const tranport = setup()
-	const email = {
-		from,
-		to: user.email,
-		subject: 'Template-API - Confirmation Email',
-		text: `Welcome to Template-API. Your email has been confirmed. Thank you.`,
-	}
-
+	const email = emailFactory.confirmationEmail(user)
 	tranport.sendMailAsync(email)
 }
 
 function sendResetPasswordEmailValidation(user) {
 	const tranport = setup()
-	const email = {
-		from,
-		to: user.email,
-		subject: 'Template-API - Reset Password',
-		text: `
-    To reset password follow this link
-    ${user.generateResetPasswordLink()}
-    `,
-	}
-
+	const email = emailFactory.resetPasswordEmailValidation(user)
 	tranport.sendMailAsync(email)
 }
 
 function sendResetPasswordEmail(user) {
 	const tranport = setup()
-	const email = {
-		from,
-		to: user.email,
-		subject: 'Template-API - Reset Password Confirmation',
-		text: `Your password has been reset. Thank you for use Template-API`,
-	}
-
+	const email = emailFactory.resetPasswordEmail(user)
 	tranport.sendMailAsync(email)
 }
 
