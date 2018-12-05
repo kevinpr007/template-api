@@ -1,4 +1,5 @@
 //TODO: Add clusters
+
 //Configuration Variables
 require('dotenv').config()
 
@@ -29,7 +30,7 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'))
 })
 
-//TODO:Add Global Error
+//Redirect all unknown pages to not found
 app.get('/*', (req, res) => {
 	res.status(HttpStatus.NOT_FOUND).json()
 })

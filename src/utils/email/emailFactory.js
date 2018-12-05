@@ -40,7 +40,9 @@ function resetPasswordEmail(user) {
 		from,
 		to: user.email,
 		subject: `${process.env.APP_NAME} - Reset Password Confirmation`,
-		text: `Your password has been reset. Thank you for use ${process.env.APP_NAME}`,
+		text: `Your password has been reset. Thank you for use ${
+			process.env.APP_NAME
+		}`,
 	}
 }
 
@@ -48,5 +50,5 @@ module.exports = {
 	confirmationEmailValidation,
 	confirmationEmail,
 	resetPasswordEmailValidation,
-	resetPasswordEmail
+	resetPasswordEmail,
 }

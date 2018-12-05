@@ -4,7 +4,6 @@ const Promise = require('bluebird')
 mongoose.Promise = Promise
 
 module.exports = () => {
-	//TODO: Change debug levels
 	mongoose.set(process.env.MONGODB_LOG_LEVEL, true)
 
 	mongoose.set(
