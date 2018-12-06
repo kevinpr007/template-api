@@ -4,7 +4,7 @@ const { signUp, currentUser } = require('../controller/users')
 const router = express.Router()
 
 //TODO:Add Sign Up
-router.post('/', signUp)
+router.post('/SignUp', signUp)
 router.get('/current_user', authenticate, currentUser)
 
 module.exports = router
