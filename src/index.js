@@ -5,6 +5,7 @@
 require('dotenv').config()
 
 const express = require('express')
+const helmet = require('helmet')
 const path = require('path')
 const bodyParser = require('body-parser')
 const HttpStatus = require('http-status-codes')
@@ -15,6 +16,8 @@ const users = require('./routes/users')
 
 //Setting Express App
 const app = express()
+
+app.use(helmet())
 
 //TODO: Add helmet
 //https://github.com/Ivan-Marquez/momentum/blob/develop/src/config/express.js
