@@ -7,13 +7,8 @@ require('dotenv').config()
 const express = require('express')
 const helmet = require('helmet')
 const cors = require('cors')
-const path = require('path')
 const bodyParser = require('body-parser')
 const HttpStatus = require('http-status-codes')
-
-//Routes Configuration Area
-const auth = require('./routes/auth')
-const users = require('./routes/users')
 
 //Setting Express App
 const app = express()
@@ -22,15 +17,15 @@ const app = express()
 app.use(helmet())
 
 //Cors Settings
-const whitelist = process.env.CORS_WHITELIST.split(",");
+const whitelist = process.env.CORS_WHITELIST.split(',')
 const corsOptions = {
-	origin: function (origin, callback) {
+	origin: function(origin, callback) {
 		if (whitelist.indexOf(origin) !== -1 || !origin) {
-		  callback(null, true)
+			callback(null, true)
 		} else {
-		  callback(new Error('Not allowed by CORS'))
+			callback(new Error('Not allowed by CORS'))
 		}
-	  }
+	},
 }
 /**
  * CORS middleware
@@ -62,7 +57,13 @@ app.use(bodyParser.json())
 //Database Connection
 require('./config/mongoose')()
 
+//Routes Configuration Area
+const main = require('./routes/main')
+const auth = require('./routes/auth')
+const users = require('./routes/users')
+
 //Setting Routes
+app.use('/', main)
 app.use('/api/users', users)
 app.use('/api/auth', auth)
 
