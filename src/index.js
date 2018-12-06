@@ -6,6 +6,7 @@ require('dotenv').config()
 
 const express = require('express')
 const helmet = require('helmet')
+const cors = require('cors')
 const path = require('path')
 const bodyParser = require('body-parser')
 const HttpStatus = require('http-status-codes')
@@ -17,19 +18,20 @@ const users = require('./routes/users')
 //Setting Express App
 const app = express()
 
+//Helmet Settings
 app.use(helmet())
 
-//TODO: Add helmet
-//https://github.com/Ivan-Marquez/momentum/blob/develop/src/config/express.js
-app.use(bodyParser.json())
-
-//TODO:ADD pagination
-/**
- * Pagination middleware
- */
-//app.use(pagedJson)
-
-//TODO: Add cors
+//Cors Settings
+const whitelist = process.env.CORS_WHITELIST.split(",");
+const corsOptions = {
+	origin: function (origin, callback) {
+		if (whitelist.indexOf(origin) !== -1 || !origin) {
+		  callback(null, true)
+		} else {
+		  callback(new Error('Not allowed by CORS'))
+		}
+	  }
+}
 /**
  * CORS middleware
  */
@@ -47,6 +49,15 @@ app.use(bodyParser.json())
 //     res.header('Access-Control-Expose-Headers', 'X-Updated-JWT')
 //     next()
 //   })
+
+app.use(cors(corsOptions))
+app.use(bodyParser.json())
+
+//TODO:ADD pagination
+/**
+ * Pagination middleware
+ */
+//app.use(pagedJson)
 
 //Database Connection
 require('./config/mongoose')()
