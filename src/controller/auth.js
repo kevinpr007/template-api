@@ -10,70 +10,67 @@ const globalError = require('../utils/globalError')
 const parseErrors = require('../utils/parseErrors')
 const setData = require('../utils/composeResponse.js')
 
-const login = (req, res) => {
+const login = async (req, res) => {
 	const { credentials } = req.body
 
-	//TODO: Async Away
-	User.findOne({ email: credentials.email }).then((user) => {
-		if (user && user.isValidPassword(credentials.password)) {
+	let user = await User.findOne({ email: credentials.email })
+
+	if (user && user.isValidPassword(credentials.password)) {
+		res.json(setData({ user: user.toAuthJSON() }))
+	} else {
+		res.status(HttpStatus.BAD_REQUEST).json(globalError('Invalid credentials'))
+	}
+}
+
+const confirmation = async (req, res) => {
+	const { token } = req.query
+
+	try {
+		let user = await User.findOneAndUpdate(
+			{ confirmationToken: token },
+			{ confirmationToken: '', confirmed: true },
+			{ new: true }
+		)
+
+		if (user) {
+			sendConfirmationEmail(user)
 			res.json(setData({ user: user.toAuthJSON() }))
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
-				.json(globalError('Invalid credentials'))
+				.json(globalError('The confirmation token is not valid'))
 		}
-	})
+	} catch (err) {
+		//TODO: Add error object
+		res.status(HttpStatus.BAD_REQUEST).json(globalError('Error updating User'))
+	}
 }
 
-const confirmation = (req, res) => {
-	const { token } = req.query
-
-	User.findOneAndUpdate(
-		{ confirmationToken: token },
-		{ confirmationToken: '', confirmed: true },
-		{ new: true }
-	) //TODO: Async Away
-		.then((user) => {
-			if (user) {
-				sendConfirmationEmail(user)
-				res.json(setData({ user: user.toAuthJSON() }))
-			} else {
-				res
-					.status(HttpStatus.BAD_REQUEST)
-					.json(globalError('The confirmation token is not valid'))
-			}
-		})
-		.catch((err) =>
-			res
-				.status(HttpStatus.BAD_REQUEST)
-				.json(globalError('Error updating User'))
-		)
-}
-
-const resetPasswordRequest = (req, res) => {
+const resetPasswordRequest = async (req, res) => {
 	const { email } = req.body
-	//TODO: Async Away
-	User.findOne({ email: email }).then((user) => {
+
+	try {
+		let user = await User.findOne({ email: email })
 		if (user) {
 			user.setResetPassword()
 			user.setResetPasswordToken()
-			user
-				.save()
-				.then((updatedUser) => {
-					sendResetPasswordEmailValidation(updatedUser)
-					res.json()
-				})
-				.catch((err) =>
-					res
-						.status(HttpStatus.BAD_REQUEST)
-						.json(globalError('Error saving User', parseErrors(err.errors)))
-				)
+			try {
+				let updatedUser = await user.save()
+				sendResetPasswordEmailValidation(updatedUser)
+				res.json()
+			} catch (error) {
+				res
+					.status(HttpStatus.BAD_REQUEST)
+					.json(globalError('Error saving User', parseErrors(error.errors)))
+			}
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
 				.json(globalError('There is no user with this email'))
 		}
-	})
+	} catch (err) {
+		//TODO: Add error
+	}
 }
 
 const validateToken = (req, res) => {
@@ -92,32 +89,32 @@ const validateToken = (req, res) => {
 const resetPassword = (req, res) => {
 	const { password, token } = req.body.data
 
-	jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+	jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
 		if (err) {
 			res.status(HttpStatus.UNAUTHORIZED).json(globalError('Invalid token'))
 		} else {
-			User.findOne({
-				_id: decoded._id,
-				resetPasswordToken: decoded.resetPasswordToken,
-			}).then((user) => {
-				//TODO: Async Away
+			try {
+				let user = await User.findOne({
+					_id: decoded._id,
+					resetPasswordToken: decoded.resetPasswordToken,
+				})
+
 				if (user) {
 					if (user.isPasswordLength(password)) {
 						user.setPassword(password)
 						user.resetPasswordToken = ''
-						user
-							.save()
-							.then((userRecord) => {
-								sendResetPasswordEmail(userRecord)
-								res.json()
-							})
-							.catch((err) =>
-								res
-									.status(HttpStatus.BAD_REQUEST)
-									.json(
-										globalError('Error saving User', parseErrors(err.errors))
-									)
-							)
+
+						try {
+							let userRecord = await user.save()
+							sendResetPasswordEmail(userRecord)
+							res.json()
+						} catch (error) {
+							res
+								.status(HttpStatus.BAD_REQUEST)
+								.json(
+									globalError('Error saving User', parseErrors(error.errors))
+								)
+						}
 					} else {
 						res
 							.status(HttpStatus.BAD_REQUEST)
@@ -134,7 +131,9 @@ const resetPassword = (req, res) => {
 						.status(HttpStatus.NOT_FOUND)
 						.json(globalError('User or token not found'))
 				}
-			})
+			} catch (err) {
+				//TODO: add error
+			}
 		}
 	})
 }

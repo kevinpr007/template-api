@@ -6,25 +6,24 @@ const { sendConfirmationEmailValidation } = require('../utils/email/mailer')
 const userFactory = require('../utils/userFactory')
 const setData = require('../utils/composeResponse.js')
 
-const signUp = (req, res) => {
+const signUp = async (req, res) => {
 	const { email, password, username } = req.body.user
-
 	const user = new User({ email, username })
+
 	if (user.isPasswordLength(password)) {
 		user.setPassword(password)
 		user.setConfirmationToken()
-		//TODO:ASYNC AWAY
-		user
-			.save()
-			.then((userRecord) => {
-				sendConfirmationEmailValidation(userRecord)
-				res.json(setData({ user: userRecord.toAuthJSON() }))
-			})
-			.catch((err) =>
-				res
-					.status(HttpStatus.BAD_REQUEST)
-					.json(globalError('Error saving User', parseErrors(err.errors)))
-			)
+
+		let userRecord
+		try {
+			userRecord = await user.save()
+			sendConfirmationEmailValidation(userRecord)
+			res.json(setData({ user: userRecord.toAuthJSON() }))
+		} catch (err) {
+			res
+				.status(HttpStatus.BAD_REQUEST)
+				.json(globalError('Error saving User', parseErrors(err.errors)))
+		}
 	} else {
 		res
 			.status(HttpStatus.BAD_REQUEST)
