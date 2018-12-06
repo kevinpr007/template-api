@@ -1,4 +1,5 @@
 //TODO: Add clusters
+//TODO: Add travis
 
 //Configuration Variables
 require('dotenv').config()
@@ -14,7 +15,35 @@ const users = require('./routes/users')
 
 //Setting Express App
 const app = express()
+
+//TODO: Add helmet
+//https://github.com/Ivan-Marquez/momentum/blob/develop/src/config/express.js
 app.use(bodyParser.json())
+
+//TODO:ADD pagination
+/**
+ * Pagination middleware
+ */
+//app.use(pagedJson)
+
+//TODO: Add cors
+/**
+ * CORS middleware
+ */
+//   app.use((req, res, next) => {
+//     const allowedHeaders = ['Origin', 'X-Requested-With',
+//       'Content-Type', 'Accept', 'Authorization',
+//       'Access-Control-Allow-Credentials']
+
+//     const allowedMethods = ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS']
+
+//     res.header('Access-Control-Allow-Origin', '*')
+//     res.header('Access-Control-Allow-Credentials', 'true')
+//     res.header('Access-Control-Allow-Methods', allowedMethods.join(', '))
+//     res.header('Access-Control-Allow-Headers', allowedHeaders.join(', '))
+//     res.header('Access-Control-Expose-Headers', 'X-Updated-JWT')
+//     next()
+//   })
 
 //Database Connection
 require('./config/mongoose')()
@@ -25,6 +54,24 @@ app.use('/api/auth', auth)
 
 //Set static Pages
 app.use(express.static('public'))
+
+//TODO: Global middle ware
+/**
+ * Global Error middleware
+ */
+//   app.use((req, res, next) => {
+//     const err = new Error(HttpStatus.getStatusText(HttpStatus.NOT_FOUND))
+//     err.status = HttpStatus.NOT_FOUND
+//     next(err)
+//   })
+
+//   app.use((err, req, res, next) => {
+//     logService.saveLog(err)
+//     res.status(err.status || HttpStatus.INTERNAL_SERVER_ERROR).json({
+//       message: err.message,
+//       error: app.get('env') === 'development' ? err : {}
+//     })
+//   })
 
 app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'))
@@ -39,3 +86,20 @@ app.get('/*', (req, res) => {
 app.listen(process.env.API_PORT, () =>
 	console.log(`Running on ${process.env.HOST}:${process.env.API_PORT}`)
 )
+
+// TODO: Add console.error
+// 		(server.on('error', error => {
+//     if (error.syscall !== 'listen') throw error
+//     const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`
+
+//     switch (error.code) {
+//       case 'EACCES':
+//         console.error(`${bind} requires elevated privileges`)
+//         process.exit(1)
+//       case 'EADDRINUSE':
+//         console.error(`${bind} is already in use`)
+//         process.exit(1)
+//       default:
+//         throw error
+//     }
+//   }));

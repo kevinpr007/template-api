@@ -32,7 +32,7 @@ const confirmation = (req, res) => {
 		{ confirmationToken: token },
 		{ confirmationToken: '', confirmed: true },
 		{ new: true }
-	)
+	) //TODO: Async Away
 		.then((user) => {
 			if (user) {
 				sendConfirmationEmail(user)
@@ -52,6 +52,7 @@ const confirmation = (req, res) => {
 
 const resetPasswordRequest = (req, res) => {
 	const { email } = req.body
+	//TODO: Async Away
 	User.findOne({ email: email }).then((user) => {
 		if (user) {
 			user.setResetPassword()
@@ -99,6 +100,7 @@ const resetPassword = (req, res) => {
 				_id: decoded._id,
 				resetPasswordToken: decoded.resetPasswordToken,
 			}).then((user) => {
+				//TODO: Async Away
 				if (user) {
 					if (user.isPasswordLength(password)) {
 						user.setPassword(password)

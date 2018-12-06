@@ -93,3 +93,4 @@ schema.methods.toAuthJSON = function toAuthJSON() {
 schema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('User', schema)
+//TODO: Add new entities

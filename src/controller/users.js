@@ -37,8 +37,9 @@ const signUp = (req, res) => {
 	}
 }
 
+//TODO: Move to Auth
 const currentUser = (req, res) => {
-    //TODO: Add if it's valid
+	//TODO: Add if it's valid token
 	res.json({
 		user: userFactory(req.currentUser),
 	})
@@ -48,3 +49,9 @@ module.exports = {
 	signUp,
 	currentUser,
 }
+
+//TODO: Add pagination
+//https://github.com/Ivan-Marquez/momentum/blob/develop/src/middleware/paged-json.js
+
+//TODO: Add page validations
+//https://github.com/Ivan-Marquez/momentum/blob/develop/src/middleware/page-validations.js

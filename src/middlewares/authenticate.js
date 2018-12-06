@@ -11,6 +11,8 @@ module.exports = (req, res, next) => {
 	let token
 	if (header) token = header.split(' ')[TOKEN_PARAMETER]
 
+	//TODO: Add refresh token
+	//https://github.com/Ivan-Marquez/momentum/blob/develop/src/config/strategies/jwt.js
 	if (token) {
 		jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
 			if (err) {
@@ -28,3 +30,6 @@ module.exports = (req, res, next) => {
 		res.status(HttpStatus.UNAUTHORIZED).json(globalError('No token found'))
 	}
 }
+
+//TODO: Add authorize middleware
+//https://github.com/Ivan-Marquez/momentum/blob/develop/src/middleware/authorize.js
