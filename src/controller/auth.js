@@ -8,6 +8,7 @@ const {
 } = require('../utils/email/mailer')
 const globalError = require('../utils/globalError')
 const parseErrors = require('../utils/parseErrors')
+const setData = require('../utils/composeResponse.js')
 
 const login = (req, res) => {
 	const { credentials } = req.body
@@ -15,8 +16,7 @@ const login = (req, res) => {
 	//TODO: Async Away
 	User.findOne({ email: credentials.email }).then((user) => {
 		if (user && user.isValidPassword(credentials.password)) {
-			//TODO:Add data object
-			res.json({ user: user.toAuthJSON() })
+			res.json(setData({ user: user.toAuthJSON() }))
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
@@ -36,7 +36,7 @@ const confirmation = (req, res) => {
 		.then((user) => {
 			if (user) {
 				sendConfirmationEmail(user)
-				res.json({ user: user.toAuthJSON() })
+				res.json(setData({ user: user.toAuthJSON() }))
 			} else {
 				res
 					.status(HttpStatus.BAD_REQUEST)

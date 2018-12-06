@@ -4,6 +4,7 @@ const parseErrors = require('../utils/parseErrors')
 const globalError = require('../utils/globalError')
 const { sendConfirmationEmailValidation } = require('../utils/email/mailer')
 const userFactory = require('../utils/userFactory')
+const setData = require('../utils/composeResponse.js')
 
 const signUp = (req, res) => {
 	const { email, password, username } = req.body.user
@@ -17,7 +18,7 @@ const signUp = (req, res) => {
 			.save()
 			.then((userRecord) => {
 				sendConfirmationEmailValidation(userRecord)
-				res.json({ user: userRecord.toAuthJSON() })
+				res.json(setData({ user: userRecord.toAuthJSON() }))
 			})
 			.catch((err) =>
 				res
@@ -40,9 +41,11 @@ const signUp = (req, res) => {
 //TODO: Move to Auth
 const currentUser = (req, res) => {
 	//TODO: Add if it's valid token
-	res.json({
-		user: userFactory(req.currentUser),
-	})
+	res.json(
+		setData({
+			user: userFactory(req.currentUser),
+		})
+	)
 }
 
 module.exports = {
