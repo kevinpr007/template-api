@@ -8,8 +8,7 @@ const {
 } = require('../controller/auth')
 const router = express.Router()
 
-//TODO:    /login
-router.post('/', login)
+router.post('/login', login)
 router.get('/confirmation', confirmation)
 router.post('/reset_password_request', resetPasswordRequest)
 router.post('/validate_token', validateToken)
