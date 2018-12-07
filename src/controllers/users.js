@@ -3,7 +3,6 @@ const User = require('../models/User')
 const parseErrors = require('../utils/parseErrors')
 const globalError = require('../utils/globalError')
 const { sendConfirmationEmailValidation } = require('../utils/email/mailer')
-const userFactory = require('../utils/userFactory')
 const setData = require('../utils/composeResponse.js')
 
 const signUp = async (req, res) => {
@@ -37,19 +36,8 @@ const signUp = async (req, res) => {
 	}
 }
 
-//TODO: Move to Auth
-const currentUser = (req, res) => {
-	//TODO: Add if it's valid token
-	res.json(
-		setData({
-			user: userFactory(req.currentUser),
-		})
-	)
-}
-
 module.exports = {
 	signUp,
-	currentUser,
 }
 
 //TODO: Add pagination

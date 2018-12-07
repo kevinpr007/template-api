@@ -9,6 +9,7 @@ const {
 const globalError = require('../utils/globalError')
 const parseErrors = require('../utils/parseErrors')
 const setData = require('../utils/composeResponse.js')
+const userFactory = require('../utils/userFactory')
 
 const login = async (req, res) => {
 	const { credentials } = req.body
@@ -138,10 +139,15 @@ const resetPassword = (req, res) => {
 	})
 }
 
+const currentUser = (req, res) => {
+	res.json(setData({ user: userFactory(req.currentUser) }))
+}
+
 module.exports = {
 	login,
 	confirmation,
 	resetPasswordRequest,
 	validateToken,
 	resetPassword,
+	currentUser,
 }
