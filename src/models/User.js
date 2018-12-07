@@ -1,9 +1,6 @@
 const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 const uniqueValidator = require('mongoose-unique-validator')
-const uuidv1 = require('uuid/v1')
-const userFactory = require('../utils/userFactory')
+const userService = require('../services/users')
 
 const schema = new mongoose.Schema(
 	{
@@ -28,66 +25,38 @@ const schema = new mongoose.Schema(
 	{ timestamps: true }
 )
 
-schema.methods.isValidPassword = function isValidPassword(password) {
-	return bcrypt.compareSync(password, this.passwordHash)
+schema.methods.isValidPassword = function(password) {
+	return userService.isValidPassword(password, this.passwordHash)
 }
-
-schema.methods.isPasswordLength = function isPasswordLength(password = '') {
-	return password.length >= process.env.PASSWORD_LENGTH
+schema.methods.isPasswordLength = function(password) {
+	return userService.isPasswordLength(password)
 }
-
-schema.methods.setPassword = function setPassword(password) {
-	this.passwordHash = bcrypt.hashSync(
-		password,
-		parseInt(process.env.SALT_ROUNDS, 10)
-	)
+schema.methods.setPassword = function(password) {
+	this.passwordHash = userService.setPassword(password)
 }
-
-schema.methods.setConfirmationToken = function setConfirmationToken() {
-	this.confirmationToken = uuidv1()
+schema.methods.setConfirmationToken = function() {
+	this.confirmationToken = userService.setConfirmationToken()
 }
-
-schema.methods.setResetPassword = function setResetPassword() {
-	this.setPassword(uuidv1())
+schema.methods.setResetPassword = function() {
+	this.passwordHash = userService.setResetPassword()
 }
-
-schema.methods.setResetPasswordToken = function setResetPasswordToken() {
-	this.resetPasswordToken = uuidv1()
+schema.methods.setResetPasswordToken = function() {
+	this.resetPasswordToken = userService.setResetPasswordToken()
 }
-
-schema.methods.generateConfirmationUrl = function generateConfirmationUrl() {
-	return `${process.env.HOST}:${
-		process.env.API_PORT
-	}/api/auth/confirmation?token=${this.confirmationToken}`
+schema.methods.generateConfirmationUrl = function() {
+	return userService.generateConfirmationUrl(this.confirmationToken)
 }
-
-schema.methods.generateResetPasswordLink = function generateResetPasswordLink() {
-	return `${process.env.HOST}:${
-		process.env.API_PORT
-	}/api/auth/reset_password?token=${this.generateResetPasswordToken()}`
+schema.methods.generateResetPasswordLink = function() {
+	return userService.generateResetPasswordLink(this)
 }
-
-schema.methods.generateJWT = function generateJWT() {
-	return jwt.sign(userFactory(this), process.env.JWT_SECRET, {
-		expiresIn: process.env.LOGIN_EXPIRATION_TIME,
-	})
+schema.methods.generateJWT = function() {
+	return userService.generateJWT(this)
 }
-
-schema.methods.generateResetPasswordToken = function generateResetPasswordToken() {
-	return jwt.sign(
-		{
-			_id: this._id,
-			resetPasswordToken: this.resetPasswordToken,
-		},
-		process.env.JWT_SECRET,
-		{ expiresIn: process.env.EMAIL_EXPIRATION_TIME }
-	)
+schema.methods.generateResetPasswordToken = function() {
+	return userService.generateResetPasswordToken(this)
 }
-
-schema.methods.toAuthJSON = function toAuthJSON() {
-	let object = userFactory(this)
-	object.token = this.generateJWT()
-	return object
+schema.methods.toAuthJSON = function() {
+	return userService.toAuthJSON(this)
 }
 
 schema.plugin(uniqueValidator)
