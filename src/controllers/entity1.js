@@ -25,11 +25,9 @@ const getAll = async (req, res) => {
 const insert = async (req, res) => {
 	const { MyField, MyDescription, MyNumberField } = req.body.entity1
 
-	const entity1 = new Entity1({ MyField, MyDescription, MyNumberField })
-	//TODO: Let vs const
 	try {
-		let entityRecord
-		entityRecord = await entity1.save()
+		const entity1 = new Entity1({ MyField, MyDescription, MyNumberField })
+		const entityRecord = await entity1.save()
 		res.json(setData({ entity1: entityRecord }))
 	} catch (err) {
 		res
