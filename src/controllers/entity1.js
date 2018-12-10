@@ -7,6 +7,19 @@ const setData = require('../utils/composeResponse.js')
 //TODO: Add in service
 const getAll = async (req, res) => {
 	//TODO: Add pagination
+	try {
+		const entities = await Entity1.find()
+		if (entities) {
+			res.json(setData({ entity1: entities }))
+		} else {
+			//TODO: Fix
+			res.status(HttpStatus.NOT_FOUND).json(globalError('Record not found.'))
+		}
+	} catch (err) {
+		res
+			.status(HttpStatus.BAD_REQUEST)
+			.json(globalError('Error', parseErrors(err.errors)))
+	}
 }
 
 const insert = async (req, res) => {
@@ -26,7 +39,7 @@ const insert = async (req, res) => {
 }
 
 const getById = async (req, res) => {
-	const { id } = req.query
+	const { id } = req.params
 
 	try {
 		const entity1 = await Entity1.findById(id)
@@ -43,7 +56,7 @@ const getById = async (req, res) => {
 }
 
 const updateById = async (req, res) => {
-	const { id } = req.query
+	const { id } = req.params
 	const { data } = req.body
 
 	try {
@@ -66,7 +79,7 @@ const updateById = async (req, res) => {
 }
 
 const deleteById = async (req, res) => {
-	const { id } = req.query
+	const { id } = req.params
 
 	try {
 		let entity1 = await Entity1.findByIdAndRemove(id)

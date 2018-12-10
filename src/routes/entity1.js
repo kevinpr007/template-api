@@ -12,8 +12,8 @@ const router = express.Router()
 //TODO: Authenticate Use
 router.get('/', authenticate, getAll)
 router.post('/', authenticate, insert)
-router.get('/getById', authenticate, getById)
-router.put('/', authenticate, updateById)
-router.delete('/', authenticate, deleteById)
+router.get('/:id', authenticate, getById)
+router.put('/:id', authenticate, updateById)
+router.delete('/:id', authenticate, deleteById)
 
 module.exports = router
