@@ -11,6 +11,7 @@ const parseErrors = require('../utils/parseErrors')
 const setData = require('../utils/composeResponse.js')
 const userFactory = require('../utils/userFactory')
 
+//TODO: Add Service
 const login = async (req, res) => {
 	const { credentials } = req.body
 
@@ -62,7 +63,7 @@ const resetPasswordRequest = async (req, res) => {
 			} catch (error) {
 				res
 					.status(HttpStatus.BAD_REQUEST)
-					.json(globalError('Error saving User', parseErrors(error.errors)))
+					.json(globalError('Error saving data', parseErrors(error.errors)))
 			}
 		} else {
 			res
@@ -113,7 +114,7 @@ const resetPassword = (req, res) => {
 							res
 								.status(HttpStatus.BAD_REQUEST)
 								.json(
-									globalError('Error saving User', parseErrors(error.errors))
+									globalError('Error saving data', parseErrors(error.errors))
 								)
 						}
 					} else {

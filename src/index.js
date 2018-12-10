@@ -47,6 +47,11 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 app.use(bodyParser.json())
+app.use(
+	bodyParser.urlencoded({
+		extended: true,
+	})
+)
 
 //TODO:ADD pagination
 /**
@@ -59,13 +64,15 @@ require('./config/mongoose')()
 
 //Routes Configuration Area
 const main = require('./routes/main')
-const auth = require('./routes/auth')
 const users = require('./routes/users')
+const auth = require('./routes/auth')
+const entity1 = require('./routes/entity1')
 
 //Setting Routes
 app.use('/', main)
 app.use('/api/users', users)
 app.use('/api/auth', auth)
+app.use('/api/entity1', entity1)
 
 //Set static Pages
 app.use(express.static('public'))

@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 const userService = require('../services/users')
 
+//TODO: Add plugin
 const schema = new mongoose.Schema(
 	{
 		email: {

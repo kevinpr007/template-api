@@ -3,7 +3,7 @@ const HttpStatus = require('http-status-codes')
 const User = require('../models/User')
 const globalError = require('../utils/globalError')
 const userFactory = require('../utils/userFactory')
-
+//TODO: Validate token when email is not confirmed
 module.exports = (req, res, next) => {
 	const header = req.headers.authorization
 	const TOKEN_PARAMETER = 1

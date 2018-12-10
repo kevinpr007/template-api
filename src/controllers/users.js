@@ -5,6 +5,7 @@ const globalError = require('../utils/globalError')
 const { sendConfirmationEmailValidation } = require('../utils/email/mailer')
 const setData = require('../utils/composeResponse.js')
 
+//TODO: Add in service
 const signUp = async (req, res) => {
 	const { email, password, username } = req.body.user
 	const user = new User({ email, username })
@@ -21,7 +22,7 @@ const signUp = async (req, res) => {
 		} catch (err) {
 			res
 				.status(HttpStatus.BAD_REQUEST)
-				.json(globalError('Error saving User', parseErrors(err.errors)))
+				.json(globalError('Error saving data', parseErrors(err.errors)))
 		}
 	} else {
 		res
