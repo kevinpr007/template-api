@@ -1,4 +1,4 @@
-module.exports = exports = function(schema, options) {
+module.exports = function(schema, options) {
 	// Add the two fields to the schema
 	schema.add({
 		createdAtPlugin: Date,
@@ -9,10 +9,10 @@ module.exports = exports = function(schema, options) {
 	schema.pre('save', function(next) {
 		let now = Date.now()
 
-		this.updatedAt = now
-		// Set a value for createdAt only if it is null
-		if (!this.createdAt) {
-			this.createdAt = now
+		this.updatedAtPlugin = now
+		// Set a value for createdAtPlugin only if it is null
+		if (!this.createdAtPlugin) {
+			this.createdAtPlugin = now
 		}
 		// Call the next function in the pre-save chain
 		next()

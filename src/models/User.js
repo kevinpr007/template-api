@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 const userService = require('../services/users')
+const timestampPlugin = require('./plugins/timestamp')
 
-//TODO: Add plugin
-const schema = new mongoose.Schema(
+let schema = new mongoose.Schema(
 	{
 		email: {
 			type: String,
@@ -25,6 +25,8 @@ const schema = new mongoose.Schema(
 	},
 	{ timestamps: true }
 )
+
+schema.plugin(timestampPlugin)
 
 schema.methods.isValidPassword = function(password) {
 	return userService.isValidPassword(password, this.passwordHash)
@@ -63,4 +65,3 @@ schema.methods.toAuthJSON = function() {
 schema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('User', schema)
-//TODO: Add new entities

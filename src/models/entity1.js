@@ -26,12 +26,10 @@ let schema = new mongoose.Schema(
 				message: (props) => `${props.value} is not a valid number.`,
 			},
 		},
-	}
-	// { timestamps: true }
-	//TODO: Add this
+	},
+	{ timestamps: true }
 )
 
-//TODO: Fix plugin
 schema.plugin(timestampPlugin)
 
 schema.methods.getPagination = function(id1, id2) {
