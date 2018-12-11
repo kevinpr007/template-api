@@ -1,12 +1,8 @@
-const HttpStatus = require('http-status-codes')
 const Entity1 = require('../models/entity1')
-const parseErrors = require('../utils/parseErrors')
-const globalError = require('../utils/globalError')
-const setData = require('../utils/composeResponse')
 const repository = require('../services/repository')
 
-//TODO: Add in service
 const getAll = (req, res) => {
+	//TODO: Send Repository IoC
 	return repository.getAll(req, res, Entity1)
 }
 

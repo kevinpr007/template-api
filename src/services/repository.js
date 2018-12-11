@@ -1,4 +1,5 @@
 const HttpStatus = require('http-status-codes')
+const parseErrors = require('../utils/parseErrors')
 const globalError = require('../utils/globalError')
 const setData = require('../utils/composeResponse')
 
