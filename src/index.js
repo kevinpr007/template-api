@@ -4,6 +4,7 @@
 //Configuration Variables
 require('dotenv').config()
 
+//General Imports
 const express = require('express')
 const helmet = require('helmet')
 const cors = require('cors')
@@ -27,6 +28,7 @@ const corsOptions = {
 		}
 	},
 }
+//TODO: Verify CORS
 /**
  * CORS middleware
  */
@@ -100,6 +102,7 @@ app.get('/', (req, res) => {
 })
 
 //Redirect all unknown pages to not found
+//TODO: Verify this to all
 app.get('/*', (req, res) => {
 	res.status(HttpStatus.NOT_FOUND).json()
 })

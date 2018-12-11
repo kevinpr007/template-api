@@ -40,6 +40,7 @@ const generateResetPasswordLink = (user) => {
 }
 
 const generateJWT = (user) => {
+	//TODO: Verify this
 	return jwt.sign(userFactory(user), process.env.JWT_SECRET, {
 		expiresIn: process.env.LOGIN_EXPIRATION_TIME,
 	})

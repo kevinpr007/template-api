@@ -14,6 +14,7 @@ module.exports = (req, res, next) => {
 	//TODO: Add refresh token
 	//https://github.com/Ivan-Marquez/momentum/blob/develop/src/config/strategies/jwt.js
 	if (token) {
+		//TODO: Check multiple uses JWT
 		jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
 			if (err) {
 				res.status(HttpStatus.UNAUTHORIZED).json(globalError('Invalid token'))

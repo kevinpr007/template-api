@@ -1,3 +1,4 @@
+//TODO: Verify fields
 module.exports = (user) => {
 	return {
 		email: user.email,
