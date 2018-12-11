@@ -43,6 +43,10 @@ const generateJWT = (user) => {
 	//TODO: Verify this
 	return jwt.sign(userFactory(user), process.env.JWT_SECRET, {
 		expiresIn: process.env.LOGIN_EXPIRATION_TIME,
+		//https://en.wikipedia.org/wiki/JSON_Web_Token
+		//https://www.npmjs.com/package/jsonwebtoken
+		//https://auth0.com/docs/jwt
+		//https://medium.com/ag-grid/a-plain-english-introduction-to-json-web-tokens-jwt-what-it-is-and-what-it-isnt-8076ca679843
 	})
 }
 

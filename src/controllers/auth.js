@@ -77,6 +77,7 @@ const resetPasswordRequest = async (req, res) => {
 
 const validateToken = (req, res) => {
 	const { token } = req.body
+	//TODO: JSON CHECKS
 	jwt.verify(token, process.env.JWT_SECRET, (err) => {
 		if (err) {
 			res
@@ -90,7 +91,7 @@ const validateToken = (req, res) => {
 
 const resetPassword = (req, res) => {
 	const { password, token } = req.body.data
-
+	//TODO: JSON
 	jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
 		if (err) {
 			res.status(HttpStatus.UNAUTHORIZED).json(globalError('Invalid token'))

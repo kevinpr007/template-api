@@ -56,12 +56,6 @@ app.use(
 	})
 )
 
-//TODO:ADD pagination
-/**
- * Pagination middleware
- */
-//app.use(pagedJson)
-
 //Database Connection
 require('./config/mongoose')()
 
