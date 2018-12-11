@@ -9,7 +9,7 @@ const {
 } = require('../controllers/entity1')
 const router = express.Router()
 
-router.use(authenticate)
+//router.use(authenticate)
 
 router.get('/', getAll)
 router.post('/', insert)
