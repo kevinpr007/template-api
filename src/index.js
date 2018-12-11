@@ -79,32 +79,24 @@ app.use('/api/entity1', entity1)
 //Set static Pages
 app.use(express.static('public'))
 
-//TODO: Global middle ware
-/**
- * Global Error middleware
- */
-//   app.use((req, res, next) => {
-//     const err = new Error(HttpStatus.getStatusText(HttpStatus.NOT_FOUND))
-//     err.status = HttpStatus.NOT_FOUND
-//     next(err)
-//   })
-
-//   app.use((err, req, res, next) => {
-//     logService.saveLog(err)
-//     res.status(err.status || HttpStatus.INTERNAL_SERVER_ERROR).json({
-//       message: err.message,
-//       error: app.get('env') === 'development' ? err : {}
-//     })
-//   })
-
-app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, '../public/index.html'))
-})
-
 //Redirect all unknown pages to not found
 //TODO: Verify this to all
 app.get('/*', (req, res) => {
 	res.status(HttpStatus.NOT_FOUND).json()
+})
+
+// app.post('/*', (req, res) => {
+// 	res.status(HttpStatus.NOT_FOUND).json()
+// })
+
+//Global Error Middleware
+//TODO: add middleware
+//TODO: add global error object
+app.use((err, req, res, next) => {
+	res.status(err.status || HttpStatus.INTERNAL_SERVER_ERROR).json({
+		message: err.message,
+		error: err,
+	})
 })
 
 //Start service
@@ -112,19 +104,18 @@ app.listen(process.env.API_PORT, () =>
 	console.log(`Running on ${process.env.HOST}:${process.env.API_PORT}`)
 )
 
-// TODO: Add console.error
-// 		(server.on('error', error => {
-//     if (error.syscall !== 'listen') throw error
-//     const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`
+app.on('error', (error) => {
+	if (error.syscall !== 'listen') throw error
+	const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`
 
-//     switch (error.code) {
-//       case 'EACCES':
-//         console.error(`${bind} requires elevated privileges`)
-//         process.exit(1)
-//       case 'EADDRINUSE':
-//         console.error(`${bind} is already in use`)
-//         process.exit(1)
-//       default:
-//         throw error
-//     }
-//   }));
+	switch (error.code) {
+		case 'EACCES':
+			console.error(`${bind} requires elevated privileges`)
+			process.exit(1)
+		case 'EADDRINUSE':
+			console.error(`${bind} is already in use`)
+			process.exit(1)
+		default:
+			throw error
+	}
+})
