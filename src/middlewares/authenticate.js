@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const HttpStatus = require('http-status-codes')
 const User = require('../models/User')
-const globalError = require('../utils/globalError')
+const globalErrorFactory = require('../utils/globalErrorFactory')
 const userFactory = require('../utils/userFactory')
 //TODO: Validate token when email is not confirmed
 module.exports = (req, res, next) => {
@@ -17,7 +17,9 @@ module.exports = (req, res, next) => {
 		//TODO: Check multiple uses JWT
 		jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
 			if (err) {
-				res.status(HttpStatus.UNAUTHORIZED).json(globalError('Invalid token'))
+				res
+					.status(HttpStatus.UNAUTHORIZED)
+					.json(globalErrorFactory('Invalid token'))
 			} else {
 				// User.findOne({ email: decodedToken.email }).then(user => {
 				//   req.currentUser = user;
@@ -28,7 +30,9 @@ module.exports = (req, res, next) => {
 			}
 		})
 	} else {
-		res.status(HttpStatus.UNAUTHORIZED).json(globalError('No token found'))
+		res
+			.status(HttpStatus.UNAUTHORIZED)
+			.json(globalErrorFactory('No token found'))
 	}
 }
 

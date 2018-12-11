@@ -1,7 +1,7 @@
 const HttpStatus = require('http-status-codes')
 const User = require('../models/User')
 const parseErrors = require('../utils/parseErrors')
-const globalError = require('../utils/globalError')
+const globalErrorFactory = require('../utils/globalErrorFactory')
 const { sendConfirmationEmailValidation } = require('../utils/email/mailer')
 const setData = require('../utils/composeResponse.js')
 
@@ -22,13 +22,13 @@ const signUp = async (req, res) => {
 		} catch (err) {
 			res
 				.status(HttpStatus.BAD_REQUEST)
-				.json(globalError('Error saving data', parseErrors(err.errors)))
+				.json(globalErrorFactory('Error saving data', parseErrors(err.errors)))
 		}
 	} else {
 		res
 			.status(HttpStatus.BAD_REQUEST)
 			.json(
-				globalError(
+				globalErrorFactory(
 					`You have entered less than ${
 						process.env.PASSWORD_LENGTH
 					} characters for password`

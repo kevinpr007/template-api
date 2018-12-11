@@ -1,6 +1,6 @@
 const HttpStatus = require('http-status-codes')
 const parseErrors = require('../utils/parseErrors')
-const globalError = require('../utils/globalError')
+const globalErrorFactory = require('../utils/globalErrorFactory')
 const setData = require('../utils/composeResponse')
 const responseRepositoryFactory = require('../utils/responseRepositoryFactory')
 
@@ -14,12 +14,14 @@ const getAll = async (req, res, Schema) => {
 		} else {
 			//TODO: Fix
 			//TODO: Remove errors
-			res.status(HttpStatus.NOT_FOUND).json(globalError('Records not found.'))
+			res
+				.status(HttpStatus.NOT_FOUND)
+				.json(globalErrorFactory('Records not found.'))
 		}
 	} catch (err) {
 		res
 			.status(HttpStatus.BAD_REQUEST)
-			.json(globalError('Error', parseErrors(err.errors)))
+			.json(globalErrorFactory('Error', parseErrors(err.errors)))
 	}
 }
 
@@ -34,7 +36,7 @@ const insert = async (req, res, Schema, data) => {
 	} catch (err) {
 		res
 			.status(HttpStatus.BAD_REQUEST)
-			.json(globalError('Error saving data', parseErrors(err.errors)))
+			.json(globalErrorFactory('Error saving data', parseErrors(err.errors)))
 	}
 }
 
@@ -47,12 +49,14 @@ const getById = async (req, res, Schema, data) => {
 			let response = responseRepositoryFactory(Schema.modelName, record)
 			res.json(setData(response))
 		} else {
-			res.status(HttpStatus.NOT_FOUND).json(globalError('Record not found.'))
+			res
+				.status(HttpStatus.NOT_FOUND)
+				.json(globalErrorFactory('Record not found.'))
 		}
 	} catch (err) {
 		res
 			.status(HttpStatus.BAD_REQUEST)
-			.json(globalError('Error', parseErrors(err.errors)))
+			.json(globalErrorFactory('Error', parseErrors(err.errors)))
 	}
 }
 
@@ -72,12 +76,14 @@ const updateById = async (req, res, Schema, idData, dataToUpdate) => {
 			let response = responseRepositoryFactory(Schema.modelName, record)
 			res.json(setData(response))
 		} else {
-			res.status(HttpStatus.NOT_FOUND).json(globalError('Record not found.'))
+			res
+				.status(HttpStatus.NOT_FOUND)
+				.json(globalErrorFactory('Record not found.'))
 		}
 	} catch (err) {
 		res
 			.status(HttpStatus.BAD_REQUEST)
-			.json(globalError('Error', parseErrors(err.errors)))
+			.json(globalErrorFactory('Error', parseErrors(err.errors)))
 	}
 }
 
@@ -90,12 +96,14 @@ const deleteById = async (req, res, Schema, data) => {
 		if (record) {
 			res.json()
 		} else {
-			res.status(HttpStatus.NOT_FOUND).json(globalError('Record not found.'))
+			res
+				.status(HttpStatus.NOT_FOUND)
+				.json(globalErrorFactory('Record not found.'))
 		}
 	} catch (err) {
 		res
 			.status(HttpStatus.BAD_REQUEST)
-			.json(globalError('Error', parseErrors(err.errors)))
+			.json(globalErrorFactory('Error', parseErrors(err.errors)))
 	}
 }
 

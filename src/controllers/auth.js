@@ -6,7 +6,7 @@ const {
 	sendResetPasswordEmail,
 	sendConfirmationEmail,
 } = require('../utils/email/mailer')
-const globalError = require('../utils/globalError')
+const globalErrorFactory = require('../utils/globalErrorFactory')
 const parseErrors = require('../utils/parseErrors')
 const setData = require('../utils/composeResponse.js')
 const userFactory = require('../utils/userFactory')
@@ -20,7 +20,9 @@ const login = async (req, res) => {
 	if (user && user.isValidPassword(credentials.password)) {
 		res.json(setData({ user: user.toAuthJSON() }))
 	} else {
-		res.status(HttpStatus.BAD_REQUEST).json(globalError('Invalid credentials'))
+		res
+			.status(HttpStatus.BAD_REQUEST)
+			.json(globalErrorFactory('Invalid credentials'))
 	}
 }
 
@@ -40,11 +42,13 @@ const confirmation = async (req, res) => {
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
-				.json(globalError('The confirmation token is not valid'))
+				.json(globalErrorFactory('The confirmation token is not valid'))
 		}
 	} catch (err) {
 		//TODO: Add error object
-		res.status(HttpStatus.BAD_REQUEST).json(globalError('Error updating User'))
+		res
+			.status(HttpStatus.BAD_REQUEST)
+			.json(globalErrorFactory('Error updating User'))
 	}
 }
 
@@ -63,12 +67,14 @@ const resetPasswordRequest = async (req, res) => {
 			} catch (error) {
 				res
 					.status(HttpStatus.BAD_REQUEST)
-					.json(globalError('Error saving data', parseErrors(error.errors)))
+					.json(
+						globalErrorFactory('Error saving data', parseErrors(error.errors))
+					)
 			}
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
-				.json(globalError('There is no user with this email'))
+				.json(globalErrorFactory('There is no user with this email'))
 		}
 	} catch (err) {
 		//TODO: Add error
@@ -82,7 +88,7 @@ const validateToken = (req, res) => {
 		if (err) {
 			res
 				.status(HttpStatus.UNAUTHORIZED)
-				.json(globalError('The token is not valid'))
+				.json(globalErrorFactory('The token is not valid'))
 		} else {
 			res.json()
 		}
@@ -94,7 +100,9 @@ const resetPassword = (req, res) => {
 	//TODO: JSON
 	jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
 		if (err) {
-			res.status(HttpStatus.UNAUTHORIZED).json(globalError('Invalid token'))
+			res
+				.status(HttpStatus.UNAUTHORIZED)
+				.json(globalErrorFactory('Invalid token'))
 		} else {
 			try {
 				let user = await User.findOne({
@@ -115,14 +123,17 @@ const resetPassword = (req, res) => {
 							res
 								.status(HttpStatus.BAD_REQUEST)
 								.json(
-									globalError('Error saving data', parseErrors(error.errors))
+									globalErrorFactory(
+										'Error saving data',
+										parseErrors(error.errors)
+									)
 								)
 						}
 					} else {
 						res
 							.status(HttpStatus.BAD_REQUEST)
 							.json(
-								globalError(
+								globalErrorFactory(
 									`You have entered less than ${
 										process.env.PASSWORD_LENGTH
 									} characters for password`
@@ -132,7 +143,7 @@ const resetPassword = (req, res) => {
 				} else {
 					res
 						.status(HttpStatus.NOT_FOUND)
-						.json(globalError('User or token not found'))
+						.json(globalErrorFactory('User or token not found'))
 				}
 			} catch (err) {
 				//TODO: add error
