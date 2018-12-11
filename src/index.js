@@ -10,6 +10,7 @@ const helmet = require('helmet')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const HttpStatus = require('http-status-codes')
+const globalErrorMiddleware = require('./middlewares/globalError')
 
 //Setting Express App
 const app = express()
@@ -90,14 +91,7 @@ app.get('/*', (req, res) => {
 // })
 
 //Global Error Middleware
-//TODO: add middleware
-//TODO: add global error object
-app.use((err, req, res, next) => {
-	res.status(err.status || HttpStatus.INTERNAL_SERVER_ERROR).json({
-		message: err.message,
-		error: err,
-	})
-})
+app.use(globalErrorMiddleware)
 
 //Start service
 app.listen(process.env.API_PORT, () =>
