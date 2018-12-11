@@ -2,14 +2,14 @@ const HttpStatus = require('http-status-codes')
 const parseErrors = require('../utils/parseErrors')
 const globalError = require('../utils/globalError')
 const setData = require('../utils/composeResponse')
+const responseRepositoryFactory = require('../utils/responseRepositoryFactory')
 
 const getAll = async (req, res, Schema) => {
 	//TODO: Add pagination
 	try {
 		const allRecords = await Schema.find()
 		if (allRecords) {
-			let response = {}
-			response[Schema.modelName] = allRecords
+			let response = responseRepositoryFactory(Schema.modelName, allRecords)
 			res.json(setData(response))
 		} else {
 			//TODO: Fix
@@ -29,9 +29,7 @@ const insert = async (req, res, Schema, data) => {
 	try {
 		const entity = new Schema({ MyField, MyDescription, MyNumberField })
 		const entityRecord = await entity.save()
-		//TODO: Create function
-		let response = {}
-		response[Schema.modelName] = entityRecord
+		let response = responseRepositoryFactory(Schema.modelName, entityRecord)
 		res.json(setData(response))
 	} catch (err) {
 		res
@@ -46,9 +44,7 @@ const getById = async (req, res, Schema, data) => {
 	try {
 		const record = await Schema.findById(id)
 		if (record) {
-			//TODO: Create function
-			let response = {}
-			response[Schema.modelName] = record
+			let response = responseRepositoryFactory(Schema.modelName, record)
 			res.json(setData(response))
 		} else {
 			res.status(HttpStatus.NOT_FOUND).json(globalError('Record not found.'))
@@ -73,9 +69,7 @@ const updateById = async (req, res, Schema, idData, dataToUpdate) => {
 		)
 
 		if (record) {
-			//TODO: Create function
-			let response = {}
-			response[Schema.modelName] = record
+			let response = responseRepositoryFactory(Schema.modelName, record)
 			res.json(setData(response))
 		} else {
 			res.status(HttpStatus.NOT_FOUND).json(globalError('Record not found.'))

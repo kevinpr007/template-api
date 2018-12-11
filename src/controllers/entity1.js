@@ -2,13 +2,11 @@ const Entity1 = require('../models/entity1')
 const repository = require('../services/repository')
 
 const getAll = (req, res) => {
-	//TODO: Send Repository IoC
 	return repository.getAll(req, res, Entity1)
 }
 
 const insert = (req, res) => {
-	//TODO: Send just req.body and not req.body.entity1
-	return repository.insert(req, res, Entity1, req.body.entity1)
+	return repository.insert(req, res, Entity1, req.body)
 }
 
 const getById = (req, res) => {
