@@ -66,7 +66,7 @@ const updateById = async (req, res, Schema, idData, dataToUpdate) => {
 
 	try {
 		//TODO: FIX update
-		let record = await Schema.findOneAndUpdate(
+		let record = await Schema.findByIdAndUpdate(
 			id,
 			{ $set: data },
 			{ new: true }
