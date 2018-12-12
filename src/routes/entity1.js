@@ -9,6 +9,7 @@ const {
 } = require('../controllers/entity1')
 const router = express.Router()
 
+//TODO:
 //router.use(authenticate)
 
 router.get('/', getAll)

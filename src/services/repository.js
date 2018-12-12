@@ -4,7 +4,7 @@ const globalErrorFactory = require('../utils/globalErrorFactory')
 const setData = require('../utils/composeResponse')
 const responseRepositoryFactory = require('../utils/responseRepositoryFactory')
 
-const getAll = async (req, res, Schema) => {
+const getAll = async (res, Schema) => {
 	//TODO: Add pagination
 	try {
 		const allRecords = await Schema.find()
@@ -25,7 +25,7 @@ const getAll = async (req, res, Schema) => {
 	}
 }
 
-const insert = async (req, res, Schema, data) => {
+const insert = async (res, Schema, data) => {
 	const { MyField, MyDescription, MyNumberField } = data
 
 	try {
@@ -40,7 +40,7 @@ const insert = async (req, res, Schema, data) => {
 	}
 }
 
-const getById = async (req, res, Schema, data) => {
+const getById = async (res, Schema, data) => {
 	const { id } = data
 
 	try {
@@ -60,15 +60,14 @@ const getById = async (req, res, Schema, data) => {
 	}
 }
 
-const updateById = async (req, res, Schema, idData, dataToUpdate) => {
+const updateById = async (res, Schema, idData, dataToUpdate) => {
 	const { id } = idData
 	const { data } = dataToUpdate
 
 	try {
-		//TODO: FIX update
 		let record = await Schema.findByIdAndUpdate(
 			id,
-			{ $set: data },
+			{ $set: data, $inc: { __v: 1 } },
 			{ new: true }
 		)
 
@@ -87,7 +86,7 @@ const updateById = async (req, res, Schema, idData, dataToUpdate) => {
 	}
 }
 
-const deleteById = async (req, res, Schema, data) => {
+const deleteById = async (res, Schema, data) => {
 	const { id } = data
 
 	try {

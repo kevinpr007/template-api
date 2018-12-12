@@ -11,10 +11,8 @@ module.exports = (req, res, next) => {
 	let token
 	if (header) token = header.split(' ')[TOKEN_PARAMETER]
 
-	//TODO: Add refresh token
 	//https://github.com/Ivan-Marquez/momentum/blob/develop/src/config/strategies/jwt.js
 	if (token) {
-		//TODO: Check multiple uses JWT
 		jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
 			if (err) {
 				res
@@ -25,6 +23,8 @@ module.exports = (req, res, next) => {
 				//   req.currentUser = user;
 				//   next();
 				// });
+
+				//TODO: Add refresh token
 				req.currentUser = userFactory(decodedToken)
 				next()
 			}
