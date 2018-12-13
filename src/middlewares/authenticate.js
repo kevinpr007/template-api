@@ -4,7 +4,6 @@ const globalErrorFactory = require('../utils/globalErrorFactory')
 const userFactory = require('../utils/userFactory')
 const jwtChecks = require('../utils/composeJWT')
 
-//TODO: Validate token when email is not confirmed
 module.exports = (req, res, next) => {
 	const header = req.headers.authorization
 	const TOKEN_PARAMETER = 1
@@ -29,9 +28,19 @@ module.exports = (req, res, next) => {
 					//   next();
 					// });
 
-					//TODO: Add refresh token
-					req.currentUser = userFactory(decodedToken)
-					next()
+					if (!decodedToken.confirmed) {
+						res
+							.status(HttpStatus.BAD_REQUEST)
+							.json(
+								globalErrorFactory(
+									'Your email is not confirmed. Please confirm your email.'
+								)
+							)
+					} else {
+						//TODO: Add refresh token
+						req.currentUser = userFactory(decodedToken)
+						next()
+					}
 				}
 			}
 		)
