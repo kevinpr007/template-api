@@ -10,7 +10,7 @@ const {
 const router = express.Router()
 
 //TODO:
-//router.use(authenticate)
+router.use(authenticate)
 
 router.get('/', getAll)
 router.post('/', insert)

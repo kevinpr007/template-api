@@ -10,6 +10,7 @@ const globalErrorFactory = require('../utils/globalErrorFactory')
 const parseErrors = require('../utils/parseErrors')
 const setData = require('../utils/composeResponse.js')
 const userFactory = require('../utils/userFactory')
+const jwtChecks = require('../utils/composeJWT')
 
 //TODO: Add Service
 const login = async (req, res) => {
@@ -83,11 +84,11 @@ const resetPasswordRequest = async (req, res) => {
 
 const validateToken = (req, res) => {
 	const { token } = req.body
-	jwt.verify(token, process.env.JWT_SECRET, (err) => {
+	jwt.verify(token, process.env.JWT_SECRET, jwtChecks, (err) => {
 		if (err) {
 			res
 				.status(HttpStatus.UNAUTHORIZED)
-				.json(globalErrorFactory('The token is not valid'))
+				.json(globalErrorFactory('The token is not valid', err))
 		} else {
 			res.json()
 		}
@@ -96,11 +97,11 @@ const validateToken = (req, res) => {
 
 const resetPassword = (req, res) => {
 	const { password, token } = req.body.data
-	jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+	jwt.verify(token, process.env.JWT_SECRET, jwtChecks, async (err, decoded) => {
 		if (err) {
 			res
 				.status(HttpStatus.UNAUTHORIZED)
-				.json(globalErrorFactory('Invalid token'))
+				.json(globalErrorFactory('Invalid token', err))
 		} else {
 			try {
 				let user = await User.findOne({

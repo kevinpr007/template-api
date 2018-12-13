@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const uuidv1 = require('uuid/v1')
 const userFactory = require('../utils/userFactory')
+const signJWT = require('../utils/signJWT')
 
 const isValidPassword = (password, passwordHash) => {
 	return bcrypt.compareSync(password, passwordHash)
@@ -40,14 +41,18 @@ const generateResetPasswordLink = (user) => {
 }
 
 const generateJWT = (user) => {
-	//TODO: Verify this
-	return jwt.sign(userFactory(user), process.env.JWT_SECRET, {
-		expiresIn: process.env.LOGIN_EXPIRATION_TIME,
-		//https://en.wikipedia.org/wiki/JSON_Web_Token
-		//https://www.npmjs.com/package/jsonwebtoken
-		//https://auth0.com/docs/jwt
-		//https://medium.com/ag-grid/a-plain-english-introduction-to-json-web-tokens-jwt-what-it-is-and-what-it-isnt-8076ca679843
-	})
+	return jwt.sign(userFactory(user), process.env.JWT_SECRET, signJWT)
+
+	// | code | name            | description                                                                                                                                                                                                                                                                                                        |   |   |
+	// |------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|---|
+	// | iss  | Issuer          | Identifies principal that issued the JWT.                                                                                                                                                                                                                                                                          |   |   |
+	// | sub  | Subject         | Identifies the subject of the JWT.                                                                                                                                                                                                                                                                                 |   |   |
+	// | aud  | Audience        | Identifies the recipients that the JWT is intended for. Each principal intended to process the JWT must identify itself with a value in the audience claim. If the principal processing the claim does not identify itself with a value in the aud claim when this claim is present, then the JWT must be rejected |   |   |
+	// | exp  | Expiration time | Identifies the expiration time on or after which the JWT must not be accepted for processing. The value should be in NumericDate[10] format.                                                                                                                                                                       |   |   |
+	// | nbf  | Not before      | Identifies the time on which the JWT will start to be accepted for processing.                                                                                                                                                                                                                                     |   |   |
+	// | iat  | Issued at       | Identifies the time at which the JWT was issued.                                                                                                                                                                                                                                                                   |   |   |
+	// | jti  | JWT ID          | Case sensitive unique identifier of the token even among different issuers.                     																																																					 |   |   |
+	// |------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|---|
 }
 
 const generateResetPasswordToken = (user) => {
@@ -57,7 +62,7 @@ const generateResetPasswordToken = (user) => {
 			resetPasswordToken: user.resetPasswordToken,
 		},
 		process.env.JWT_SECRET,
-		{ expiresIn: process.env.EMAIL_EXPIRATION_TIME }
+		Object.assign(signJWT, { expiresIn: process.env.JWT_EMAIL_EXPIRATION_TIME })
 	)
 }
 
