@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
-const entity1Service = require('../services/entity1')
 const timestampPlugin = require('./plugins/timestamp')
 
 let schema = new mongoose.Schema(
@@ -31,13 +30,6 @@ let schema = new mongoose.Schema(
 )
 
 schema.plugin(timestampPlugin)
-
-schema.methods.getPagination = function(id1, id2) {
-	return entity1Service.getPagination(id1, id2)
-}
-schema.methods.setMyField = function(data) {
-	this.MyField = entity1Service.setMyField(data)
-}
 
 schema.virtual('testVirtual').set(function(name) {
 	let str = name.split(' ')

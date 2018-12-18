@@ -6,10 +6,20 @@ const responseRepositoryFactory = require('../utils/responseRepositoryFactory')
 const Entity1 = require('../models/entity1')
 const repository = require('../services/repository')
 const entityFactory = require('../models/entityFactory')
+const paginationFactory = require('../utils/paginationFactory')
 
 const getAll = async (req, res) => {
-	const allRecords = await repository.getAll(Entity1)
+	const [allRecords, count] = await repository.getAll(
+		Entity1,
+		{},
+		req.query.page,
+		req.query.limit
+	)
+
 	let response = responseRepositoryFactory(Entity1.modelName, allRecords)
+	let pagination = paginationFactory(req.query.page, count, req.query.limit)
+
+	response = responseRepositoryFactory('Pagination', pagination, response)
 	res.json(setData(response))
 }
 
@@ -19,7 +29,7 @@ const insert = async (req, res) => {
 	try {
 		const entityRecord = await repository.insert(Entity1, entityToInsert)
 		const response = responseRepositoryFactory(Entity1.modelName, entityRecord)
-		res.json(setData(response))
+		res.status(HttpStatus.CREATED).json(setData(response))
 	} catch (err) {
 		res
 			.status(HttpStatus.BAD_REQUEST)
