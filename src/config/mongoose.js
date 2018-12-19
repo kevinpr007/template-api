@@ -1,4 +1,4 @@
-const logger = require('./logger')
+const logger = require('./logger')()
 const mongoose = require('mongoose')
 const Promise = require('bluebird')
 mongoose.Promise = Promise
@@ -17,9 +17,7 @@ module.exports = () => {
 				options: options,
 			}
 
-			//TODO: Config with process.env.MONGODB_LOG_LEVEL
-			//logger.debug(
-			logger().debug({
+			logger.debug({
 				dbQuery: set,
 			})
 		}
