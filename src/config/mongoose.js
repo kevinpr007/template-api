@@ -18,6 +18,7 @@ module.exports = () => {
 			}
 
 			//TODO: Config with process.env.MONGODB_LOG_LEVEL
+			//logger.debug(
 			logger().debug({
 				dbQuery: set,
 			})

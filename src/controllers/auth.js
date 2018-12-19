@@ -8,9 +8,9 @@ const {
 } = require('../utils/email/mailer')
 const globalErrorFactory = require('../utils/globalErrorFactory')
 const parseErrors = require('../utils/parseErrors')
-const setData = require('../utils/composeResponse.js')
+const setResponse = require('../utils/setResponse')
 const userFactory = require('../utils/userFactory')
-const jwtChecks = require('../utils/composeJWT')
+const JWTVariableFactory = require('../utils/JWTVariableFactory')
 
 //TODO: Add Service
 const login = async (req, res) => {
@@ -19,7 +19,7 @@ const login = async (req, res) => {
 	let user = await User.findOne({ email: credentials.email })
 
 	if (user && user.isValidPassword(credentials.password)) {
-		res.json(setData({ user: user.toAuthJSON() }))
+		res.json(setResponse({ user: user.toAuthJSON() }))
 	} else {
 		res
 			.status(HttpStatus.BAD_REQUEST)
@@ -34,22 +34,19 @@ const confirmation = async (req, res) => {
 		let user = await User.findOneAndUpdate(
 			{ confirmationToken: token },
 			{ confirmationToken: '', confirmed: true },
-			{ new: true }
+			{ new: true } //TODO: ADD Version
 		)
 
 		if (user) {
 			sendConfirmationEmail(user)
-			res.json(setData({ user: user.toAuthJSON() }))
+			res.json(setResponse({ user: user.toAuthJSON() }))
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
 				.json(globalErrorFactory('The confirmation token is not valid'))
 		}
 	} catch (err) {
-		//TODO: Add error object
-		res
-			.status(HttpStatus.BAD_REQUEST)
-			.json(globalErrorFactory('Error updating User'))
+		next(err)
 	}
 }
 
@@ -62,15 +59,11 @@ const resetPasswordRequest = async (req, res) => {
 			user.setResetPassword()
 			user.setResetPasswordToken()
 			try {
-				let updatedUser = await user.save()
+				let updatedUser = await user.save() //TODO: add version
 				sendResetPasswordEmailValidation(updatedUser)
 				res.json()
 			} catch (error) {
-				res
-					.status(HttpStatus.BAD_REQUEST)
-					.json(
-						globalErrorFactory('Error saving data', parseErrors(error.errors))
-					)
+				next(error)
 			}
 		} else {
 			res
@@ -78,13 +71,14 @@ const resetPasswordRequest = async (req, res) => {
 				.json(globalErrorFactory('There is no user with this email'))
 		}
 	} catch (err) {
-		//TODO: Add error
+		next(err)
 	}
 }
 
 const validateToken = (req, res) => {
 	const { token } = req.body
-	jwt.verify(token, process.env.JWT_SECRET, jwtChecks, (err) => {
+	//TODO: Add Service
+	jwt.verify(token, process.env.JWT_SECRET, JWTVariableFactory, (err) => {
 		if (err) {
 			res
 				.status(HttpStatus.UNAUTHORIZED)
@@ -96,8 +90,9 @@ const validateToken = (req, res) => {
 }
 
 const resetPassword = (req, res) => {
-	const { password, token } = req.body.data
-	jwt.verify(token, process.env.JWT_SECRET, jwtChecks, async (err, decoded) => {
+	const { password, token } = req.body
+	//TODO: Add Service
+	jwt.verify(token, process.env.JWT_SECRET, JWTVariableFactory, async (err, decoded) => {
 		if (err) {
 			res
 				.status(HttpStatus.UNAUTHORIZED)
@@ -119,14 +114,7 @@ const resetPassword = (req, res) => {
 							sendResetPasswordEmail(userRecord)
 							res.json()
 						} catch (error) {
-							res
-								.status(HttpStatus.BAD_REQUEST)
-								.json(
-									globalErrorFactory(
-										'Error saving data',
-										parseErrors(error.errors)
-									)
-								)
+							next(error)
 						}
 					} else {
 						res
@@ -145,14 +133,14 @@ const resetPassword = (req, res) => {
 						.json(globalErrorFactory('User or token not found'))
 				}
 			} catch (err) {
-				//TODO: add error
+				next(err)
 			}
 		}
 	})
 }
 
 const currentUser = (req, res) => {
-	res.json(setData({ user: userFactory(req.currentUser) }))
+	res.json(setResponse({ user: userFactory(req.currentUser) }))
 }
 
 module.exports = {

@@ -1,4 +1,4 @@
-const { createLogger } = require('bunyan')
+const { createLogger } = require('bunyan') //TODO: FIX bunyan/lib/bunyan
 const moment = require('moment')
 const bformat = require('bunyan-format')
 

@@ -4,6 +4,10 @@ const uuidv1 = require('uuid/v1')
 const userFactory = require('../utils/userFactory')
 const signJWT = require('../utils/signJWT')
 
+const generateID = function(){
+	return uuidv1()
+}
+
 const isValidPassword = (password, passwordHash) => {
 	return bcrypt.compareSync(password, passwordHash)
 }
@@ -17,15 +21,15 @@ const setPassword = (password) => {
 }
 
 const setConfirmationToken = () => {
-	return uuidv1()
+	return generateID()
 }
 
 const setResetPassword = () => {
-	return setPassword(uuidv1())
+	return setPassword(generateID())
 }
 
 const setResetPasswordToken = () => {
-	return uuidv1()
+	return generateID()
 }
 
 const generateConfirmationUrl = (confirmationToken) => {
@@ -66,6 +70,7 @@ const generateResetPasswordToken = (user) => {
 	)
 }
 
+//TODO: Fix this function
 const toAuthJSON = (user) => {
 	let object = userFactory(user)
 	object.token = generateJWT(user)

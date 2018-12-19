@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const HttpStatus = require('http-status-codes')
 const globalErrorFactory = require('../utils/globalErrorFactory')
 const userFactory = require('../utils/userFactory')
-const jwtChecks = require('../utils/composeJWT')
+const JWTVariableFactory = require('../utils/JWTVariableFactory')
 
 module.exports = (req, res, next) => {
 	const header = req.headers.authorization
@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
 		jwt.verify(
 			token,
 			process.env.JWT_SECRET,
-			jwtChecks,
+			JWTVariableFactory,
 			(err, decodedToken) => {
 				if (err) {
 					res
@@ -47,7 +47,7 @@ module.exports = (req, res, next) => {
 	} else {
 		res
 			.status(HttpStatus.UNAUTHORIZED)
-			.json(globalErrorFactory('No token found'))
+			.json(globalErrorFactory('Token not found'))
 	}
 }
 

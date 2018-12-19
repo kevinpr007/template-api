@@ -3,7 +3,7 @@ const User = require('../models/User')
 const parseErrors = require('../utils/parseErrors')
 const globalErrorFactory = require('../utils/globalErrorFactory')
 const { sendConfirmationEmailValidation } = require('../utils/email/mailer')
-const setData = require('../utils/composeResponse.js')
+const setResponse = require('../utils/setResponse.js')
 
 //TODO: Add in service
 const signUp = async (req, res) => {
@@ -16,13 +16,11 @@ const signUp = async (req, res) => {
 
 		let userRecord
 		try {
-			userRecord = await user.save()
+			userRecord = await user.save() //TODO: Check version
 			sendConfirmationEmailValidation(userRecord)
-			res.json(setData({ user: userRecord.toAuthJSON() }))
+			res.json(setResponse({ user: userRecord.toAuthJSON() }))
 		} catch (err) {
-			res
-				.status(HttpStatus.BAD_REQUEST)
-				.json(globalErrorFactory('Error saving data', parseErrors(err.errors)))
+			next(err)
 		}
 	} else {
 		res

@@ -1,6 +1,6 @@
 const express = require('express')
 const authenticate = require('../middlewares/authenticate')
-const pagination = require('../middlewares/pagination')
+const defaultVariables = require('../middlewares/defaultVariables')
 
 const {
 	getAll,
@@ -13,7 +13,7 @@ const router = express.Router()
 
 router.use(authenticate)
 
-router.get('/', pagination, getAll)
+router.get('/', defaultVariables, getAll)
 router.post('/', insert)
 router.get('/:id', getById)
 router.put('/:id', updateById)

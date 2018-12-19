@@ -46,6 +46,7 @@ const main = require('./routes/main')
 const users = require('./routes/users')
 const auth = require('./routes/auth')
 const entity1 = require('./routes/entity1')
+//TODO: Add new entity
 
 //Setting Routes
 app.use('/', main)
@@ -61,10 +62,6 @@ app.use(express.static('public'))
 app.get('/*', (req, res) => {
 	res.status(HttpStatus.NOT_FOUND).json()
 })
-
-// app.post('/*', (req, res) => {
-// 	res.status(HttpStatus.NOT_FOUND).json()
-// })
 
 //Global Error Middleware
 app.use(globalErrorMiddleware)
