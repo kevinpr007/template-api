@@ -54,7 +54,7 @@ const updateById = async (req, res) => {
 		res
 			.status(HttpStatus.NOT_FOUND)
 			.json(globalErrorFactory('Record not found.'))
-			//TODO: https://stackoverflow.com/questions/2342579/http-status-code-for-update-and-delete
+		//TODO: https://stackoverflow.com/questions/2342579/http-status-code-for-update-and-delete
 	}
 }
 

@@ -4,7 +4,7 @@ const uuidv1 = require('uuid/v1')
 const userFactory = require('../utils/userFactory')
 const signJWT = require('../utils/signJWT')
 
-const generateID = function(){
+const generateID = function() {
 	return uuidv1()
 }
 

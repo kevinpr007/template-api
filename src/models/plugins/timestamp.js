@@ -8,7 +8,7 @@ module.exports = (schema, options) => {
 	// Create a pre-save hook
 	schema.pre('save', function(next) {
 		let now = Date.now()
-//TODO: Version updates
+		//TODO: Version updates
 		this.updatedAtPlugin = now
 		// Set a value for createdAtPlugin only if it is null
 		if (!this.createdAtPlugin) {

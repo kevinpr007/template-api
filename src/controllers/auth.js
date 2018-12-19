@@ -92,51 +92,56 @@ const validateToken = (req, res) => {
 const resetPassword = (req, res) => {
 	const { password, token } = req.body
 	//TODO: Add Service
-	jwt.verify(token, process.env.JWT_SECRET, JWTVariableFactory, async (err, decoded) => {
-		if (err) {
-			res
-				.status(HttpStatus.UNAUTHORIZED)
-				.json(globalErrorFactory('Invalid token', err))
-		} else {
-			try {
-				let user = await User.findOne({
-					_id: decoded._id,
-					resetPasswordToken: decoded.resetPasswordToken,
-				})
+	jwt.verify(
+		token,
+		process.env.JWT_SECRET,
+		JWTVariableFactory,
+		async (err, decoded) => {
+			if (err) {
+				res
+					.status(HttpStatus.UNAUTHORIZED)
+					.json(globalErrorFactory('Invalid token', err))
+			} else {
+				try {
+					let user = await User.findOne({
+						_id: decoded._id,
+						resetPasswordToken: decoded.resetPasswordToken,
+					})
 
-				if (user) {
-					if (user.isPasswordLength(password)) {
-						user.setPassword(password)
-						user.resetPasswordToken = ''
+					if (user) {
+						if (user.isPasswordLength(password)) {
+							user.setPassword(password)
+							user.resetPasswordToken = ''
 
-						try {
-							let userRecord = await user.save() //TODO: Check version update
-							sendResetPasswordEmail(userRecord)
-							res.json()
-						} catch (error) {
-							next(error)
+							try {
+								let userRecord = await user.save() //TODO: Check version update
+								sendResetPasswordEmail(userRecord)
+								res.json()
+							} catch (error) {
+								next(error)
+							}
+						} else {
+							res
+								.status(HttpStatus.BAD_REQUEST)
+								.json(
+									globalErrorFactory(
+										`You have entered less than ${
+											process.env.PASSWORD_LENGTH
+										} characters for password`
+									)
+								)
 						}
 					} else {
 						res
-							.status(HttpStatus.BAD_REQUEST)
-							.json(
-								globalErrorFactory(
-									`You have entered less than ${
-										process.env.PASSWORD_LENGTH
-									} characters for password`
-								)
-							)
+							.status(HttpStatus.NOT_FOUND)
+							.json(globalErrorFactory('User or token not found'))
 					}
-				} else {
-					res
-						.status(HttpStatus.NOT_FOUND)
-						.json(globalErrorFactory('User or token not found'))
+				} catch (err) {
+					next(err)
 				}
-			} catch (err) {
-				next(err)
 			}
 		}
-	})
+	)
 }
 
 const currentUser = (req, res) => {
