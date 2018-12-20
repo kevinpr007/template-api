@@ -34,7 +34,7 @@ const confirmation = async (req, res) => {
 		let user = await User.findOneAndUpdate(
 			{ confirmationToken: token },
 			{ confirmationToken: '', confirmed: true },
-			{ new: true } //TODO: ADD Version
+			{ new: true }
 		)
 
 		if (user) {
@@ -59,7 +59,7 @@ const resetPasswordRequest = async (req, res) => {
 			user.setResetPassword()
 			user.setResetPasswordToken()
 			try {
-				let updatedUser = await user.save() //TODO: add version
+				let updatedUser = await user.save()
 				sendResetPasswordEmailValidation(updatedUser)
 				res.json()
 			} catch (error) {
@@ -114,7 +114,7 @@ const resetPassword = (req, res) => {
 							user.resetPasswordToken = ''
 
 							try {
-								let userRecord = await user.save() //TODO: Check version update
+								let userRecord = await user.save()
 								sendResetPasswordEmail(userRecord)
 								res.json()
 							} catch (error) {

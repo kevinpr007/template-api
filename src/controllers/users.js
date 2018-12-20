@@ -16,7 +16,7 @@ const signUp = async (req, res) => {
 
 		let userRecord
 		try {
-			userRecord = await user.save() //TODO: Check version
+			userRecord = await user.save()
 			sendConfirmationEmailValidation(userRecord)
 			res.json(setResponse({ user: userRecord.toAuthJSON() }))
 		} catch (err) {

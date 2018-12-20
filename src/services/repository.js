@@ -38,7 +38,7 @@ const updateById = async (Schema, idData, dataToUpdate) => {
 
 	return await Schema.findByIdAndUpdate(
 		id,
-		{ $set: dataToUpdate, $inc: { __v: 1 } }, //TODO: FIX
+		{ $set: dataToUpdate },
 		{ new: true }
 	)
 }
