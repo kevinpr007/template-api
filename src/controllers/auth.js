@@ -7,10 +7,10 @@ const {
 	sendConfirmationEmail,
 } = require('../utils/email/mailer')
 const globalErrorFactory = require('../utils/globalErrorFactory')
-const parseErrors = require('../utils/parseErrors')
-const setResponse = require('../utils/setResponse')
+const parseErrors = require('../utils/parseErrors') //TODO: Remove
 const userFactory = require('../utils/userFactory')
 const JWTVariableFactory = require('../utils/JWTVariableFactory')
+const setDataFactory = require('../utils/setDataFactory')
 
 //TODO: Add Service
 const login = async (req, res) => {
@@ -19,7 +19,8 @@ const login = async (req, res) => {
 	let user = await User.findOne({ email: credentials.email })
 
 	if (user && user.isValidPassword(credentials.password)) {
-		res.json(setResponse({ user: user.toAuthJSON() }))
+		const data = setDataFactory('data', user.toAuthJSON())
+		res.json(data)
 	} else {
 		res
 			.status(HttpStatus.BAD_REQUEST)
@@ -39,7 +40,8 @@ const confirmation = async (req, res) => {
 
 		if (user) {
 			sendConfirmationEmail(user)
-			res.json(setResponse({ user: user.toAuthJSON() }))
+			const data = setDataFactory('data', user.toAuthJSON())
+			res.json(data)
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
@@ -145,7 +147,8 @@ const resetPassword = (req, res) => {
 }
 
 const currentUser = (req, res) => {
-	res.json(setResponse({ user: userFactory(req.currentUser) }))
+	const data = setDataFactory('data', userFactory(req.currentUser))
+	res.json(data)
 }
 
 module.exports = {

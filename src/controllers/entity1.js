@@ -1,8 +1,7 @@
 const HttpStatus = require('http-status-codes')
 const parseErrors = require('../utils/parseErrors')
 const globalErrorFactory = require('../utils/globalErrorFactory')
-const setResponse = require('../utils/setResponse')
-const responseRepositoryFactory = require('../utils/responseRepositoryFactory')
+const setDataFactory = require('../utils/setDataFactory')
 const Entity1 = require('../models/entity1')
 const repository = require('../services/repository')
 const entityFactory = require('../models/entityFactory')
@@ -17,11 +16,11 @@ const getAll = async (req, res) => {
 	)
 
 	//TODO: Mix with Set Response
-	let response = responseRepositoryFactory(Entity1.modelName, allRecords)
+	let data = setDataFactory('data', allRecords)
 	let pagination = paginationFactory(req.query.page, count, req.query.limit)
+	data = setDataFactory('Pagination', pagination, data)
 
-	response = responseRepositoryFactory('Pagination', pagination, response)
-	res.json(setResponse(response))
+	res.json(data)
 }
 
 const insert = async (req, res) => {
@@ -29,8 +28,8 @@ const insert = async (req, res) => {
 
 	try {
 		const entityRecord = await repository.insert(Entity1, entityToInsert)
-		const response = responseRepositoryFactory(Entity1.modelName, entityRecord)
-		res.status(HttpStatus.CREATED).json(setResponse(response))
+		const data = setDataFactory('data', entityRecord)
+		res.status(HttpStatus.CREATED).json(data)
 	} catch (err) {
 		next(err)
 	}
@@ -38,8 +37,8 @@ const insert = async (req, res) => {
 
 const getById = async (req, res) => {
 	const record = await repository.getById(Entity1, req.params)
-	const response = responseRepositoryFactory(Entity1.modelName, record)
-	res.json(setResponse(response))
+	const data = setDataFactory('data', record)
+	res.json(data)
 }
 
 const updateById = async (req, res) => {
@@ -48,8 +47,8 @@ const updateById = async (req, res) => {
 	let record = await repository.updateById(Entity1, req.params, entityToUpdate)
 
 	if (record) {
-		let response = responseRepositoryFactory(Entity1.modelName, record)
-		res.json(setResponse(response))
+		let data = setDataFactory('data', record)
+		res.json(data)
 	} else {
 		res
 			.status(HttpStatus.NOT_FOUND)

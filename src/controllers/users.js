@@ -3,7 +3,7 @@ const User = require('../models/User')
 const parseErrors = require('../utils/parseErrors')
 const globalErrorFactory = require('../utils/globalErrorFactory')
 const { sendConfirmationEmailValidation } = require('../utils/email/mailer')
-const setResponse = require('../utils/setResponse.js')
+const setDataFactory = require('../utils/setDataFactory')
 
 //TODO: Add in service
 const signUp = async (req, res) => {
@@ -14,11 +14,11 @@ const signUp = async (req, res) => {
 		user.setPassword(password)
 		user.setConfirmationToken()
 
-		let userRecord
 		try {
-			userRecord = await user.save()
+			let userRecord = await user.save()
 			sendConfirmationEmailValidation(userRecord)
-			res.json(setResponse({ user: userRecord.toAuthJSON() }))
+			const data = setDataFactory('data', userRecord.toAuthJSON())
+			res.json(data)
 		} catch (err) {
 			next(err)
 		}
