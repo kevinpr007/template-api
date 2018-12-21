@@ -1,5 +1,4 @@
 const HttpStatus = require('http-status-codes')
-const parseErrors = require('../utils/parseErrors')
 const globalErrorFactory = require('../utils/globalErrorFactory')
 const setDataFactory = require('../utils/setDataFactory')
 const Entity1 = require('../models/entity1')
@@ -15,7 +14,6 @@ const getAll = async (req, res) => {
 		req.query.limit
 	)
 
-	//TODO: Mix with Set Response
 	let data = setDataFactory('data', allRecords)
 	let pagination = paginationFactory(req.query.page, count, req.query.limit)
 	data = setDataFactory('Pagination', pagination, data)
@@ -23,7 +21,7 @@ const getAll = async (req, res) => {
 	res.json(data)
 }
 
-const insert = async (req, res) => {
+const insert = async (req, res, next) => {
 	const entityToInsert = entityFactory(req.body)
 
 	try {
@@ -53,7 +51,6 @@ const updateById = async (req, res) => {
 		res
 			.status(HttpStatus.NOT_FOUND)
 			.json(globalErrorFactory('Record not found.'))
-		//TODO: https://stackoverflow.com/questions/2342579/http-status-code-for-update-and-delete
 	}
 }
 

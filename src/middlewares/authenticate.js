@@ -51,6 +51,3 @@ module.exports = (req, res, next) => {
 			.json(globalErrorFactory('Token not found'))
 	}
 }
-
-//TODO: Add authorize middleware
-//https://github.com/Ivan-Marquez/momentum/blob/develop/src/middleware/authorize.js

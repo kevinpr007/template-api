@@ -6,7 +6,7 @@ const { sendConfirmationEmailValidation } = require('../utils/email/mailer')
 const setDataFactory = require('../utils/setDataFactory')
 
 //TODO: Add in service
-const signUp = async (req, res) => {
+const signUp = async (req, res, next) => {
 	const { email, password, username } = req.body.user
 	const user = new User({ email, username })
 
@@ -38,9 +38,3 @@ const signUp = async (req, res) => {
 module.exports = {
 	signUp,
 }
-
-//TODO: Add pagination
-//https://github.com/Ivan-Marquez/momentum/blob/develop/src/middleware/paged-json.js
-
-//TODO: Add page validations
-//https://github.com/Ivan-Marquez/momentum/blob/develop/src/middleware/page-validations.js

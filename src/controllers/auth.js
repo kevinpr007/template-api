@@ -7,7 +7,6 @@ const {
 	sendConfirmationEmail,
 } = require('../utils/email/mailer')
 const globalErrorFactory = require('../utils/globalErrorFactory')
-const parseErrors = require('../utils/parseErrors') //TODO: Remove
 const userFactory = require('../utils/userFactory')
 const JWTVariableFactory = require('../utils/JWTVariableFactory')
 const setDataFactory = require('../utils/setDataFactory')
@@ -28,7 +27,7 @@ const login = async (req, res) => {
 	}
 }
 
-const confirmation = async (req, res) => {
+const confirmation = async (req, res, next) => {
 	const { token } = req.query
 
 	try {
@@ -52,7 +51,7 @@ const confirmation = async (req, res) => {
 	}
 }
 
-const resetPasswordRequest = async (req, res) => {
+const resetPasswordRequest = async (req, res, next) => {
 	const { email } = req.body
 
 	try {
@@ -91,7 +90,7 @@ const validateToken = (req, res) => {
 	})
 }
 
-const resetPassword = (req, res) => {
+const resetPassword = (req, res, next) => {
 	const { password, token } = req.body
 	//TODO: Add Service
 	jwt.verify(
