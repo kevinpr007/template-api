@@ -1,6 +1,7 @@
 const express = require('express')
 const authenticate = require('../middlewares/authenticate')
 const defaultVariables = require('../middlewares/defaultVariables')
+const refreshTokenJWT = require('../middlewares/refreshTokenJWT')
 
 const {
 	getAll,
@@ -12,6 +13,7 @@ const {
 const router = express.Router()
 
 router.use(authenticate)
+router.use(refreshTokenJWT) //TODO: Apply to all routes
 
 router.get('/', defaultVariables, getAll)
 router.post('/', insert)

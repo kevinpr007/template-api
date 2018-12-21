@@ -37,7 +37,8 @@ module.exports = (req, res, next) => {
 								)
 							)
 					} else {
-						//TODO: Add refresh token
+						//TODO: Add Authorization
+						req.decodedToken = decodedToken
 						req.currentUser = userFactory(decodedToken)
 						next()
 					}
