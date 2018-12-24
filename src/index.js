@@ -46,13 +46,13 @@ const main = require('./routes/main')
 const users = require('./routes/users')
 const auth = require('./routes/auth')
 const entity1 = require('./routes/entity1')
-//TODO: Add new entity
-
+const entity2 = require('./routes/entity2')
 //Setting Routes
 app.use('/', main)
 app.use('/api/users', users)
 app.use('/api/auth', auth)
 app.use('/api/entity1', entity1)
+app.use('/api/entity2', entity2)
 
 //Set static Pages
 app.use(express.static('public'))
