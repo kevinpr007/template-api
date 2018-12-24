@@ -1,9 +1,10 @@
 const HttpStatus = require('http-status-codes')
 const User = require('../models/User')
-const parseErrors = require('../utils/parseErrors')
 const globalErrorFactory = require('../utils/globalErrorFactory')
 const { sendConfirmationEmailValidation } = require('../utils/email/mailer')
 const setDataFactory = require('../utils/setDataFactory')
+const userFactory = require('../utils/userFactory')
+const { ROLES } = require('../utils/constant')
 
 //TODO: Add in service
 const signUp = async (req, res, next) => {
@@ -35,6 +36,26 @@ const signUp = async (req, res, next) => {
 	}
 }
 
+const addRoleToUser = async (req, res, next) => {
+	const { userId, role } = req.body
+
+	if (ROLES.includes(role)) {
+		let result = await User.findById(userId)
+		if (result !== null && result.roles.includes(role) == false) {
+			result.roles.push(role)
+			result.save()
+		}
+
+		const data = setDataFactory('data', userFactory(result))
+		res.json(data)
+	} else {
+		res
+			.status(HttpStatus.BAD_REQUEST)
+			.json(globalErrorFactory('This role is not valid'))
+	}
+}
+
 module.exports = {
 	signUp,
+	addRoleToUser,
 }

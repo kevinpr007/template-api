@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 const userService = require('../services/users')
 const timestampPlugin = require('./plugins/timestamp')
-
+const { ROLES, USER } = require('../utils/constant.js')
 let schema = new mongoose.Schema(
 	{
 		email: {
@@ -18,6 +18,13 @@ let schema = new mongoose.Schema(
 			index: true,
 			unique: true,
 		},
+		roles: [
+			{
+				type: String,
+				enum: ROLES,
+				default: USER,
+			},
+		],
 		passwordHash: { type: String, required: true },
 		confirmed: { type: Boolean, default: false },
 		confirmationToken: { type: String, default: '' },
@@ -61,6 +68,11 @@ schema.methods.generateResetPasswordToken = function() {
 schema.methods.toAuthJSON = function() {
 	return userService.toAuthJSON(this)
 }
+
+schema.pre('save', function(next) {
+	if (this.roles.length == 0) this.roles.push(USER)
+	next()
+})
 
 schema.plugin(uniqueValidator)
 
