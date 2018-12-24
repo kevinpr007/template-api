@@ -27,4 +27,4 @@ let schema = new mongoose.Schema(
 
 schema.plugin(timestampPlugin)
 
-module.exports = mongoose.model('Entity2', schema)
+module.exports = mongoose.models.Entity2 || mongoose.model('Entity2', schema)

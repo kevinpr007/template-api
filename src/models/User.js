@@ -15,6 +15,7 @@ let schema = new mongoose.Schema(
 		username: {
 			type: String,
 			required: true,
+			lowercase: true,
 			index: true,
 			unique: true,
 		},
@@ -76,4 +77,4 @@ schema.pre('save', function(next) {
 
 schema.plugin(uniqueValidator)
 
-module.exports = mongoose.model('User', schema)
+module.exports = mongoose.models.User || mongoose.model('User', schema)

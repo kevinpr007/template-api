@@ -41,4 +41,4 @@ schema.virtual('testVirtual').get(function() {
 	return this.MyField + ' ' + this.MyDescription
 })
 
-module.exports = mongoose.model('Entity1', schema)
+module.exports = mongoose.models.Entity1 || mongoose.model('Entity1', schema)
