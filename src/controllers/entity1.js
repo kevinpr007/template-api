@@ -3,7 +3,7 @@ const globalErrorFactory = require('../utils/globalErrorFactory')
 const setDataFactory = require('../utils/setDataFactory')
 const Entity1 = require('../models/entity1')
 const repository = require('../services/repository')
-const entityFactory = require('../models/entityFactory')
+const entity1Factory = require('../models/entity1Factory')
 const paginationFactory = require('../utils/paginationFactory')
 
 const getAll = async (req, res) => {
@@ -22,7 +22,7 @@ const getAll = async (req, res) => {
 }
 
 const insert = async (req, res, next) => {
-	const entityToInsert = entityFactory(req.body)
+	const entityToInsert = entity1Factory(req.body)
 
 	try {
 		const entityRecord = await repository.insert(Entity1, entityToInsert)
@@ -40,7 +40,7 @@ const getById = async (req, res) => {
 }
 
 const updateById = async (req, res) => {
-	const entityToUpdate = entityFactory(req.body)
+	const entityToUpdate = entity1Factory(req.body)
 
 	let record = await repository.updateById(Entity1, req.params, entityToUpdate)
 
