@@ -5,6 +5,7 @@ const Entity2 = require('../models/entity2')
 const repository = require('../services/repository')
 const entity2Factory = require('../models/entity2Factory')
 const paginationFactory = require('../utils/paginationFactory')
+const { ERROR_RECORD_NOT_FOUND } = require('../utils/constant')
 
 const getAll = async (req, res) => {
 	const [allRecords, count] = await repository.getAll(
@@ -27,6 +28,7 @@ const insert = async (req, res, next) => {
 	try {
 		const entityRecord = await repository.insert(Entity2, entityToInsert)
 		const data = setDataFactory('data', entityRecord)
+
 		res.status(HttpStatus.CREATED).json(data)
 	} catch (err) {
 		next(err)
@@ -46,11 +48,11 @@ const updateById = async (req, res) => {
 
 	if (record) {
 		let data = setDataFactory('data', record)
-		res.json(data) //TODO: Add response factory
+		res.json(data)
 	} else {
 		res
 			.status(HttpStatus.NOT_FOUND)
-			.json(globalErrorFactory('Record not found.')) //TODO: Create Global Errors
+			.json(globalErrorFactory(ERROR_RECORD_NOT_FOUND))
 	}
 }
 

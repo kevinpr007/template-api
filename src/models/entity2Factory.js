@@ -1,5 +1,4 @@
 module.exports = (entity) => {
-	//TODO: check if null value when update
 	return {
 		MyString: entity.MyString,
 		MyNumber: entity.MyNumber,

@@ -5,6 +5,7 @@ const Entity1 = require('../models/entity1')
 const repository = require('../services/repository')
 const entity1Factory = require('../models/entity1Factory')
 const paginationFactory = require('../utils/paginationFactory')
+const { ERROR_RECORD_NOT_FOUND } = require('../utils/constant')
 
 const getAll = async (req, res) => {
 	const [allRecords, count] = await repository.getAll(
@@ -50,7 +51,7 @@ const updateById = async (req, res) => {
 	} else {
 		res
 			.status(HttpStatus.NOT_FOUND)
-			.json(globalErrorFactory('Record not found.'))
+			.json(globalErrorFactory(ERROR_RECORD_NOT_FOUND))
 	}
 }
 
