@@ -13,7 +13,7 @@ const {
 const router = express.Router()
 
 router.use(authenticate)
-router.use(refreshTokenJWT) //TODO: Apply to all routes
+router.use(refreshTokenJWT)
 
 router.get('/', defaultVariables, getAll)
 router.post('/', insert)
