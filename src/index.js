@@ -58,8 +58,7 @@ app.use('/api/entity2', entity2)
 app.use(express.static('public'))
 
 //Redirect all unknown pages to not found
-//TODO: Verify this to all
-app.get('/*', (req, res) => {
+app.all('/*', (req, res) => {
 	res.status(HttpStatus.NOT_FOUND).json()
 })
 
