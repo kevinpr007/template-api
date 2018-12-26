@@ -2,6 +2,8 @@ const express = require('express')
 const authenticate = require('../middlewares/authenticate')
 const defaultVariables = require('../middlewares/defaultVariables')
 const refreshTokenJWT = require('../middlewares/refreshTokenJWT')
+const authorize = require('../middlewares/authorize')
+const { USER } = require('../utils/constant')
 
 const {
 	getAll,
@@ -14,6 +16,7 @@ const router = express.Router()
 
 router.use(authenticate)
 router.use(refreshTokenJWT)
+router.use(authorize(USER))
 
 router.get('/', defaultVariables, getAll)
 router.post('/', insert)
