@@ -75,19 +75,6 @@ const resetPasswordRequest = async (req, res, next) => {
 	}
 }
 
-const validateToken = (req, res) => {
-	const { token } = req.body
-	const [err, decodedToken] = jwtService.verify(token)
-
-	if (err) {
-		res
-			.status(HttpStatus.UNAUTHORIZED)
-			.json(globalErrorFactory('The token is not valid', err))
-	} else {
-		res.json()
-	}
-}
-
 const resetPassword = async (req, res, next) => {
 	const { password, token } = req.body
 	const [err, decodedToken] = jwtService.verify(token)
@@ -137,9 +124,41 @@ const resetPassword = async (req, res, next) => {
 	}
 }
 
+const validateToken = (req, res) => {
+	const { token } = req.body
+	const [err, decodedToken] = jwtService.verify(token)
+
+	if (err) {
+		res
+			.status(HttpStatus.UNAUTHORIZED)
+			.json(globalErrorFactory('The token is not valid', err))
+	} else {
+		res.json()
+	}
+}
+
 const currentUser = (req, res) => {
 	const data = setDataFactory('data', userFactory(req.currentUser))
 	res.json(data)
+}
+
+const RefreshToken = (req, res) => {
+	const { token } = req.body
+	const [err, decodedToken] = jwtService.verify(token)
+
+	if (err) {
+		res
+			.status(HttpStatus.UNAUTHORIZED)
+			.json(globalErrorFactory('The token is not valid', err))
+	} else if (decodedToken) {
+		const decodedRefreshToken = jwtService.sign(decodedToken)
+		res.set('X-JWTRefresh-Token', decodedRefreshToken)
+		res.json()
+	} else {
+		res
+			.status(HttpStatus.BAD_REQUEST)
+			.json(globalErrorFactory('Token not found', err))
+	}
 }
 
 module.exports = {
@@ -149,4 +168,5 @@ module.exports = {
 	validateToken,
 	resetPassword,
 	currentUser,
+	RefreshToken,
 }
