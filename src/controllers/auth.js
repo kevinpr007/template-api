@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken')
 const HttpStatus = require('http-status-codes')
 const User = require('../models/User')
 const {
@@ -8,8 +7,8 @@ const {
 } = require('../utils/email/mailer')
 const globalErrorFactory = require('../utils/globalErrorFactory')
 const userFactory = require('../utils/userFactory')
-const JWTVariableFactory = require('../utils/JWTVariableFactory')
 const setDataFactory = require('../utils/setDataFactory')
+const jwtService = require('../services/jwtService')
 
 //TODO: Add Service
 const login = async (req, res) => {
@@ -78,71 +77,64 @@ const resetPasswordRequest = async (req, res, next) => {
 
 const validateToken = (req, res) => {
 	const { token } = req.body
-	//TODO: Add Service
-	jwt.verify(token, process.env.JWT_SECRET, JWTVariableFactory, (err) => {
-		if (err) {
-			res
-				.status(HttpStatus.UNAUTHORIZED)
-				.json(globalErrorFactory('The token is not valid', err))
-		} else {
-			res.json()
-		}
-	})
+	const [err, decodedToken] = jwtService.verify(token)
+
+	if (err) {
+		res
+			.status(HttpStatus.UNAUTHORIZED)
+			.json(globalErrorFactory('The token is not valid', err))
+	} else {
+		res.json()
+	}
 }
 
-const resetPassword = (req, res, next) => {
+const resetPassword = async (req, res, next) => {
 	const { password, token } = req.body
-	//TODO: Add Service
-	jwt.verify(
-		token,
-		process.env.JWT_SECRET,
-		JWTVariableFactory,
-		async (err, decoded) => {
-			if (err) {
-				res
-					.status(HttpStatus.UNAUTHORIZED)
-					.json(globalErrorFactory('Invalid token', err))
-			} else {
-				try {
-					let user = await User.findOne({
-						_id: decoded._id,
-						resetPasswordToken: decoded.resetPasswordToken,
-					})
+	const [err, decodedToken] = jwtService.verify(token)
 
-					if (user) {
-						if (user.isPasswordLength(password)) {
-							user.setPassword(password)
-							user.resetPasswordToken = ''
+	if (err) {
+		res
+			.status(HttpStatus.UNAUTHORIZED)
+			.json(globalErrorFactory('Invalid token', err))
+	} else {
+		try {
+			let user = await User.findOne({
+				_id: decodedToken._id,
+				resetPasswordToken: decodedToken.resetPasswordToken,
+			})
 
-							try {
-								let userRecord = await user.save()
-								sendResetPasswordEmail(userRecord)
-								res.json()
-							} catch (error) {
-								next(error)
-							}
-						} else {
-							res
-								.status(HttpStatus.BAD_REQUEST)
-								.json(
-									globalErrorFactory(
-										`You have entered less than ${
-											process.env.PASSWORD_LENGTH
-										} characters for password`
-									)
-								)
-						}
-					} else {
-						res
-							.status(HttpStatus.NOT_FOUND)
-							.json(globalErrorFactory('User or token not found'))
+			if (user) {
+				if (user.isPasswordLength(password)) {
+					user.setPassword(password)
+					user.resetPasswordToken = ''
+
+					try {
+						let userRecord = await user.save()
+						sendResetPasswordEmail(userRecord)
+						res.json()
+					} catch (error) {
+						next(error)
 					}
-				} catch (err) {
-					next(err)
+				} else {
+					res
+						.status(HttpStatus.BAD_REQUEST)
+						.json(
+							globalErrorFactory(
+								`You have entered less than ${
+									process.env.PASSWORD_LENGTH
+								} characters for password`
+							)
+						)
 				}
+			} else {
+				res
+					.status(HttpStatus.NOT_FOUND)
+					.json(globalErrorFactory('User or token not found'))
 			}
+		} catch (err) {
+			next(err)
 		}
-	)
+	}
 }
 
 const currentUser = (req, res) => {
