@@ -8,7 +8,7 @@ const { ROLES } = require('../utils/constant')
 
 //TODO: Add in service
 const signUp = async (req, res, next) => {
-	const { email, password, username } = req.body.user
+	const { email, password, username } = req.body
 	const user = new User({ email, username })
 
 	if (user.isPasswordLength(password)) {
@@ -39,23 +39,61 @@ const signUp = async (req, res, next) => {
 const addRoleToUser = async (req, res, next) => {
 	const { userId, role } = req.body
 
-	if (ROLES.includes(role)) {
-		let result = await User.findById(userId)
-		if (result !== null && result.roles.includes(role) == false) {
-			result.roles.push(role)
-			result.save()
+	try {
+		if (ROLES.includes(role)) {
+			let user = await User.findById(userId)
+			if (user) {
+				if (user !== null && user.roles.includes(role) == false) {
+					user.roles.push(role)
+					user.save()
+				}
+				const data = setDataFactory('data', userFactory(user))
+				res.json(data)
+			} else {
+				res
+					.status(HttpStatus.NOT_FOUND)
+					.json(globalErrorFactory('User not found'))
+			}
+		} else {
+			res
+				.status(HttpStatus.BAD_REQUEST)
+				.json(globalErrorFactory('This role is not valid'))
 		}
+	} catch (err) {
+		next(err)
+	}
+}
 
-		const data = setDataFactory('data', userFactory(result))
-		res.json(data)
-	} else {
-		res
-			.status(HttpStatus.BAD_REQUEST)
-			.json(globalErrorFactory('This role is not valid'))
+const RemoveRoleFromUser = async (req, res, next) => {
+	const { userId, role } = req.body
+
+	try {
+		if (ROLES.includes(role)) {
+			let user = await User.findById(userId)
+			if (user) {
+				if (user.roles.includes(role)) {
+					user.roles.pull(role)
+					user.save()
+				}
+				const data = setDataFactory('data', userFactory(user))
+				res.json(data)
+			} else {
+				res
+					.status(HttpStatus.NOT_FOUND)
+					.json(globalErrorFactory('User not found'))
+			}
+		} else {
+			res
+				.status(HttpStatus.BAD_REQUEST)
+				.json(globalErrorFactory('This role is not valid'))
+		}
+	} catch (err) {
+		next(err)
 	}
 }
 
 module.exports = {
 	signUp,
 	addRoleToUser,
+	RemoveRoleFromUser,
 }
