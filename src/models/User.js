@@ -37,14 +37,14 @@ let schema = new mongoose.Schema(
 
 schema.plugin(timestampPlugin)
 
-schema.methods.isValidPassword = function(password) {
-	return userService.isValidPassword(password, this.passwordHash)
+schema.methods.isValidPassword = async function(password) {
+	return await userService.isValidPassword(password, this.passwordHash)
 }
 schema.methods.isPasswordLength = function(password) {
 	return userService.isPasswordLength(password)
 }
-schema.methods.setPassword = function(password) {
-	this.passwordHash = userService.setPassword(password)
+schema.methods.setPassword = async function(password) {
+	this.passwordHash = await userService.setPassword(password)
 }
 schema.methods.setConfirmationToken = function() {
 	this.confirmationToken = userService.setConfirmationToken()

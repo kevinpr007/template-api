@@ -24,7 +24,7 @@ const login = async (req, res, next) => {
 		const { credentials } = req.body
 		let user = await User.findOne({ email: credentials.email })
 
-		if (user && user.isValidPassword(credentials.password)) {
+		if (user && (await user.isValidPassword(credentials.password))) {
 			const data = setDataFactory('data', user.toAuthJSON())
 			res.json(data)
 		} else {
@@ -100,7 +100,7 @@ const resetPassword = async (req, res, next) => {
 
 			if (user) {
 				if (user.isPasswordLength(password)) {
-					user.setPassword(password)
+					await user.setPassword(password)
 					user.resetPasswordToken = ''
 
 					let userRecord = await user.save()

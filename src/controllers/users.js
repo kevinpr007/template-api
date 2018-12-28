@@ -17,7 +17,7 @@ const signUp = async (req, res, next) => {
 		const user = new User({ email, username })
 
 		if (user.isPasswordLength(password)) {
-			user.setPassword(password)
+			await user.setPassword(password)
 			user.setConfirmationToken()
 
 			let userRecord = await user.save()
