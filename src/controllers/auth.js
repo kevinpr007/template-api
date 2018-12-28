@@ -9,6 +9,14 @@ const globalErrorFactory = require('../utils/globalErrorFactory')
 const userFactory = require('../utils/userFactory')
 const setDataFactory = require('../utils/setDataFactory')
 const jwtService = require('../services/jwtService')
+const {
+	ERROR_TOKEN_NOT_VALID,
+	ERROR_TOKEN_NOT_FOUND,
+	ERROR_USER_NOT_FOUND,
+	ERROR_INVALID_TOKEN,
+	ERROR_INVALID_CREDENTIAL,
+	ERROR_USER_OR_TOKEN_NOT_FOUND,
+} = require('../utils/constant')
 
 //TODO: Add Service
 const login = async (req, res) => {
@@ -22,7 +30,7 @@ const login = async (req, res) => {
 	} else {
 		res
 			.status(HttpStatus.BAD_REQUEST)
-			.json(globalErrorFactory('Invalid credentials'))
+			.json(globalErrorFactory(ERROR_INVALID_CREDENTIAL))
 	}
 }
 
@@ -43,7 +51,7 @@ const confirmation = async (req, res, next) => {
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
-				.json(globalErrorFactory('The confirmation token is not valid'))
+				.json(globalErrorFactory(ERROR_TOKEN_NOT_VALID))
 		}
 	} catch (err) {
 		next(err)
@@ -68,7 +76,7 @@ const resetPasswordRequest = async (req, res, next) => {
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
-				.json(globalErrorFactory('There is no user with this email'))
+				.json(globalErrorFactory(ERROR_USER_NOT_FOUND))
 		}
 	} catch (err) {
 		next(err)
@@ -82,7 +90,7 @@ const resetPassword = async (req, res, next) => {
 	if (err) {
 		res
 			.status(HttpStatus.UNAUTHORIZED)
-			.json(globalErrorFactory('Invalid token', err))
+			.json(globalErrorFactory(ERROR_INVALID_TOKEN, err))
 	} else {
 		try {
 			let user = await User.findOne({
@@ -116,7 +124,7 @@ const resetPassword = async (req, res, next) => {
 			} else {
 				res
 					.status(HttpStatus.NOT_FOUND)
-					.json(globalErrorFactory('User or token not found'))
+					.json(globalErrorFactory(ERROR_USER_OR_TOKEN_NOT_FOUND))
 			}
 		} catch (err) {
 			next(err)
@@ -131,7 +139,7 @@ const validateToken = (req, res) => {
 	if (err) {
 		res
 			.status(HttpStatus.UNAUTHORIZED)
-			.json(globalErrorFactory('The token is not valid', err))
+			.json(globalErrorFactory(ERROR_TOKEN_NOT_VALID, err))
 	} else {
 		res.json()
 	}
@@ -149,7 +157,7 @@ const RefreshToken = (req, res) => {
 	if (err) {
 		res
 			.status(HttpStatus.UNAUTHORIZED)
-			.json(globalErrorFactory('The token is not valid', err))
+			.json(globalErrorFactory(ERROR_TOKEN_NOT_VALID, err))
 	} else if (decodedToken) {
 		const decodedRefreshToken = jwtService.sign(decodedToken)
 		res.set('X-JWTRefresh-Token', decodedRefreshToken)
@@ -157,7 +165,7 @@ const RefreshToken = (req, res) => {
 	} else {
 		res
 			.status(HttpStatus.BAD_REQUEST)
-			.json(globalErrorFactory('Token not found', err))
+			.json(globalErrorFactory(ERROR_TOKEN_NOT_FOUND, err))
 	}
 }
 

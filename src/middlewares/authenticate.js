@@ -2,6 +2,10 @@ const HttpStatus = require('http-status-codes')
 const globalErrorFactory = require('../utils/globalErrorFactory')
 const userFactory = require('../utils/userFactory')
 const jwtService = require('../services/jwtService')
+const {
+	ERROR_TOKEN_NOT_FOUND,
+	ERROR_INVALID_TOKEN,
+} = require('../utils/constant')
 
 module.exports = (req, res, next) => {
 	const header = req.headers.authorization
@@ -16,7 +20,7 @@ module.exports = (req, res, next) => {
 		if (err) {
 			res
 				.status(HttpStatus.UNAUTHORIZED)
-				.json(globalErrorFactory('Invalid token', err))
+				.json(globalErrorFactory(ERROR_INVALID_TOKEN, err))
 		} else {
 			// User.findOne({ email: decodedToken.email }).then(user => {
 			//   req.currentUser = user;
@@ -40,6 +44,6 @@ module.exports = (req, res, next) => {
 	} else {
 		res
 			.status(HttpStatus.UNAUTHORIZED)
-			.json(globalErrorFactory('Token not found'))
+			.json(globalErrorFactory(ERROR_TOKEN_NOT_FOUND))
 	}
 }

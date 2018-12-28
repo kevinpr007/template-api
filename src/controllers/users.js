@@ -4,7 +4,11 @@ const globalErrorFactory = require('../utils/globalErrorFactory')
 const { sendConfirmationEmailValidation } = require('../utils/email/mailer')
 const setDataFactory = require('../utils/setDataFactory')
 const userFactory = require('../utils/userFactory')
-const { ROLES } = require('../utils/constant')
+const {
+	ROLES,
+	ERROR_USER_NOT_FOUND,
+	ERROR_ROLE_NOT_VALID,
+} = require('../utils/constant')
 
 //TODO: Add in service
 const signUp = async (req, res, next) => {
@@ -52,12 +56,12 @@ const addRoleToUser = async (req, res, next) => {
 			} else {
 				res
 					.status(HttpStatus.NOT_FOUND)
-					.json(globalErrorFactory('User not found'))
+					.json(globalErrorFactory(ERROR_USER_NOT_FOUND))
 			}
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
-				.json(globalErrorFactory('This role is not valid'))
+				.json(globalErrorFactory(ERROR_ROLE_NOT_VALID))
 		}
 	} catch (err) {
 		next(err)
@@ -80,12 +84,12 @@ const RemoveRoleFromUser = async (req, res, next) => {
 			} else {
 				res
 					.status(HttpStatus.NOT_FOUND)
-					.json(globalErrorFactory('User not found'))
+					.json(globalErrorFactory(ERROR_USER_NOT_FOUND))
 			}
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
-				.json(globalErrorFactory('This role is not valid'))
+				.json(globalErrorFactory(ERROR_ROLE_NOT_VALID))
 		}
 	} catch (err) {
 		next(err)
