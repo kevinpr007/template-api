@@ -12,38 +12,38 @@ const {
 
 //TODO: Add in service
 const signUp = async (req, res, next) => {
-	const { email, password, username } = req.body
-	const user = new User({ email, username })
+	try {
+		const { email, password, username } = req.body
+		const user = new User({ email, username })
 
-	if (user.isPasswordLength(password)) {
-		user.setPassword(password)
-		user.setConfirmationToken()
+		if (user.isPasswordLength(password)) {
+			user.setPassword(password)
+			user.setConfirmationToken()
 
-		try {
 			let userRecord = await user.save()
 			sendConfirmationEmailValidation(userRecord)
 			const data = setDataFactory('data', userRecord.toAuthJSON())
 			res.json(data)
-		} catch (err) {
-			next(err)
-		}
-	} else {
-		res
-			.status(HttpStatus.BAD_REQUEST)
-			.json(
-				globalErrorFactory(
-					`You have entered less than ${
-						process.env.PASSWORD_LENGTH
-					} characters for password`
+		} else {
+			res
+				.status(HttpStatus.BAD_REQUEST)
+				.json(
+					globalErrorFactory(
+						`You have entered less than ${
+							process.env.PASSWORD_LENGTH
+						} characters for password`
+					)
 				)
-			)
+		}
+	} catch (err) {
+		next(err)
 	}
 }
 
 const addRoleToUser = async (req, res, next) => {
-	const { userId, role } = req.body
-
 	try {
+		const { userId, role } = req.body
+
 		if (ROLES.includes(role)) {
 			let user = await User.findById(userId)
 			if (user) {
@@ -69,9 +69,9 @@ const addRoleToUser = async (req, res, next) => {
 }
 
 const RemoveRoleFromUser = async (req, res, next) => {
-	const { userId, role } = req.body
-
 	try {
+		const { userId, role } = req.body
+
 		if (ROLES.includes(role)) {
 			let user = await User.findById(userId)
 			if (user) {

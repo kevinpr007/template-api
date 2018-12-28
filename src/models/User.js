@@ -3,6 +3,7 @@ const uniqueValidator = require('mongoose-unique-validator')
 const userService = require('../services/users')
 const timestampPlugin = require('./plugins/timestamp')
 const { ROLES, USER } = require('../utils/constant.js')
+
 let schema = new mongoose.Schema(
 	{
 		email: {

@@ -47,6 +47,7 @@ const users = require('./routes/users')
 const auth = require('./routes/auth')
 const entity1 = require('./routes/entity1')
 const entity2 = require('./routes/entity2')
+
 //Setting Routes
 app.use('/', main)
 app.use('/api/users', users)

@@ -19,25 +19,28 @@ const {
 } = require('../utils/constant')
 
 //TODO: Add Service
-const login = async (req, res) => {
-	const { credentials } = req.body
+const login = async (req, res, next) => {
+	try {
+		const { credentials } = req.body
+		let user = await User.findOne({ email: credentials.email })
 
-	let user = await User.findOne({ email: credentials.email })
-
-	if (user && user.isValidPassword(credentials.password)) {
-		const data = setDataFactory('data', user.toAuthJSON())
-		res.json(data)
-	} else {
-		res
-			.status(HttpStatus.BAD_REQUEST)
-			.json(globalErrorFactory(ERROR_INVALID_CREDENTIAL))
+		if (user && user.isValidPassword(credentials.password)) {
+			const data = setDataFactory('data', user.toAuthJSON())
+			res.json(data)
+		} else {
+			res
+				.status(HttpStatus.BAD_REQUEST)
+				.json(globalErrorFactory(ERROR_INVALID_CREDENTIAL))
+		}
+	} catch (err) {
+		next(err)
 	}
 }
 
 const confirmation = async (req, res, next) => {
-	const { token } = req.query
-
 	try {
+		const { token } = req.query
+
 		let user = await User.findOneAndUpdate(
 			{ confirmationToken: token },
 			{ confirmationToken: '', confirmed: true },
@@ -59,20 +62,17 @@ const confirmation = async (req, res, next) => {
 }
 
 const resetPasswordRequest = async (req, res, next) => {
-	const { email } = req.body
-
 	try {
+		const { email } = req.body
+
 		let user = await User.findOne({ email: email })
 		if (user) {
 			user.setResetPassword()
 			user.setResetPasswordToken()
-			try {
-				let updatedUser = await user.save()
-				sendResetPasswordEmailValidation(updatedUser)
-				res.json()
-			} catch (error) {
-				next(error)
-			}
+
+			let updatedUser = await user.save()
+			sendResetPasswordEmailValidation(updatedUser)
+			res.json()
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
@@ -84,15 +84,15 @@ const resetPasswordRequest = async (req, res, next) => {
 }
 
 const resetPassword = async (req, res, next) => {
-	const { password, token } = req.body
-	const [err, decodedToken] = jwtService.verify(token)
+	try {
+		const { password, token } = req.body
+		const [err, decodedToken] = jwtService.verify(token)
 
-	if (err) {
-		res
-			.status(HttpStatus.UNAUTHORIZED)
-			.json(globalErrorFactory(ERROR_INVALID_TOKEN, err))
-	} else {
-		try {
+		if (err) {
+			res
+				.status(HttpStatus.UNAUTHORIZED)
+				.json(globalErrorFactory(ERROR_INVALID_TOKEN, err))
+		} else {
 			let user = await User.findOne({
 				_id: decodedToken._id,
 				resetPasswordToken: decodedToken.resetPasswordToken,
@@ -103,13 +103,9 @@ const resetPassword = async (req, res, next) => {
 					user.setPassword(password)
 					user.resetPasswordToken = ''
 
-					try {
-						let userRecord = await user.save()
-						sendResetPasswordEmail(userRecord)
-						res.json()
-					} catch (error) {
-						next(error)
-					}
+					let userRecord = await user.save()
+					sendResetPasswordEmail(userRecord)
+					res.json()
 				} else {
 					res
 						.status(HttpStatus.BAD_REQUEST)
@@ -126,46 +122,58 @@ const resetPassword = async (req, res, next) => {
 					.status(HttpStatus.NOT_FOUND)
 					.json(globalErrorFactory(ERROR_USER_OR_TOKEN_NOT_FOUND))
 			}
-		} catch (err) {
-			next(err)
 		}
+	} catch (err) {
+		next(err)
 	}
 }
 
-const validateToken = (req, res) => {
-	const { token } = req.body
-	const [err, decodedToken] = jwtService.verify(token)
+const validateToken = async (req, res, next) => {
+	try {
+		const { token } = req.body
+		const [err, decodedToken] = jwtService.verify(token)
 
-	if (err) {
-		res
-			.status(HttpStatus.UNAUTHORIZED)
-			.json(globalErrorFactory(ERROR_TOKEN_NOT_VALID, err))
-	} else {
-		res.json()
+		if (err) {
+			res
+				.status(HttpStatus.UNAUTHORIZED)
+				.json(globalErrorFactory(ERROR_TOKEN_NOT_VALID, err))
+		} else {
+			res.json()
+		}
+	} catch (err) {
+		next(err)
 	}
 }
 
-const currentUser = (req, res) => {
-	const data = setDataFactory('data', userFactory(req.currentUser))
-	res.json(data)
+const currentUser = async (req, res, next) => {
+	try {
+		const data = setDataFactory('data', userFactory(req.currentUser))
+		res.json(data)
+	} catch (err) {
+		next(err)
+	}
 }
 
-const RefreshToken = (req, res) => {
-	const { token } = req.body
-	const [err, decodedToken] = jwtService.verify(token)
+const RefreshToken = async (req, res, next) => {
+	try {
+		const { token } = req.body
+		const [err, decodedToken] = jwtService.verify(token)
 
-	if (err) {
-		res
-			.status(HttpStatus.UNAUTHORIZED)
-			.json(globalErrorFactory(ERROR_TOKEN_NOT_VALID, err))
-	} else if (decodedToken) {
-		const decodedRefreshToken = jwtService.sign(decodedToken)
-		res.set('X-JWT-Refresh-Token', decodedRefreshToken)
-		res.json()
-	} else {
-		res
-			.status(HttpStatus.BAD_REQUEST)
-			.json(globalErrorFactory(ERROR_TOKEN_NOT_FOUND, err))
+		if (err) {
+			res
+				.status(HttpStatus.UNAUTHORIZED)
+				.json(globalErrorFactory(ERROR_TOKEN_NOT_VALID, err))
+		} else if (decodedToken) {
+			const decodedRefreshToken = jwtService.sign(decodedToken)
+			res.set('X-JWT-Refresh-Token', decodedRefreshToken)
+			res.json()
+		} else {
+			res
+				.status(HttpStatus.BAD_REQUEST)
+				.json(globalErrorFactory(ERROR_TOKEN_NOT_FOUND, err))
+		}
+	} catch (err) {
+		next(err)
 	}
 }
 
