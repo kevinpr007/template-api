@@ -10,6 +10,7 @@ const helmet = require('helmet')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const HttpStatus = require('http-status-codes')
+const compression = require('compression')
 const globalErrorMiddleware = require('./middlewares/globalError')
 
 //Setting Express App
@@ -17,6 +18,9 @@ const app = express()
 
 //Helmet Settings
 app.use(helmet())
+
+// compress all responses
+app.use(compression())
 
 //Cors Settings
 const whitelist = process.env.CORS_WHITELIST.split(',')
