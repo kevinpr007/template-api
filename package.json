@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "prettier": "prettier --config ./.prettierrc --write ./src/**/*.js",
-    "eslint": "eslint ./src/**/*.js"
+    "eslint": "eslint ./src/**/*.js",
+    "test": "jest --coverage --coverageDirectory=output/coverage/jest"
   },
   "repository": {
     "type": "git",
@@ -45,6 +46,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "eslint": "^5.11.1",
     "faker": "^4.1.0",
+    "jest": "^23.6.0",
     "nodemon": "^1.18.9",
     "prettier": "^1.15.3"
   }
