@@ -23,3 +23,4 @@ BUNYAN_PERIOD=1d
 BUNYAN_BACK_COPIES=5
 CORS_WHITELIST=http://example1.com,http://example2.com,http://example3.com
 REST_Limit_Page=10
+NODE_ENV=production
