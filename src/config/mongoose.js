@@ -24,19 +24,19 @@ module.exports = () => {
 	)
 
 	mongoose.connection.on('connecting', () => {
-		console.log('Trying to establish a connection to MongoDB')
+		logger.debug('Trying to establish a connection to MongoDB')
 	})
 
 	mongoose.connection.on('connected', () => {
-		console.log('Connection established successfully')
+		logger.debug('Connection established successfully')
 	})
 
 	mongoose.connection.on('error', (err) => {
-		console.log(`Connection to MongoDB failed: ${err}`)
+		logger.debug(`Connection to MongoDB failed: ${err}`)
 	})
 
 	mongoose.connection.on('disconnected', () => {
-		console.log('MongoDB connection closed')
+		logger.debug('MongoDB connection closed')
 	})
 
 	return mongoose.connect(process.env.MONGODB_URL)
