@@ -12,6 +12,8 @@ const ERROR_INVALID_CREDENTIAL = 'Invalid credentials'
 const ERROR_ROLE_NOT_VALID = 'Role is not valid'
 const ERROR_USER_OR_TOKEN_NOT_FOUND = 'User or token not found'
 
+const ERROR_PARAMS_CANT_BE_NULL = "Params can't be null"
+
 module.exports = {
 	USER,
 	ADMIN,
@@ -25,4 +27,5 @@ module.exports = {
 	ERROR_INVALID_CREDENTIAL,
 	ERROR_ROLE_NOT_VALID,
 	ERROR_USER_OR_TOKEN_NOT_FOUND,
+	ERROR_PARAMS_CANT_BE_NULL,
 }
