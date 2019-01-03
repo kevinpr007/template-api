@@ -13,12 +13,13 @@ process.env.PASSWORD_LENGTH = 6
 describe('users.js', () => {
 	describe('Test user functions', () => {
 		beforeEach(() => {
-			// Applies to every test accross all test files
-			// jest.resetModules();
+			jest.resetModules()
 		})
 
 		test('Is Valid Password', async () => {
 			//Settings
+			expect.assertions(5)
+
 			const password = '12345'
 			const passwordHash = 'f1g37fbjk$&^53bdj'
 
@@ -49,6 +50,7 @@ describe('users.js', () => {
 
 		test('Is Password Length', async () => {
 			//Settings
+			expect.assertions(4)
 
 			//compare min length
 			expect(await user.isPasswordLength('1234')).toBeFalsy()
@@ -63,6 +65,8 @@ describe('users.js', () => {
 
 		test('Set Password', async () => {
 			//Settings
+			expect.assertions(2)
+
 			const password = '12345678'
 
 			//Test hash
@@ -80,6 +84,8 @@ describe('users.js', () => {
 
 		test('Set Confirmation Token', async () => {
 			//Settings
+			expect.assertions(2)
+
 			let result = user.setConfirmationToken()
 
 			//Can't be null
@@ -91,6 +97,8 @@ describe('users.js', () => {
 
 		test('Set Reset Password', async () => {
 			//Settings
+			expect.assertions(2)
+
 			bcrypt.hash = jest.fn(() => 'asjdhas112(*&(dksfjhskd')
 
 			//Can't be null
@@ -103,6 +111,8 @@ describe('users.js', () => {
 
 		test('Set Reset Password Token', async () => {
 			//Settings
+			expect.assertions(2)
+
 			let result = user.setResetPasswordToken()
 
 			//Can't be null
@@ -114,6 +124,8 @@ describe('users.js', () => {
 
 		test('Generate Confirmation Url', async () => {
 			//Settings
+			expect.assertions(4)
+
 			let confirmationToken = testToken
 
 			//Must be a string
@@ -136,6 +148,8 @@ describe('users.js', () => {
 
 		test('Generate Reset Password Link', async () => {
 			//Settings
+			expect.assertions(4)
+
 			jwtService.ResetPasswordSign = jest.fn(() => testToken)
 
 			//Must be defined
@@ -160,6 +174,8 @@ describe('users.js', () => {
 
 		test('Generate JWT', async () => {
 			//Settings
+			expect.assertions(2)
+
 			jwtService.sign = jest.fn(() => testToken)
 			user.generateJWT(userData)
 
@@ -176,6 +192,8 @@ describe('users.js', () => {
 
 		test('Generate Reset Password Token', async () => {
 			//Settings
+			expect.assertions(2)
+
 			jwtService.ResetPasswordSign = jest.fn(() => testToken)
 			user.generateResetPasswordToken(userData)
 
@@ -192,6 +210,8 @@ describe('users.js', () => {
 
 		test('To Auth JSON', async () => {
 			//Settings
+			expect.assertions(4)
+
 			jwtService.sign = jest.fn(() => testToken)
 
 			let result = user.toAuthJSON(userData)
