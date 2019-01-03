@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const validator = require('validator')
 const user = require('./users')
-const jwtService = require('../services/jwtService')
+const jwtService = require('./jwtService')
 const testToken = 'Token-12345'
 const userData = 'user'
 
