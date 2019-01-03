@@ -1,4 +1,5 @@
 const Promise = require('bluebird')
+const { ERROR_PARAMS_CANT_BE_NULL } = require('../utils/constant')
 
 const getAll = async (
 	Schema,
@@ -8,6 +9,22 @@ const getAll = async (
 	sort = null,
 	select = null
 ) => {
+	if (!Schema) {
+		throw new Error(ERROR_PARAMS_CANT_BE_NULL)
+	}
+
+	if (!query) {
+		throw new Error(ERROR_PARAMS_CANT_BE_NULL)
+	}
+
+	if (!page) {
+		throw new Error(ERROR_PARAMS_CANT_BE_NULL)
+	}
+
+	if (!limit) {
+		throw new Error(ERROR_PARAMS_CANT_BE_NULL)
+	}
+
 	let count = Schema.find(query),
 		table = Schema.find(query)
 			.skip(limit * page - limit) // skip the first 100 items
@@ -25,6 +42,9 @@ const getAll = async (
 }
 
 const insert = async (Schema, data) => {
+	if (!data) {
+		throw new Error(ERROR_PARAMS_CANT_BE_NULL)
+	}
 	return await new Schema(data).save()
 }
 

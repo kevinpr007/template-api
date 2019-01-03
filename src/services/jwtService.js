@@ -2,8 +2,13 @@ const jwt = require('jsonwebtoken')
 const userFactory = require('../utils/userFactory')
 const signJWT = require('../utils/signJWT')
 const JWTVariableFactory = require('../utils/JWTVariableFactory')
+const { ERROR_PARAMS_CANT_BE_NULL } = require('../utils/constant')
 
 const sign = (user) => {
+	if (!user) {
+		throw new Error(ERROR_PARAMS_CANT_BE_NULL)
+	}
+
 	return jwt.sign(userFactory(user), process.env.JWT_SECRET, signJWT)
 
 	// | code | name            | description                                                                                                                                                                                                                                                                                                        |   |   |
@@ -19,6 +24,10 @@ const sign = (user) => {
 }
 
 const ResetPasswordSign = (user) => {
+	if (!user) {
+		throw new Error(ERROR_PARAMS_CANT_BE_NULL)
+	}
+
 	return jwt.sign(
 		{
 			_id: user._id,
@@ -30,6 +39,10 @@ const ResetPasswordSign = (user) => {
 }
 
 const verify = (token) => {
+	if (!token) {
+		throw new Error(ERROR_PARAMS_CANT_BE_NULL)
+	}
+
 	return jwt.verify(
 		token,
 		process.env.JWT_SECRET,
