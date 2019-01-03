@@ -1,8 +1,8 @@
-const entity1Controller = require('./entity1')
+const entity2Controller = require('./entity2')
 const repository = require('../services/repository')
 
-describe('Controllers/Entity1.js', () => {
-	describe('Test Entity1 Controller functions', () => {
+describe('Controllers/Entity2.js', () => {
+	describe('Test Entity2 Controller functions', () => {
 		beforeEach(() => {
 			jest.resetModules()
 		})
@@ -31,13 +31,13 @@ describe('Controllers/Entity1.js', () => {
 
 			let next = jest.fn(() => {})
 
-			await entity1Controller.getAll(req, res, next)
+			await entity2Controller.getAll(req, res, next)
 
 			//Must be called once
 			expect(repository.getAll).toHaveBeenCalledTimes(1)
 			expect(res.json).toHaveBeenCalledTimes(1)
 
-			await entity1Controller.getAll(req, res, next)
+			await entity2Controller.getAll(req, res, next)
 			expect(next).toHaveBeenCalledTimes(1)
 		})
 
@@ -68,13 +68,13 @@ describe('Controllers/Entity1.js', () => {
 
 			let next = jest.fn(() => {})
 
-			await entity1Controller.insert(req, res, next)
+			await entity2Controller.insert(req, res, next)
 
 			//Must be called once
 			expect(repository.insert).toHaveBeenCalledTimes(1)
 			expect(res.status().json).toHaveBeenCalledTimes(1)
 
-			await entity1Controller.insert(req, res, next)
+			await entity2Controller.insert(req, res, next)
 			expect(next).toHaveBeenCalledTimes(1)
 		})
 
@@ -103,13 +103,13 @@ describe('Controllers/Entity1.js', () => {
 
 			let next = jest.fn(() => {})
 
-			await entity1Controller.getById(req, res, next)
+			await entity2Controller.getById(req, res, next)
 
 			//Must be called once
 			expect(repository.getById).toHaveBeenCalledTimes(1)
 			expect(res.json).toHaveBeenCalledTimes(1)
 
-			await entity1Controller.getById(req, res, next)
+			await entity2Controller.getById(req, res, next)
 			expect(next).toHaveBeenCalledTimes(1)
 		})
 
@@ -143,16 +143,16 @@ describe('Controllers/Entity1.js', () => {
 
 			let next = jest.fn(() => {})
 
-			await entity1Controller.updateById(req, res, next)
+			await entity2Controller.updateById(req, res, next)
 
 			//Must be called once
 			expect(repository.updateById).toHaveBeenCalledTimes(1)
 			expect(res.json).toHaveBeenCalledTimes(1)
 
-			await entity1Controller.updateById(req, res, next)
+			await entity2Controller.updateById(req, res, next)
 			expect(res.status().json).toHaveBeenCalledTimes(1)
 
-			await entity1Controller.updateById(req, res, next)
+			await entity2Controller.updateById(req, res, next)
 			expect(next).toHaveBeenCalledTimes(1)
 		})
 
@@ -179,13 +179,13 @@ describe('Controllers/Entity1.js', () => {
 
 			let next = jest.fn(() => {})
 
-			await entity1Controller.deleteById(req, res, next)
+			await entity2Controller.deleteById(req, res, next)
 
 			//Must be called once
 			expect(repository.deleteById).toHaveBeenCalledTimes(1)
 			expect(res.json).toHaveBeenCalledTimes(1)
 
-			await entity1Controller.deleteById(req, res, next)
+			await entity2Controller.deleteById(req, res, next)
 			expect(next).toHaveBeenCalledTimes(1)
 		})
 	})
