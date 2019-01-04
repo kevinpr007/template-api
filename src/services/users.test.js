@@ -1,14 +1,11 @@
+require('dotenv').config()
+
 const bcrypt = require('bcrypt')
 const validator = require('validator')
 const user = require('./users')
 const jwtService = require('./jwtService')
 const testToken = 'Token-12345'
 const userData = 'user'
-
-process.env.HOST = 'http://localhost'
-process.env.API_PORT = 3000
-process.env.SALT_ROUNDS = 10
-process.env.PASSWORD_LENGTH = 6
 
 describe('users.js', () => {
 	describe('Test user functions', () => {
