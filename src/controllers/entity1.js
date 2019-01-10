@@ -28,7 +28,7 @@ const getAll = async (req, res, next) => {
 
 const insert = async (req, res, next) => {
 	try {
-		const entityToInsert = entity1Factory(req.body)
+		const entityToInsert = entity1Factory.factory(req.body)
 		const entityRecord = await repository.insert(Entity1, entityToInsert)
 		const data = setDataFactory('data', entityRecord)
 		res.status(HttpStatus.CREATED).json(data)
@@ -49,7 +49,7 @@ const getById = async (req, res, next) => {
 
 const updateById = async (req, res, next) => {
 	try {
-		const entityToUpdate = entity1Factory(req.body)
+		const entityToUpdate = entity1Factory.factory(req.body)
 
 		let record = await repository.updateById(
 			Entity1,
@@ -63,7 +63,7 @@ const updateById = async (req, res, next) => {
 		} else {
 			res
 				.status(HttpStatus.NOT_FOUND)
-				.json(globalErrorFactory(ERROR_RECORD_NOT_FOUND))
+				.json(globalErrorFactory.factory(ERROR_RECORD_NOT_FOUND))
 		}
 	} catch (err) {
 		next(err)

@@ -6,5 +6,5 @@ module.exports = (err, req, res, next) => {
 	res
 		.status(err.status || HttpStatus.INTERNAL_SERVER_ERROR)
 		//TODO: Check
-		.json(globalErrorFactory('Global error', parseErrors(err)))
+		.json(globalErrorFactory.factory('Global error', parseErrors.factory(err)))
 }

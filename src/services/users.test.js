@@ -176,7 +176,7 @@ describe('users.js', () => {
 			jwtService.sign = jest.fn(() => testToken)
 			user.generateJWT(userData)
 
-			//Must be called once
+			//Start Tests
 			expect(jwtService.sign).toBeCalledTimes(1)
 
 			//Can't be null
@@ -194,7 +194,7 @@ describe('users.js', () => {
 			jwtService.ResetPasswordSign = jest.fn(() => testToken)
 			user.generateResetPasswordToken(userData)
 
-			//Must be called once
+			//Start Tests
 			expect(jwtService.ResetPasswordSign).toBeCalledTimes(1)
 
 			//Can't be null
@@ -219,7 +219,7 @@ describe('users.js', () => {
 			//Object must contain information
 			expect(result.token).toBeDefined()
 
-			//Must be called once
+			//Start Tests
 			expect(jwtService.sign).toBeCalledTimes(1)
 
 			//Can't be null

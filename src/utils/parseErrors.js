@@ -1,6 +1,6 @@
 const _ = require('lodash')
 
-module.exports = function(errors) {
+const factory = (errors) => {
 	const result = {}
 	_.forEach(errors, (val, key) => {
 		let resultValue
@@ -12,9 +12,13 @@ module.exports = function(errors) {
 		result[key] = resultValue
 	})
 
-	if (errors instanceof Error) {
-		result.message = errors.message
-	}
+	// if (!result && errors instanceof Error) {
+	// 	result.message = errors.message
+	// }
 
 	return result
+}
+
+module.exports = {
+	factory,
 }

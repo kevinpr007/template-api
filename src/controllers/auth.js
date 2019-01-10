@@ -30,7 +30,7 @@ const login = async (req, res, next) => {
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
-				.json(globalErrorFactory(ERROR_INVALID_CREDENTIAL))
+				.json(globalErrorFactory.factory(ERROR_INVALID_CREDENTIAL))
 		}
 	} catch (err) {
 		next(err)
@@ -54,7 +54,7 @@ const confirmation = async (req, res, next) => {
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
-				.json(globalErrorFactory(ERROR_TOKEN_NOT_VALID))
+				.json(globalErrorFactory.factory(ERROR_TOKEN_NOT_VALID))
 		}
 	} catch (err) {
 		next(err)
@@ -76,7 +76,7 @@ const resetPasswordRequest = async (req, res, next) => {
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
-				.json(globalErrorFactory(ERROR_USER_NOT_FOUND))
+				.json(globalErrorFactory.factory(ERROR_USER_NOT_FOUND))
 		}
 	} catch (err) {
 		next(err)
@@ -91,7 +91,7 @@ const resetPassword = async (req, res, next) => {
 		if (err) {
 			res
 				.status(HttpStatus.UNAUTHORIZED)
-				.json(globalErrorFactory(ERROR_INVALID_TOKEN, err))
+				.json(globalErrorFactory.factory(ERROR_INVALID_TOKEN, err))
 		} else {
 			let user = await User.findOne({
 				_id: decodedToken._id,
@@ -110,7 +110,7 @@ const resetPassword = async (req, res, next) => {
 					res
 						.status(HttpStatus.BAD_REQUEST)
 						.json(
-							globalErrorFactory(
+							globalErrorFactory.factory(
 								`You have entered less than ${
 									process.env.PASSWORD_LENGTH
 								} characters for password`
@@ -120,7 +120,7 @@ const resetPassword = async (req, res, next) => {
 			} else {
 				res
 					.status(HttpStatus.NOT_FOUND)
-					.json(globalErrorFactory(ERROR_USER_OR_TOKEN_NOT_FOUND))
+					.json(globalErrorFactory.factory(ERROR_USER_OR_TOKEN_NOT_FOUND))
 			}
 		}
 	} catch (err) {
@@ -136,7 +136,7 @@ const validateToken = async (req, res, next) => {
 		if (err) {
 			res
 				.status(HttpStatus.UNAUTHORIZED)
-				.json(globalErrorFactory(ERROR_TOKEN_NOT_VALID, err))
+				.json(globalErrorFactory.factory(ERROR_TOKEN_NOT_VALID, err))
 		} else {
 			res.json()
 		}
@@ -162,7 +162,7 @@ const RefreshToken = async (req, res, next) => {
 		if (err) {
 			res
 				.status(HttpStatus.UNAUTHORIZED)
-				.json(globalErrorFactory(ERROR_TOKEN_NOT_VALID, err))
+				.json(globalErrorFactory.factory(ERROR_TOKEN_NOT_VALID, err))
 		} else if (decodedToken) {
 			const decodedRefreshToken = jwtService.sign(decodedToken)
 			res.set('X-JWT-Refresh-Token', decodedRefreshToken)
@@ -170,7 +170,7 @@ const RefreshToken = async (req, res, next) => {
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
-				.json(globalErrorFactory(ERROR_TOKEN_NOT_FOUND, err))
+				.json(globalErrorFactory.factory(ERROR_TOKEN_NOT_FOUND, err))
 		}
 	} catch (err) {
 		next(err)

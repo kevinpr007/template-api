@@ -14,7 +14,7 @@ describe('jwtService.js', () => {
 			jwt.sign = jest.fn(() => 'Token-12345')
 			jwtService.sign('user')
 
-			//Must be called once
+			//Start Tests
 			expect(jwt.sign).toHaveBeenCalledTimes(1)
 
 			//Required variable can't be null
@@ -32,7 +32,7 @@ describe('jwtService.js', () => {
 			jwt.sign = jest.fn(() => 'Token-12345')
 			jwtService.ResetPasswordSign('user')
 
-			//Must be called once
+			//Start Tests
 			expect(jwt.sign).toHaveBeenCalledTimes(1)
 
 			//Required variable can't be null
@@ -50,7 +50,7 @@ describe('jwtService.js', () => {
 			jwt.verify = jest.fn(() => 'Token-12345')
 			jwtService.verify('user')
 
-			//Must be called once
+			//Start Tests
 			expect(jwt.verify).toHaveBeenCalledTimes(1)
 
 			//Required variable can't be null

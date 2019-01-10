@@ -28,7 +28,7 @@ const signUp = async (req, res, next) => {
 			res
 				.status(HttpStatus.BAD_REQUEST)
 				.json(
-					globalErrorFactory(
+					globalErrorFactory.factory(
 						`You have entered less than ${
 							process.env.PASSWORD_LENGTH
 						} characters for password`
@@ -56,12 +56,12 @@ const addRoleToUser = async (req, res, next) => {
 			} else {
 				res
 					.status(HttpStatus.NOT_FOUND)
-					.json(globalErrorFactory(ERROR_USER_NOT_FOUND))
+					.json(globalErrorFactory.factory(ERROR_USER_NOT_FOUND))
 			}
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
-				.json(globalErrorFactory(ERROR_ROLE_NOT_VALID))
+				.json(globalErrorFactory.factory(ERROR_ROLE_NOT_VALID))
 		}
 	} catch (err) {
 		next(err)
@@ -84,12 +84,12 @@ const RemoveRoleFromUser = async (req, res, next) => {
 			} else {
 				res
 					.status(HttpStatus.NOT_FOUND)
-					.json(globalErrorFactory(ERROR_USER_NOT_FOUND))
+					.json(globalErrorFactory.factory(ERROR_USER_NOT_FOUND))
 			}
 		} else {
 			res
 				.status(HttpStatus.BAD_REQUEST)
-				.json(globalErrorFactory(ERROR_ROLE_NOT_VALID))
+				.json(globalErrorFactory.factory(ERROR_ROLE_NOT_VALID))
 		}
 	} catch (err) {
 		next(err)

@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
 		if (err) {
 			res
 				.status(HttpStatus.UNAUTHORIZED)
-				.json(globalErrorFactory(ERROR_INVALID_TOKEN, err))
+				.json(globalErrorFactory.factory(ERROR_INVALID_TOKEN, err))
 		} else {
 			// User.findOne({ email: decodedToken.email }).then(user => {
 			//   req.currentUser = user;
@@ -31,7 +31,7 @@ module.exports = (req, res, next) => {
 				res
 					.status(HttpStatus.BAD_REQUEST)
 					.json(
-						globalErrorFactory(
+						globalErrorFactory.factory(
 							'Your email is not confirmed. Please confirm your email.'
 						)
 					)
@@ -44,6 +44,6 @@ module.exports = (req, res, next) => {
 	} else {
 		res
 			.status(HttpStatus.UNAUTHORIZED)
-			.json(globalErrorFactory(ERROR_TOKEN_NOT_FOUND))
+			.json(globalErrorFactory.factory(ERROR_TOKEN_NOT_FOUND))
 	}
 }

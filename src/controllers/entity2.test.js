@@ -33,7 +33,7 @@ describe('Controllers/Entity2.js', () => {
 
 			await entity2Controller.getAll(req, res, next)
 
-			//Must be called once
+			//Start Tests
 			expect(repository.getAll).toHaveBeenCalledTimes(1)
 			expect(res.json).toHaveBeenCalledTimes(1)
 
@@ -70,7 +70,7 @@ describe('Controllers/Entity2.js', () => {
 
 			await entity2Controller.insert(req, res, next)
 
-			//Must be called once
+			//Start Tests
 			expect(repository.insert).toHaveBeenCalledTimes(1)
 			expect(res.status().json).toHaveBeenCalledTimes(1)
 
@@ -105,7 +105,7 @@ describe('Controllers/Entity2.js', () => {
 
 			await entity2Controller.getById(req, res, next)
 
-			//Must be called once
+			//Start Tests
 			expect(repository.getById).toHaveBeenCalledTimes(1)
 			expect(res.json).toHaveBeenCalledTimes(1)
 
@@ -145,7 +145,7 @@ describe('Controllers/Entity2.js', () => {
 
 			await entity2Controller.updateById(req, res, next)
 
-			//Must be called once
+			//Start Tests
 			expect(repository.updateById).toHaveBeenCalledTimes(1)
 			expect(res.json).toHaveBeenCalledTimes(1)
 
@@ -181,7 +181,7 @@ describe('Controllers/Entity2.js', () => {
 
 			await entity2Controller.deleteById(req, res, next)
 
-			//Must be called once
+			//Start Tests
 			expect(repository.deleteById).toHaveBeenCalledTimes(1)
 			expect(res.json).toHaveBeenCalledTimes(1)
 

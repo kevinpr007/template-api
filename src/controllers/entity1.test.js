@@ -31,9 +31,8 @@ describe('Controllers/Entity1.js', () => {
 
 			let next = jest.fn(() => {})
 
+			//Start Tests
 			await entity1Controller.getAll(req, res, next)
-
-			//Must be called once
 			expect(repository.getAll).toHaveBeenCalledTimes(1)
 			expect(res.json).toHaveBeenCalledTimes(1)
 
@@ -68,9 +67,8 @@ describe('Controllers/Entity1.js', () => {
 
 			let next = jest.fn(() => {})
 
+			//Start Tests
 			await entity1Controller.insert(req, res, next)
-
-			//Must be called once
 			expect(repository.insert).toHaveBeenCalledTimes(1)
 			expect(res.status().json).toHaveBeenCalledTimes(1)
 
@@ -103,9 +101,8 @@ describe('Controllers/Entity1.js', () => {
 
 			let next = jest.fn(() => {})
 
+			//Start Tests
 			await entity1Controller.getById(req, res, next)
-
-			//Must be called once
 			expect(repository.getById).toHaveBeenCalledTimes(1)
 			expect(res.json).toHaveBeenCalledTimes(1)
 
@@ -143,9 +140,8 @@ describe('Controllers/Entity1.js', () => {
 
 			let next = jest.fn(() => {})
 
+			//Start Tests
 			await entity1Controller.updateById(req, res, next)
-
-			//Must be called once
 			expect(repository.updateById).toHaveBeenCalledTimes(1)
 			expect(res.json).toHaveBeenCalledTimes(1)
 
@@ -179,9 +175,8 @@ describe('Controllers/Entity1.js', () => {
 
 			let next = jest.fn(() => {})
 
+			//Start Tests
 			await entity1Controller.deleteById(req, res, next)
-
-			//Must be called once
 			expect(repository.deleteById).toHaveBeenCalledTimes(1)
 			expect(res.json).toHaveBeenCalledTimes(1)
 

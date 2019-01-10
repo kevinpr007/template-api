@@ -17,7 +17,7 @@ module.exports = (roles = []) => {
 			) {
 				return res
 					.status(HttpStatus.UNAUTHORIZED)
-					.json(globalErrorFactory('Unauthorized user'))
+					.json(globalErrorFactory.factory('Unauthorized user'))
 			}
 
 			next()
