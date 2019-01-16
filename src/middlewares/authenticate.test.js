@@ -25,9 +25,9 @@ describe('authenticate.js', () => {
 			let next = jest.fn()
 			jwtService.verify = jest
 				.fn()
-				.mockReturnValueOnce([Error('Error'), null])
-				.mockReturnValueOnce([null, { confirmed: false }])
-				.mockReturnValueOnce([null, { confirmed: true }])
+				.mockReturnValueOnce({ err: Error('Error'), decodedToken: null })
+				.mockReturnValueOnce({ err: null, decodedToken: { confirmed: false } })
+				.mockReturnValueOnce({ err: null, decodedToken: { confirmed: true } })
 
 			//Check Response
 			authenticate(req, res, next)

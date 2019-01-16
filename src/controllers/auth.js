@@ -18,13 +18,12 @@ const {
 	ERROR_USER_OR_TOKEN_NOT_FOUND,
 } = require('../utils/constant')
 
-//TODO: Add Service
 const login = async (req, res, next) => {
 	try {
-		const { credentials } = req.body
-		let user = await User.findOne({ email: credentials.email })
+		const { email, password } = req.body
+		let user = await User.findOne({ email: email })
 
-		if (user && (await user.isValidPassword(credentials.password))) {
+		if (user && (await user.isValidPassword(password))) {
 			const data = setDataFactory('data', user.toAuthJSON())
 			res.json(data)
 		} else {
@@ -86,7 +85,7 @@ const resetPasswordRequest = async (req, res, next) => {
 const resetPassword = async (req, res, next) => {
 	try {
 		const { password, token } = req.body
-		const [err, decodedToken] = jwtService.verify(token)
+		const { err, decodedToken } = jwtService.verify(token)
 
 		if (err) {
 			res
@@ -131,7 +130,7 @@ const resetPassword = async (req, res, next) => {
 const validateToken = async (req, res, next) => {
 	try {
 		const { token } = req.body
-		const [err, decodedToken] = jwtService.verify(token)
+		const { err, decodedToken } = jwtService.verify(token)
 
 		if (err) {
 			res
@@ -157,7 +156,7 @@ const currentUser = async (req, res, next) => {
 const RefreshToken = async (req, res, next) => {
 	try {
 		const { token } = req.body
-		const [err, decodedToken] = jwtService.verify(token)
+		const { err, decodedToken } = jwtService.verify(token)
 
 		if (err) {
 			res

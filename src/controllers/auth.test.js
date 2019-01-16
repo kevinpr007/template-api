@@ -160,11 +160,11 @@ describe('Controllers/auth.js', () => {
 
 			jwtService.verify = jest
 				.fn()
-				.mockReturnValueOnce([Error(), null])
-				.mockReturnValue([
-					null,
-					{ _id: 123456789, resetPasswordToken: 987654321 },
-				])
+				.mockReturnValueOnce({ err: Error(), decodedToken: null })
+				.mockReturnValue({
+					err: null,
+					decodedToken: { _id: 123456789, resetPasswordToken: 987654321 },
+				})
 			jest.spyOn(authController, 'resetPassword')
 
 			User.findOne = jest
@@ -223,11 +223,11 @@ describe('Controllers/auth.js', () => {
 
 			jwtService.verify = jest
 				.fn()
-				.mockReturnValueOnce([Error(), null])
-				.mockReturnValue([
-					null,
-					{ _id: 123456789, resetPasswordToken: 987654321 },
-				])
+				.mockReturnValueOnce({ err: Error(), decodedToken: null })
+				.mockReturnValue({
+					err: null,
+					decodedToken: { _id: 123456789, resetPasswordToken: 987654321 },
+				})
 			jest.spyOn(authController, 'validateToken')
 
 			let req = {
@@ -294,12 +294,12 @@ describe('Controllers/auth.js', () => {
 
 			jwtService.verify = jest
 				.fn()
-				.mockReturnValueOnce([Error(), null])
-				.mockReturnValueOnce([
-					null,
-					{ _id: 123456789, resetPasswordToken: 987654321 },
-				])
-				.mockReturnValueOnce([null, null])
+				.mockReturnValueOnce({ err: Error(), decodedToken: null })
+				.mockReturnValueOnce({
+					err: null,
+					decodedToken: { _id: 123456789, resetPasswordToken: 987654321 },
+				})
+				.mockReturnValueOnce({ err: null, decodedToken: null })
 
 			jwtService.sign = jest.fn().mockReturnValue({ newToken: 12345 })
 

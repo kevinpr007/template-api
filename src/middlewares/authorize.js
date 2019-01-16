@@ -8,19 +8,16 @@ module.exports = (roles = []) => {
 		roles = [roles]
 	}
 
-	return [
-		// authorize based on user role
-		(req, res, next) => {
-			if (
-				roles.length &&
-				!roles.some((r) => req.currentUser.roles.includes(r))
-			) {
-				return res
-					.status(HttpStatus.UNAUTHORIZED)
-					.json(globalErrorFactory.factory('Unauthorized user'))
-			}
+	// authorize based on user role
+	let authorize = (req, res, next) => {
+		if (roles.length && !roles.some((r) => req.currentUser.roles.includes(r))) {
+			return res
+				.status(HttpStatus.UNAUTHORIZED)
+				.json(globalErrorFactory.factory('Unauthorized user'))
+		}
 
-			next()
-		},
-	]
+		next()
+	}
+
+	return authorize
 }

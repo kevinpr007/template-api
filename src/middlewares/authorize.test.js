@@ -21,7 +21,7 @@ describe('authorize.js', () => {
 
 			//Check Response
 			let response = authorize(roles)
-			response[0](req, res, next)
+			response(req, res, next)
 			expect(next).toHaveBeenCalledTimes(1)
 
 			req.currentUser.roles = 'OTHER_ROLE'
@@ -30,7 +30,7 @@ describe('authorize.js', () => {
 					json: jest.fn(),
 				}),
 			}
-			response[0](req, res, next)
+			response(req, res, next)
 			expect(res.status().json).toHaveBeenCalledTimes(1)
 		})
 	})

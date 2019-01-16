@@ -9,13 +9,13 @@ const {
 
 module.exports = (req, res, next) => {
 	const header = req.headers.authorization
-	const TOKEN_PARAMETER = 1
+	const TOKEN_PARAMETER_POSITION = 1
 
 	let token
-	if (header) token = header.split(' ')[TOKEN_PARAMETER]
+	if (header) token = header.split(' ')[TOKEN_PARAMETER_POSITION]
 
 	if (token) {
-		const [err, decodedToken] = jwtService.verify(token)
+		const { err, decodedToken } = jwtService.verify(token)
 
 		if (err) {
 			res

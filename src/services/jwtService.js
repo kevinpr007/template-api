@@ -48,7 +48,7 @@ const verify = (token) => {
 		process.env.JWT_SECRET,
 		JWTVariableFactory,
 		(err, decodedToken) => {
-			return [err, decodedToken]
+			return { err, decodedToken }
 		}
 	)
 }

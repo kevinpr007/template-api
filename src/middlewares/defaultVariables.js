@@ -6,6 +6,7 @@ module.exports = (req, res, next) => {
 		let message = new Error('You must provide a valid page number')
 		next(message)
 	}
+
 	// if (req.query.pageSize === undefined || isNaN(req.query.pageSize)) {
 	// let message = 'You must provide a valid Page size number'
 	// // return util.generateError(message, HttpStatus.BAD_REQUEST)

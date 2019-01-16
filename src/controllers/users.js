@@ -10,7 +10,6 @@ const {
 	ERROR_ROLE_NOT_VALID,
 } = require('../utils/constant')
 
-//TODO: Add in service
 const signUp = async (req, res, next) => {
 	try {
 		const { email, password, username } = req.body
