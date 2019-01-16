@@ -49,8 +49,8 @@ schema.methods.setPassword = async function(password) {
 schema.methods.setConfirmationToken = function() {
 	this.confirmationToken = userService.setConfirmationToken()
 }
-schema.methods.setResetPassword = function() {
-	this.passwordHash = userService.setResetPassword()
+schema.methods.setResetPassword = async function() {
+	this.passwordHash = await userService.setResetPassword()
 }
 schema.methods.setResetPasswordToken = function() {
 	this.resetPasswordToken = userService.setResetPasswordToken()
