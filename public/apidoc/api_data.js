@@ -174,6 +174,51 @@ define({ "api": [
     "groupTitle": "Admin"
   },
   {
+    "type": "get",
+    "url": "/auth/confirmation",
+    "title": "Confirmation",
+    "name": "_auth_confirmation",
+    "group": "Auth",
+    "version": "1.0.0",
+    "description": "<p>This route is used to validate and active your email.</p>",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>This token is send it by the application to your email.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "http://localhost/api/auth/confirmation?token=aba11d10-1a7c-11e9-8941-01370007468f",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n\n\t\t{\n\t\t\t\"data\": {\n\t\t\t\t\"_id\": \"1c40ba61c5fe7020e4f295dd\",\n\t\t\t\t\"email\": \"test21@test.com\",\n\t\t\t\t\"username\": \"test21\",\n\t\t\t\t\"roles\": [\n\t\t\t\t\t\"User\"\n\t\t\t\t],\n\t\t\t\t\"confirmed\": true,\n\t\t\t\t\"token\": \"eaJhbGciOiJIUzI1NiIsInR5cCI5IkpXVCJ9.eyJfaWQiOiI1YzQwYmE2MmM1ZmU3MDIwZTRmMjk1ZGQiLCJlbWFpbCI6InRlc3QyMUB0ZXN0LmNvbSIsInVzZXJuYW1lIjoidGVzdDIxIiwicm9sZXMiOlsiVXNlciJdLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTU0Nzc0Njc1MSwibmJmIjoxNTQ3NzQ2NzUxLCJleHAiOjE1NjU3NDY3NTEsImF1ZCI6InVuaXF1ZS1jbGllbnQtaWQtaGFzaCA6IElkZW50aWZpZXMgdGhlIHJlY2lwaWVudHMgdGhhdCB0aGUgSldUIGlzIGludGVuZGVkIGZvci4iLCJpc3MiOiJUZW1wbGF0ZSBBUEkiLCJzdWIiOiJzdWJqZWN0In0.Wt2byaWsYHBcTMDXBpzN5qS1MBJcasQ5UlZlTGB67Fs\"\n\t\t\t}\n\t\t}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/auth.js",
+    "groupTitle": "Auth"
+  },
+  {
     "type": "post",
     "url": "/users/SignUp",
     "title": "Sign Up",
