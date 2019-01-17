@@ -409,6 +409,71 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/auth/validate_token",
+    "title": "Validate Token",
+    "name": "_auth_validate_token",
+    "group": "Auth",
+    "version": "1.0.0",
+    "description": "<p>This route is used to validate the actual token</p>",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>JSON Format.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n     \"Content-Type\": \"application/json\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>This token will be used to validate the system.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "    {\n\t\t\t\"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IypXVCJ8.ayJfaWQiOiI1YzQwYmE2MmM1ZmU3MDIwZTRmMjk1ZGQiLCJyZXNldFBhc3N3b3JkVG9rZW4iOiI4NzhkOWM3MC0xYTg4LTExZTktYjBkYy05YjIwYTk0NWQ3NzgiLCJpYXQiOjE1NDc3NTA5MzEsIm5iZiI6MTU0Nzc1MDkzMSwiZXhwIjoxNTQ3NzU0NTMxLCJhdWQiOiJ1bmlxdWUtY2xpZW50LWlkLWhhc2ggOiBJZGVudGlmaWVzIHRoZSByZWNpcGllbnRzIHRoYXQgdGhlIEpXVCBpcyBpbnRlbmRlZCBmb3IuIiwiaXNzIjoiVGVtcGxhdGUgQVBJIiwic3ViIjoic3ViamVjdCZ9.2tx7lzlB6CLuQOLtakvZ0SipDPLz7FlkJhuDIAecpz0\"\n    }",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/auth.js",
+    "groupTitle": "Auth"
+  },
+  {
+    "type": "post",
     "url": "/users/SignUp",
     "title": "Sign Up",
     "name": "_users_SignUp",

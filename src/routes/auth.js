@@ -141,6 +141,35 @@ router.post('/reset_password_request', resetPasswordRequest)
  *
  */
 router.post('/reset_password', resetPassword)
+
+/**
+ * @api {post} /auth/validate_token Validate Token
+ * @apiName /auth/validate_token
+ * @apiGroup Auth
+ * @apiVersion 1.0.0
+ *
+ * @apiDescription This route is used to validate the actual token
+ *
+ * @apiPermission none
+ *
+ * @apiHeader {String} Content-Type JSON Format.
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *          "Content-Type": "application/json"
+ *     }
+ *
+ * @apiParam {String} token		This token will be used to validate the system.
+ *
+ * @apiParamExample {json} Request-Example:
+ *     {
+ * 			"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IypXVCJ8.ayJfaWQiOiI1YzQwYmE2MmM1ZmU3MDIwZTRmMjk1ZGQiLCJyZXNldFBhc3N3b3JkVG9rZW4iOiI4NzhkOWM3MC0xYTg4LTExZTktYjBkYy05YjIwYTk0NWQ3NzgiLCJpYXQiOjE1NDc3NTA5MzEsIm5iZiI6MTU0Nzc1MDkzMSwiZXhwIjoxNTQ3NzU0NTMxLCJhdWQiOiJ1bmlxdWUtY2xpZW50LWlkLWhhc2ggOiBJZGVudGlmaWVzIHRoZSByZWNpcGllbnRzIHRoYXQgdGhlIEpXVCBpcyBpbnRlbmRlZCBmb3IuIiwiaXNzIjoiVGVtcGxhdGUgQVBJIiwic3ViIjoic3ViamVjdCZ9.2tx7lzlB6CLuQOLtakvZ0SipDPLz7FlkJhuDIAecpz0"
+ *     }
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *
+ */
 router.post('/validate_token', validateToken)
 router.post('/RefreshToken', RefreshToken)
 
