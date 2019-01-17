@@ -63,6 +63,7 @@ app.use('/api/admin', admin)
 
 //Set static Pages
 app.use(express.static('public'))
+app.use(express.static('public/apidoc'))
 
 //Redirect all unknown pages to not found
 app.all('/*', (req, res) => {

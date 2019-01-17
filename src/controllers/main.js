@@ -8,6 +8,9 @@ const MainPage = async (req, res, next) => {
 	}
 }
 
+const apiDoc = async (req, res, next) => {
+	try {
+		res.sendFile(path.join(__dirname, '../../public/apidoc/index.html'))
 	} catch (err) {
 		next(err)
 	}
@@ -15,4 +18,5 @@ const MainPage = async (req, res, next) => {
 
 module.exports = {
 	MainPage,
+	apiDoc,
 }

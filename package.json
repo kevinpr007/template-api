@@ -12,7 +12,7 @@
     "prettier": "prettier --config ./.prettierrc --write ./src/**/*.js",
     "eslint": "eslint ./src/**/*.js",
     "test": "jest --coverage --coverageDirectory=output/coverage/jest",
-    "doc": "apidoc -i src/ -o apidoc/ "
+    "doc": "apidoc -i src/ -o public/apidoc/"
   },
   "repository": {
     "type": "git",
