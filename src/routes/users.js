@@ -51,6 +51,45 @@ const router = express.Router()
  *      }
  */
 router.post('/SignUp', signUp)
+
+/**
+ * @api {get} /users/current_user Get Current User
+ * @apiName /users/current_user
+ * @apiGroup Users
+ * @apiVersion 1.0.0
+ *
+ * @apiDescription This route is use for get the current user inside the token.
+ *
+ * @apiPermission none
+ *
+ * @apiHeader {String} Content-Type JSON Format.
+ * @apiHeader {String} Authorization Token created by the system.
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *          "Content-Type": "application/json",
+ *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
+ *     }
+ *
+ * @apiExample {curl} Example usage:
+ *     http://localhost/api/users/current_user
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *
+ *      {
+ *            "data": {
+ *              "_id": "1c40ba62c5fe7020e4f295dd",
+ *              "email": "test21@test.com",
+ *              "username": "test21",
+ *              "roles": [
+ *                  "User"
+ *              ],
+ *              "confirmed": true
+ *          }
+ *      }
+ *
+ */
 router.get('/current_user', authenticate, currentUser)
 router.post('/AddRole', authenticate, addRoleToUser)
 router.post('/RemoveRole', authenticate, RemoveRoleFromUser)
