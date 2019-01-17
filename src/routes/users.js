@@ -3,8 +3,53 @@ const authenticate = require('../middlewares/authenticate')
 const { signUp } = require('../controllers/users')
 const { currentUser } = require('../controllers/auth')
 const { addRoleToUser, RemoveRoleFromUser } = require('../controllers/users')
+
 const router = express.Router()
 
+/**
+ * @api {post} /users/SignUp Sign Up
+ * @apiName /users/SignUp
+ * @apiGroup Users
+ * @apiVersion 1.0.0
+ *
+ * @apiDescription This route is use for create users on the system.
+ *
+ * @apiPermission none
+ *
+ * @apiHeader {String} Content-Type JSON Format.
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *          "Content-Type": "application/json"
+ *     }
+ *
+ * @apiParam {String} email     Email used in the system as primary key.
+ * @apiParam {String} password  Password required on the system.
+ * @apiParam {String} username  Username used in the system.
+ *
+ * @apiParamExample {json} Request-Example:
+ *     {
+ *          "email": "test21@test.com",
+ *          "password":"test21",
+ *          "username":"test21"
+ *     }
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *
+ *      {
+ *          "data": {
+ *              "_id": "1c40ba62c5fe7020e4f295dd",
+ *              "email": "test21@test.com",
+ *              "username": "test21",
+ *              "roles": [
+ *                  "User"
+ *              ],
+ *              "confirmed": false,
+ *              "token": "ayJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzQwYmE2MmM1ZmU3MDIwZTRmMjk1ZGQiLCJlbWFpbCI6InRlc3QyMUB0ZXN0LmNvbSIsInVzZXJuYW1lIjoidGVzdDIxIiwicm9sZXMiOlsiVXNlciJdLCJjb25maXJtZWQiOmZhbHNlLCJpYXQiOjE1NDc3NDU4OTEsIm5iZiI6MTU0Nzc0NTg5MSwiZXhwIjoxNTY1NzQ1ODkxLCJhdWQiOiJ1bmlxdWUtY2xpZW50LWlkLWhhc2ggOiBJZGVudGlmaWVzIHRoZSByZWNpcGllbnRzIHRoYXQgdGhlIEpXVCBpcyBpbnRlbmRlZCBmb3IuIiwiaXNzIjoiVGVtcGxhdGUgQVBJIiwic3ViIjoic3ViamVjdCJ9.dkKr9l975JymZ-ejw6UC8pJjBllRd58jj8GD_etC1aU"
+ *          }
+ *      }
+ */
 router.post('/SignUp', signUp)
 router.get('/current_user', authenticate, currentUser)
 router.post('/AddRole', authenticate, addRoleToUser)

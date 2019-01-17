@@ -13,7 +13,7 @@ router.use(authorize(ADMIN))
 
 /**
  * @api {get} /admin/addSeed Add Seed
- * @apiName addSeed
+ * @apiName /admin/addSeed
  * @apiGroup Admin
  * @apiVersion 1.0.0
  *

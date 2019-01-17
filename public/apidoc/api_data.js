@@ -3,7 +3,7 @@ define({ "api": [
     "type": "get",
     "url": "/admin/addSeed",
     "title": "Add Seed",
-    "name": "addSeed",
+    "name": "_admin_addSeed",
     "group": "Admin",
     "version": "1.0.0",
     "description": "<p>This route will create all entities information on the system.</p>",
@@ -57,7 +57,7 @@ define({ "api": [
     "title": "Add Seed",
     "name": "addSeed_XXXXXXXXXXXX",
     "group": "Admin",
-    "version": "1.6.2",
+    "version": "1.0.0",
     "description": "<p>This is the Description. It is multiline capable.</p> <p>Last line of Description.</p>",
     "permission": [
       {
@@ -172,5 +172,84 @@ define({ "api": [
     },
     "filename": "src/utils/doc_references.js",
     "groupTitle": "Admin"
+  },
+  {
+    "type": "post",
+    "url": "/users/SignUp",
+    "title": "Sign Up",
+    "name": "_users_SignUp",
+    "group": "Users",
+    "version": "1.0.0",
+    "description": "<p>This route is use for create users on the system.</p>",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>JSON Format.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n     \"Content-Type\": \"application/json\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Email used in the system as primary key.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Password required on the system.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>Username used in the system.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n     \"email\": \"test21@test.com\",\n     \"password\":\"test21\",\n     \"username\":\"test21\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n\n {\n     \"data\": {\n         \"_id\": \"1c40ba62c5fe7020e4f295dd\",\n         \"email\": \"test21@test.com\",\n         \"username\": \"test21\",\n         \"roles\": [\n             \"User\"\n         ],\n         \"confirmed\": false,\n         \"token\": \"ayJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzQwYmE2MmM1ZmU3MDIwZTRmMjk1ZGQiLCJlbWFpbCI6InRlc3QyMUB0ZXN0LmNvbSIsInVzZXJuYW1lIjoidGVzdDIxIiwicm9sZXMiOlsiVXNlciJdLCJjb25maXJtZWQiOmZhbHNlLCJpYXQiOjE1NDc3NDU4OTEsIm5iZiI6MTU0Nzc0NTg5MSwiZXhwIjoxNTY1NzQ1ODkxLCJhdWQiOiJ1bmlxdWUtY2xpZW50LWlkLWhhc2ggOiBJZGVudGlmaWVzIHRoZSByZWNpcGllbnRzIHRoYXQgdGhlIEpXVCBpcyBpbnRlbmRlZCBmb3IuIiwiaXNzIjoiVGVtcGxhdGUgQVBJIiwic3ViIjoic3ViamVjdCJ9.dkKr9l975JymZ-ejw6UC8pJjBllRd58jj8GD_etC1aU\"\n     }\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/users.js",
+    "groupTitle": "Users"
   }
 ] });
