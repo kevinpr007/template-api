@@ -93,7 +93,7 @@ router.post('/SignUp', signUp)
 router.get('/current_user', authenticate, currentUser)
 
 /**
- * @api {get} /users/AddRole Add Role
+ * @api {post} /users/AddRole Add Role
  * @apiName /users/AddRole
  * @apiGroup Users
  * @apiVersion 1.0.0
@@ -135,6 +135,48 @@ router.get('/current_user', authenticate, currentUser)
  *
  */
 router.post('/AddRole', authenticate, addRoleToUser)
+
+/**
+ * @api {post} /users/RemoveRole Remove Role
+ * @apiName /users/RemoveRole
+ * @apiGroup Users
+ * @apiVersion 1.0.0
+ *
+ * @apiDescription This route is use to remove a role from the user
+ *
+ * @apiPermission none
+ *
+ * @apiHeader {String} Content-Type JSON Format.
+ * @apiHeader {String} Authorization Token created by the system.
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *          "Content-Type": "application/json",
+ *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
+ *     }
+ *
+ * @apiParamExample {json} Request-Example:
+ *     {
+ *          "userId": "3c3f346f54045a240c4ae427",
+ *	        "role":"Admin"
+ *     }
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *
+ *      {
+ *           "data": {
+ *               "_id": "9c40ba62c5fe7020e4f295dd",
+ *              "email": "test21@test.com",
+ *              "username": "test21",
+ *              "roles": [
+ *                  "User"
+ *              ],
+ *              "confirmed": true
+ *          }
+ *      }
+ *
+ */
 router.post('/RemoveRole', authenticate, RemoveRoleFromUser)
 
 module.exports = router

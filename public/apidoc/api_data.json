@@ -538,7 +538,7 @@
     "groupTitle": "Auth"
   },
   {
-    "type": "get",
+    "type": "post",
     "url": "/users/AddRole",
     "title": "Add Role",
     "name": "_users_AddRole",
@@ -591,6 +591,67 @@
         {
           "title": "Success-Response:",
           "content": "HTTP/1.1 200 OK\n\n {\n      \"data\": {\n         \"_id\": \"8c40ba62c5fe7020e4f295dd\",\n         \"email\": \"test21@test.com\",\n         \"username\": \"test21\",\n         \"roles\": [\n             \"User\",\n             \"Admin\"\n         ],\n         \"confirmed\": true\n     }\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/users.js",
+    "groupTitle": "Users"
+  },
+  {
+    "type": "post",
+    "url": "/users/RemoveRole",
+    "title": "Remove Role",
+    "name": "_users_RemoveRole",
+    "group": "Users",
+    "version": "1.0.0",
+    "description": "<p>This route is use to remove a role from the user</p>",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>JSON Format.</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Token created by the system.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n     \"Content-Type\": \"application/json\",\n     \"Authorization\": \"Bearer {TOKEN-XXXXXXX}\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "    {\n         \"userId\": \"3c3f346f54045a240c4ae427\",\n\t        \"role\":\"Admin\"\n    }",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n\n {\n      \"data\": {\n          \"_id\": \"9c40ba62c5fe7020e4f295dd\",\n         \"email\": \"test21@test.com\",\n         \"username\": \"test21\",\n         \"roles\": [\n             \"User\"\n         ],\n         \"confirmed\": true\n     }\n }",
           "type": "json"
         }
       ]
