@@ -86,6 +86,28 @@ router.post('/login', login)
  *		}
  */
 router.get('/confirmation', confirmation)
+
+/**
+ * @api {post} /auth/reset_password_request Reset Password Request
+ * @apiName /auth/reset_password_request
+ * @apiGroup Auth
+ * @apiVersion 1.0.0
+ *
+ * @apiDescription This route is used to request a reset password for a specific email.
+ *
+ * @apiPermission none
+ *
+ * @apiParam {String} email		Email used to reset a password
+ *
+ * @apiParamExample {json} Request-Example:
+ *     {
+ *			"email": "test21@test.com"
+ *     }
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *
+ */
 router.post('/reset_password_request', resetPasswordRequest)
 router.post('/reset_password', resetPassword)
 router.post('/validate_token', validateToken)

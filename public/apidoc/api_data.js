@@ -197,7 +197,14 @@ define({ "api": [
             "description": "<p>This token is send it by the application to your email.</p>"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "http://localhost/api/auth/confirmation?token=aba11d10-1a7c-11e9-8941-01370007468f",
+          "type": "json"
+        }
+      ]
     },
     "success": {
       "examples": [
@@ -276,6 +283,51 @@ define({ "api": [
         {
           "title": "Success-Response:",
           "content": "    HTTP/1.1 200 OK\n\n\t\t{\n\t\t\t\"data\": {\n\t\t\t\t\"_id\": \"1c40ba62c5fa7020e4f295dd\",\n\t\t\t\t\"email\": \"test21@test.com\",\n\t\t\t\t\"username\": \"test21\",\n\t\t\t\t\"roles\": [\n\t\t\t\t\t\"User\"\n\t\t\t\t],\n\t\t\t\t\"confirmed\": true,\n\t\t\t\t\"token\": \"ayJhbGciOiJIUzI1NiIsInR5cCI7IkpXVCJ9.eyJfaWQiOiI1YzQwYmE2MmM1ZmU8DIwZTRmMjk1ZGQiLCJlbWFpbCI6InRlc3QyMUB0ZXN0LmNvbSIsInVzZXJuYW1lIjoidGVzdDIxIiwicm9sZXMiOlsiVXNlciJdLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTU0Nzc0NzA5MSwibmJmIjoxNTQ3NzQ3MDkxLCJleHAiOjE1NjU3NDcwOTEsImF1ZCI6InVuaXF1ZS1jbGllbnQtaWQtaGFzaCA6IElkZW50aWZpZXMgdGhlIHJlY2lwaWVudHMgdGhhdCB0aGUgSldUIGlzIGludGVuZGVkIGZvci4iLCJpc3MiOiJUZW1wbGF0ZSBBUEkiLCJzdWIiOiJzdWJqZWN0In0.20C8vZjXGI_Z8U66uwAS7ot3QwLsrp8ECaywkj2q0fo\"\n\t\t\t}\n\t\t}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/auth.js",
+    "groupTitle": "Auth"
+  },
+  {
+    "type": "post",
+    "url": "/auth/reset_password_request",
+    "title": "Reset Password Request",
+    "name": "_auth_reset_password_request",
+    "group": "Auth",
+    "version": "1.0.0",
+    "description": "<p>This route is used to request a reset password for a specific email.</p>",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Email used to reset a password</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "    {\n\t\t\t\"email\": \"test21@test.com\"\n    }",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK",
           "type": "json"
         }
       ]
