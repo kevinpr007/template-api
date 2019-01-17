@@ -17,7 +17,7 @@ router.use(authorize(ADMIN))
  * @apiGroup Admin
  * @apiVersion 1.0.0
  *
- * @apiDescription This route will create all entities information on the system.
+ * @apiDescription This route will be used to create all default entities informations on the system.
  *
  * @apiPermission Admin
  *

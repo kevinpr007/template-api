@@ -12,7 +12,7 @@ const router = express.Router()
  * @apiGroup Users
  * @apiVersion 1.0.0
  *
- * @apiDescription This route is use for create users on the system.
+ * @apiDescription This route will be used for create users on the system.
  *
  * @apiPermission none
  *
@@ -53,12 +53,12 @@ const router = express.Router()
 router.post('/SignUp', signUp)
 
 /**
- * @api {get} /users/current_user Get Current User
+ * @api {get} /users/current_user Get a Current User
  * @apiName /users/current_user
  * @apiGroup Users
  * @apiVersion 1.0.0
  *
- * @apiDescription This route is use for get the current user inside the token.
+ * @apiDescription This route will be used to get the current user inside the token.
  *
  * @apiPermission none
  *
@@ -98,7 +98,7 @@ router.get('/current_user', authenticate, currentUser)
  * @apiGroup Users
  * @apiVersion 1.0.0
  *
- * @apiDescription This route is use to add a new role to the user
+ * @apiDescription This route will be used to add a new role to an user
  *
  * @apiPermission none
  *
@@ -110,6 +110,9 @@ router.get('/current_user', authenticate, currentUser)
  *          "Content-Type": "application/json",
  *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
  *     }
+ *
+ * @apiParam {String} userId    UserId  The user ID to assign the new role
+ * @apiParam {String} role      Role    The role to be added to an user
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -142,7 +145,7 @@ router.post('/AddRole', authenticate, addRoleToUser)
  * @apiGroup Users
  * @apiVersion 1.0.0
  *
- * @apiDescription This route is use to remove a role from the user
+ * @apiDescription This route will be used to remove a role from the user
  *
  * @apiPermission none
  *
@@ -154,6 +157,9 @@ router.post('/AddRole', authenticate, addRoleToUser)
  *          "Content-Type": "application/json",
  *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
  *     }
+ *
+ * @apiParam {String} userId    UserId  The user ID to remove the role
+ * @apiParam {String} role      Role    The role to be removed from the user
  *
  * @apiParamExample {json} Request-Example:
  *     {

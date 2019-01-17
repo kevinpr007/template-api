@@ -16,7 +16,7 @@ const router = express.Router()
  * @apiGroup Auth
  * @apiVersion 1.0.0
  *
- * @apiDescription This route is used to login in the application
+ * @apiDescription This route will be used to do a login in the application
  *
  * @apiPermission none
  *
@@ -60,11 +60,11 @@ router.post('/login', login)
  * @apiGroup Auth
  * @apiVersion 1.0.0
  *
- * @apiDescription This route is used to validate and active your email.
+ * @apiDescription This route will be used to validate and active your email
  *
  * @apiPermission none
  *
- * @apiParam {String} token		This token is send it by the application to your email.
+ * @apiParam {String} token		This token is send it by the application to your email
  *
  * @apiParamExample {json} Request-Example:
  *     http://localhost/api/auth/confirmation?token=aba11d10-1a7c-11e9-8941-01370007468f
@@ -93,7 +93,7 @@ router.get('/confirmation', confirmation)
  * @apiGroup Auth
  * @apiVersion 1.0.0
  *
- * @apiDescription This route is used to request a reset password for a specific email.
+ * @apiDescription This route will be used to request a reset password for a specific email
  *
  * @apiPermission none
  *
@@ -116,7 +116,7 @@ router.post('/reset_password_request', resetPasswordRequest)
  * @apiGroup Auth
  * @apiVersion 1.0.0
  *
- * @apiDescription This route is used to reset password and set the new password
+ * @apiDescription This route will be used to reset password and set a new one
  *
  * @apiPermission none
  *
@@ -127,8 +127,8 @@ router.post('/reset_password_request', resetPasswordRequest)
  *          "Content-Type": "application/json"
  *     }
  *
- * @apiParam {String} password	The new password to be use in the system.
- * @apiParam {String} token		This token will be used to validate the system.
+ * @apiParam {String} password	The new password to be use in the system
+ * @apiParam {String} token		This token will be used to validate the user in the system
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -148,7 +148,7 @@ router.post('/reset_password', resetPassword)
  * @apiGroup Auth
  * @apiVersion 1.0.0
  *
- * @apiDescription This route is used to validate the actual token
+ * @apiDescription This route will be used to validate the actual token
  *
  * @apiPermission none
  *
@@ -159,7 +159,7 @@ router.post('/reset_password', resetPassword)
  *          "Content-Type": "application/json"
  *     }
  *
- * @apiParam {String} token		This token will be used to validate the system.
+ * @apiParam {String} token		This token is used to validate the key in the system
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -178,7 +178,7 @@ router.post('/validate_token', validateToken)
  * @apiGroup Auth
  * @apiVersion 1.0.0
  *
- * @apiDescription This route is used to refresh the actual token
+ * @apiDescription This route will be used to refresh the actual token
  *
  * @apiPermission none
  *
@@ -193,7 +193,7 @@ router.post('/validate_token', validateToken)
  *
  * @apiParamExample {json} Request-Example:
  *     {
- * 			"token": "eyJhbGciOiJAUzI1NiIsInR5cCI6IypXVCJ8.ayJfaWQiOiI1YzQwYmE2MmM1ZmU3MDIwZTRmMjk1ZGQiLCJyZXNldFBhc3N3b3JkVG9rZW4iOiI4NzhkOWM3MC0xYTg4LTExZTktYjBkYy05YjIwYTk0NWQ3NzgiLCJpYXQiOjE1NDc3NTA5MzEsIm5iZiI6MTU0Nzc1MDkzMSwiZXhwIjoxNTQ3NzU0NTMxLCJhdWQiOiJ1bmlxdWUtY2xpZW50LWlkLWhhc2ggOiBJZGVudGlmaWVzIHRoZSByZWNpcGllbnRzIHRoYXQgdGhlIEpXVCBpcyBpbnRlbmRlZCBmb3IuIiwiaXNzIjoiVGVtcGxhdGUgQVBJIiwic3ViIjoic3ViamVjdCZ9.2tx7lzlB6CLuQOLtakvZ0SipDPLz7FlkJhuDIAecpz0"
+ * 			"token": "eyJhbGciOiJAUzI1NiIsInR5cCI6IypXVCJ8.ayJfaWQiOiI1YzQwYmE2MmM1ZmU3MDIwZTRmMjk1ZGQiLCJyZXNldFBhc3N3b3JkVG9rZW4iOiI4NzhkOWM3MC0xYTg4LTExZTktYjBkYy05YjIwYTk0NWQ3NzgiLCJpYXQiOjE1NDc3NTA5MzEsIm5iZiI6MTU0Nzc1MDkzMSwiZXhwIjoxNTQ3NzU0NTMxLCJhdWQiOiJ1bmlxdWUtY2xpZW50LWlkLWhhc2ggOiBJZGVudGlmaWVzIHRoZSByZWNpcGllbnRzIHRoYXQgdGhlIEpXVCBpcyBpbnRlbmRlZCBmb3IuIiwiaXNzIjoiVGVtcGxhdGUgQVBJIiwic3ViIjoic3ViamVjdCZ9.2tx7lzlB6CLuQOLtakvZ1SipDPLz7FlkJhuDIAecpz0"
  *     }
  *
  * @apiSuccessExample Success-Response:

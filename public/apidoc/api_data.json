@@ -6,7 +6,7 @@
     "name": "_admin_addSeed",
     "group": "Admin",
     "version": "1.0.0",
-    "description": "<p>This route will create all entities information on the system.</p>",
+    "description": "<p>This route will be used to create all default entities informations on the system.</p>",
     "permission": [
       {
         "name": "Admin"
@@ -180,7 +180,7 @@
     "name": "_auth_RefreshToken",
     "group": "Auth",
     "version": "1.0.0",
-    "description": "<p>This route is used to refresh the actual token</p>",
+    "description": "<p>This route will be used to refresh the actual token</p>",
     "permission": [
       {
         "name": "none"
@@ -221,7 +221,7 @@
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "    {\n\t\t\t\"token\": \"eyJhbGciOiJAUzI1NiIsInR5cCI6IypXVCJ8.ayJfaWQiOiI1YzQwYmE2MmM1ZmU3MDIwZTRmMjk1ZGQiLCJyZXNldFBhc3N3b3JkVG9rZW4iOiI4NzhkOWM3MC0xYTg4LTExZTktYjBkYy05YjIwYTk0NWQ3NzgiLCJpYXQiOjE1NDc3NTA5MzEsIm5iZiI6MTU0Nzc1MDkzMSwiZXhwIjoxNTQ3NzU0NTMxLCJhdWQiOiJ1bmlxdWUtY2xpZW50LWlkLWhhc2ggOiBJZGVudGlmaWVzIHRoZSByZWNpcGllbnRzIHRoYXQgdGhlIEpXVCBpcyBpbnRlbmRlZCBmb3IuIiwiaXNzIjoiVGVtcGxhdGUgQVBJIiwic3ViIjoic3ViamVjdCZ9.2tx7lzlB6CLuQOLtakvZ0SipDPLz7FlkJhuDIAecpz0\"\n    }",
+          "content": "    {\n\t\t\t\"token\": \"eyJhbGciOiJAUzI1NiIsInR5cCI6IypXVCJ8.ayJfaWQiOiI1YzQwYmE2MmM1ZmU3MDIwZTRmMjk1ZGQiLCJyZXNldFBhc3N3b3JkVG9rZW4iOiI4NzhkOWM3MC0xYTg4LTExZTktYjBkYy05YjIwYTk0NWQ3NzgiLCJpYXQiOjE1NDc3NTA5MzEsIm5iZiI6MTU0Nzc1MDkzMSwiZXhwIjoxNTQ3NzU0NTMxLCJhdWQiOiJ1bmlxdWUtY2xpZW50LWlkLWhhc2ggOiBJZGVudGlmaWVzIHRoZSByZWNpcGllbnRzIHRoYXQgdGhlIEpXVCBpcyBpbnRlbmRlZCBmb3IuIiwiaXNzIjoiVGVtcGxhdGUgQVBJIiwic3ViIjoic3ViamVjdCZ9.2tx7lzlB6CLuQOLtakvZ1SipDPLz7FlkJhuDIAecpz0\"\n    }",
           "type": "json"
         }
       ]
@@ -245,7 +245,7 @@
     "name": "_auth_confirmation",
     "group": "Auth",
     "version": "1.0.0",
-    "description": "<p>This route is used to validate and active your email.</p>",
+    "description": "<p>This route will be used to validate and active your email</p>",
     "permission": [
       {
         "name": "none"
@@ -259,7 +259,7 @@
             "type": "String",
             "optional": false,
             "field": "token",
-            "description": "<p>This token is send it by the application to your email.</p>"
+            "description": "<p>This token is send it by the application to your email</p>"
           }
         ]
       },
@@ -290,7 +290,7 @@
     "name": "_auth_login",
     "group": "Auth",
     "version": "1.0.0",
-    "description": "<p>This route is used to login in the application</p>",
+    "description": "<p>This route will be used to do a login in the application</p>",
     "permission": [
       {
         "name": "none"
@@ -362,7 +362,7 @@
     "name": "_auth_reset_password",
     "group": "Auth",
     "version": "1.0.0",
-    "description": "<p>This route is used to reset password and set the new password</p>",
+    "description": "<p>This route will be used to reset password and set a new one</p>",
     "permission": [
       {
         "name": "none"
@@ -396,14 +396,14 @@
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p>The new password to be use in the system.</p>"
+            "description": "<p>The new password to be use in the system</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "token",
-            "description": "<p>This token will be used to validate the system.</p>"
+            "description": "<p>This token will be used to validate the user in the system</p>"
           }
         ]
       },
@@ -434,7 +434,7 @@
     "name": "_auth_reset_password_request",
     "group": "Auth",
     "version": "1.0.0",
-    "description": "<p>This route is used to request a reset password for a specific email.</p>",
+    "description": "<p>This route will be used to request a reset password for a specific email</p>",
     "permission": [
       {
         "name": "none"
@@ -479,7 +479,7 @@
     "name": "_auth_validate_token",
     "group": "Auth",
     "version": "1.0.0",
-    "description": "<p>This route is used to validate the actual token</p>",
+    "description": "<p>This route will be used to validate the actual token</p>",
     "permission": [
       {
         "name": "none"
@@ -513,7 +513,7 @@
             "type": "String",
             "optional": false,
             "field": "token",
-            "description": "<p>This token will be used to validate the system.</p>"
+            "description": "<p>This token is used to validate the key in the system</p>"
           }
         ]
       },
@@ -544,7 +544,7 @@
     "name": "_users_AddRole",
     "group": "Users",
     "version": "1.0.0",
-    "description": "<p>This route is use to add a new role to the user</p>",
+    "description": "<p>This route will be used to add a new role to an user</p>",
     "permission": [
       {
         "name": "none"
@@ -578,6 +578,24 @@
       ]
     },
     "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>UserId  The user ID to assign the new role</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "role",
+            "description": "<p>Role    The role to be added to an user</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Request-Example:",
@@ -605,7 +623,7 @@
     "name": "_users_RemoveRole",
     "group": "Users",
     "version": "1.0.0",
-    "description": "<p>This route is use to remove a role from the user</p>",
+    "description": "<p>This route will be used to remove a role from the user</p>",
     "permission": [
       {
         "name": "none"
@@ -639,6 +657,24 @@
       ]
     },
     "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>UserId  The user ID to remove the role</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "role",
+            "description": "<p>Role    The role to be removed from the user</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Request-Example:",
@@ -666,7 +702,7 @@
     "name": "_users_SignUp",
     "group": "Users",
     "version": "1.0.0",
-    "description": "<p>This route is use for create users on the system.</p>",
+    "description": "<p>This route will be used for create users on the system.</p>",
     "permission": [
       {
         "name": "none"
@@ -741,11 +777,11 @@
   {
     "type": "get",
     "url": "/users/current_user",
-    "title": "Get Current User",
+    "title": "Get a Current User",
     "name": "_users_current_user",
     "group": "Users",
     "version": "1.0.0",
-    "description": "<p>This route is use for get the current user inside the token.</p>",
+    "description": "<p>This route will be used to get the current user inside the token.</p>",
     "permission": [
       {
         "name": "none"
