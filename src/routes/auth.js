@@ -10,6 +10,48 @@ const {
 
 const router = express.Router()
 
+/**
+ * @api {post} /auth/login Login
+ * @apiName /auth/login
+ * @apiGroup Auth
+ * @apiVersion 1.0.0
+ *
+ * @apiDescription This route is used to login in the application
+ *
+ * @apiPermission none
+ *
+ * @apiHeader {String} Content-Type JSON Format.
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *          "Content-Type": "application/json"
+ *     }
+ *
+ * @apiParam {String} email		Email registered in the system.
+ * @apiParam {String} password	Password used in the system.
+ *
+ * @apiParamExample {json} Request-Example:
+ *     {
+ *			"email": "test21@test.com",
+ * 			"password": "test21"
+ *     }
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *
+ * 		{
+ *			"data": {
+ *				"_id": "1c40ba62c5fa7020e4f295dd",
+ *				"email": "test21@test.com",
+ *				"username": "test21",
+ *				"roles": [
+ *					"User"
+ *				],
+ *				"confirmed": true,
+ *				"token": "ayJhbGciOiJIUzI1NiIsInR5cCI7IkpXVCJ9.eyJfaWQiOiI1YzQwYmE2MmM1ZmU8DIwZTRmMjk1ZGQiLCJlbWFpbCI6InRlc3QyMUB0ZXN0LmNvbSIsInVzZXJuYW1lIjoidGVzdDIxIiwicm9sZXMiOlsiVXNlciJdLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTU0Nzc0NzA5MSwibmJmIjoxNTQ3NzQ3MDkxLCJleHAiOjE1NjU3NDcwOTEsImF1ZCI6InVuaXF1ZS1jbGllbnQtaWQtaGFzaCA6IElkZW50aWZpZXMgdGhlIHJlY2lwaWVudHMgdGhhdCB0aGUgSldUIGlzIGludGVuZGVkIGZvci4iLCJpc3MiOiJUZW1wbGF0ZSBBUEkiLCJzdWIiOiJzdWJqZWN0In0.20C8vZjXGI_Z8U66uwAS7ot3QwLsrp8ECaywkj2q0fo"
+ *			}
+ *		}
+ */
 router.post('/login', login)
 
 /**
