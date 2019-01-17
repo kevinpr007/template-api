@@ -109,6 +109,37 @@ router.get('/confirmation', confirmation)
  *
  */
 router.post('/reset_password_request', resetPasswordRequest)
+
+/**
+ * @api {post} /auth/reset_password Reset Password
+ * @apiName /auth/reset_password
+ * @apiGroup Auth
+ * @apiVersion 1.0.0
+ *
+ * @apiDescription This route is used to reset password and set the new password
+ *
+ * @apiPermission none
+ *
+ * @apiHeader {String} Content-Type JSON Format.
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *          "Content-Type": "application/json"
+ *     }
+ *
+ * @apiParam {String} password	The new password to be use in the system.
+ * @apiParam {String} token		This token will be used to validate the system.
+ *
+ * @apiParamExample {json} Request-Example:
+ *     {
+ *			"password": "test210",
+ * 			"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ8.ayJfaWQiOiI1YzQwYmE2MmM1ZmU3MDIwZTRmMjk1ZGQiLCJyZXNldFBhc3N3b3JkVG9rZW4iOiI4NzhkOWM3MC0xYTg4LTExZTktYjBkYy05YjIwYTk0NWQ3NzgiLCJpYXQiOjE1NDc3NTA5MzEsIm5iZiI6MTU0Nzc1MDkzMSwiZXhwIjoxNTQ3NzU0NTMxLCJhdWQiOiJ1bmlxdWUtY2xpZW50LWlkLWhhc2ggOiBJZGVudGlmaWVzIHRoZSByZWNpcGllbnRzIHRoYXQgdGhlIEpXVCBpcyBpbnRlbmRlZCBmb3IuIiwiaXNzIjoiVGVtcGxhdGUgQVBJIiwic3ViIjoic3ViamVjdCZ9.2tx7lzlB6CLuQOLtakvZ0SipDPLz7FlkJhuDIAecpz0"
+ *     }
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *
+ */
 router.post('/reset_password', resetPassword)
 router.post('/validate_token', validateToken)
 router.post('/RefreshToken', RefreshToken)
