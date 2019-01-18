@@ -220,6 +220,36 @@ router.get('/:id', getById)
 }
  */
 router.put('/:id', updateById)
+
+/**
+ * @api {delete} /entity2/:id Delete Entity2 by Id
+ * @apiName /entity2/:id-Delete
+ * @apiGroup Entity2
+ * @apiVersion 1.0.0
+ *
+ * @apiDescription This route will be used to delete a record of Entity2 by Id
+ *
+ * @apiPermission User
+ *
+ * @apiHeader {String} Content-Type JSON Format.
+ * @apiHeader {String} Authorization Token created by the system.
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *          "Content-Type": "application/json",
+ *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
+ *     }
+ *
+ * @apiParam {Number} id     The Id of the record
+ *
+ * @apiExample Example usage:
+ *     http://localhost/api/entity2/1c41ed9f01496b3680b8ceba
+ *
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *
+ */
 router.delete('/:id', deleteById)
 
 module.exports = router

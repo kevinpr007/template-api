@@ -1012,6 +1012,78 @@
     "groupTitle": "Entity2"
   },
   {
+    "type": "delete",
+    "url": "/entity2/:id",
+    "title": "Delete Entity2 by Id",
+    "name": "_entity2__id_Delete",
+    "group": "Entity2",
+    "version": "1.0.0",
+    "description": "<p>This route will be used to delete a record of Entity2 by Id</p>",
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>JSON Format.</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Token created by the system.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n     \"Content-Type\": \"application/json\",\n     \"Authorization\": \"Bearer {TOKEN-XXXXXXX}\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Id of the record</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "http://localhost/api/entity2/1c41ed9f01496b3680b8ceba",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/entity2.js",
+    "groupTitle": "Entity2"
+  },
+  {
     "type": "get",
     "url": "/entity2/:id",
     "title": "Search Entity2 by Id",
