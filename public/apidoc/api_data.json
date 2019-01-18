@@ -940,6 +940,78 @@
     "groupTitle": "Entity1"
   },
   {
+    "type": "get",
+    "url": "/entity2/",
+    "title": "Get All Entity2 Records",
+    "name": "_entity2_",
+    "group": "Entity2",
+    "version": "1.0.0",
+    "description": "<p>This route will be used to get all records in Entity2</p>",
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>JSON Format.</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Token created by the system.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n     \"Content-Type\": \"application/json\",\n     \"Authorization\": \"Bearer {TOKEN-XXXXXXX}\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "page",
+            "description": "<p>The page number to get records</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "http://localhost/api/entity2?page=1",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n\n {\n    \"data\": [\n        {\n            \"_id\": \"1c3f3dad64186320881bf202\",\n            \"MyString\": \"MyString\",\n            \"MyNumber\": 12345,\n            \"MyDescription\": \"MyDescription\",\n            \"Entity1_Id\": \"5c3f3d3068586320881bf209\",\n            \"createdAt\": \"2019-01-16T14:20:45.453Z\",\n            \"updatedAt\": \"2019-01-16T14:20:45.453Z\",\n            \"updatedAtPlugin\": \"2019-01-16T14:20:45.453Z\",\n            \"createdAtPlugin\": \"2019-01-16T14:20:45.453Z\",\n            \"__v\": 0\n        }\n    ],\n    \"Pagination\": {\n        \"currentPage\": 1,\n        \"pages\": 21,\n        \"count\": 201\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/entity2.js",
+    "groupTitle": "Entity2"
+  },
+  {
     "type": "post",
     "url": "/users/AddRole",
     "title": "Add Role",
