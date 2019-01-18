@@ -87,9 +87,9 @@ router.get('/', defaultVariables, getAll)
  *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
  *     }
  * 
- * @apiParam {String} MyField     The field to be update with the new value
- * @apiParam {String} MyDescription     The field to be update with the new value
- * @apiParam {String} MyNumberField     The field to be update with the new value
+ * @apiParam {String} MyField     The field to be inserted with the new value
+ * @apiParam {String} MyDescription     The field to be inserted with the new value
+ * @apiParam {String} MyNumberField     The field to be inserted with the new value
  *
  * @apiParamExample {json} Request-Example:
  {

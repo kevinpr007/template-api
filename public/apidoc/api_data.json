@@ -901,21 +901,21 @@
             "type": "String",
             "optional": false,
             "field": "MyField",
-            "description": "<p>The field to be update with the new value</p>"
+            "description": "<p>The field to be inserted with the new value</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "MyDescription",
-            "description": "<p>The field to be update with the new value</p>"
+            "description": "<p>The field to be inserted with the new value</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "MyNumberField",
-            "description": "<p>The field to be update with the new value</p>"
+            "description": "<p>The field to be inserted with the new value</p>"
           }
         ]
       },
@@ -1004,6 +1004,185 @@
         {
           "title": "Success-Response:",
           "content": "    HTTP/1.1 200 OK\n\n {\n    \"data\": [\n        {\n            \"_id\": \"1c3f3dad64186320881bf202\",\n            \"MyString\": \"MyString\",\n            \"MyNumber\": 12345,\n            \"MyDescription\": \"MyDescription\",\n            \"Entity1_Id\": \"5c3f3d3068586320881bf209\",\n            \"createdAt\": \"2019-01-16T14:20:45.453Z\",\n            \"updatedAt\": \"2019-01-16T14:20:45.453Z\",\n            \"updatedAtPlugin\": \"2019-01-16T14:20:45.453Z\",\n            \"createdAtPlugin\": \"2019-01-16T14:20:45.453Z\",\n            \"__v\": 0\n        }\n    ],\n    \"Pagination\": {\n        \"currentPage\": 1,\n        \"pages\": 21,\n        \"count\": 201\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/entity2.js",
+    "groupTitle": "Entity2"
+  },
+  {
+    "type": "get",
+    "url": "/entity2/:id",
+    "title": "Search Entity2 by Id",
+    "name": "_entity2__id_Get",
+    "group": "Entity2",
+    "version": "1.0.0",
+    "description": "<p>This route will be used to get a record of Entity2 by Id</p>",
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>JSON Format.</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Token created by the system.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n     \"Content-Type\": \"application/json\",\n     \"Authorization\": \"Bearer {TOKEN-XXXXXXX}\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Id of the record</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "http://localhost/api/entity2/1c41ed9f01496b3680b8ceba",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n\n{\n    \"data\": {\n        \"_id\": \"1c41ed9f01496b3680b8ceba\",\n        \"MyString\": \"MyString\",\n        \"MyNumber\": 12345,\n        \"MyDescription\": \"MyDescription\",\n        \"Entity1_Id\": \"ac3f3d3068126320881bc209\",\n        \"createdAt\": \"2019-01-18T15:15:43.802Z\",\n        \"updatedAt\": \"2019-01-18T15:15:43.802Z\",\n        \"updatedAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n        \"createdAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n        \"__v\": 0\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/entity2.js",
+    "groupTitle": "Entity2"
+  },
+  {
+    "type": "put",
+    "url": "/entity2/:id",
+    "title": "Update Entity2 by Id",
+    "name": "_entity2__id_Put",
+    "group": "Entity2",
+    "version": "1.0.0",
+    "description": "<p>This route will be used to update a record of Entity2 by Id</p>",
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>JSON Format.</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Token created by the system.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n     \"Content-Type\": \"application/json\",\n     \"Authorization\": \"Bearer {TOKEN-XXXXXXX}\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Id of the record</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "MyString",
+            "description": "<p>The field to be update with the new value</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "MyNumber",
+            "description": "<p>The field to be update with the new value</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "MyDescription",
+            "description": "<p>The field to be update with the new value</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "Entity1_Id",
+            "description": "<p>The field to be update with the new value</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": " {\n    \"MyString\": \"MyString_EDITEDDDDDD\",\n    \"MyNumber\": 12345,\n    \"MyDescription\": \"MyDescription_EDITED\",\n    \"Entity1_Id\": \"1c20a272c1vd536fa0c3d055\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "http://localhost:3000/api/entity2/1c41ed9f01496b3680b8ceba",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n\n {\n    \"data\": {\n        \"_id\": \"1c41ed9f01496b3680b8ceba\",\n        \"MyString\": \"MyString_EDITEDDDDDD\",\n        \"MyNumber\": 12345,\n        \"MyDescription\": \"MyDescription_EDITED\",\n        \"Entity1_Id\": \"1c20a272c1vd536fa0c3d055\",\n        \"createdAt\": \"2019-01-18T15:15:43.802Z\",\n        \"updatedAt\": \"2019-01-18T15:25:53.822Z\",\n        \"updatedAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n        \"createdAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n        \"__v\": 0\n    }\n}",
           "type": "json"
         }
       ]
