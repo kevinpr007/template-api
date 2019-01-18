@@ -36,12 +36,12 @@ router.use(authorize(USER))
  *          "Content-Type": "application/json",
  *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
  *     }
- * 
+ *
  * @apiParam {Number} page     The page number to get records
  *
  * @apiExample {curl} Example usage:
  *     http://localhost/api/entity1?page=1
- * 
+ *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *
@@ -68,6 +68,48 @@ router.use(authorize(USER))
  */
 router.get('/', defaultVariables, getAll)
 router.post('/', insert)
+
+/**
+ * @api {get} /entity1/:id Search Entity1 by Id
+ * @apiName /entity1/:id
+ * @apiGroup Entity1
+ * @apiVersion 1.0.0
+ *
+ * @apiDescription This route will be used to get a record of Entity1 by Id
+ *
+ * @apiPermission User
+ *
+ * @apiHeader {String} Content-Type JSON Format.
+ * @apiHeader {String} Authorization Token created by the system.
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *          "Content-Type": "application/json",
+ *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
+ *     }
+ * 
+ * @apiParam {Number} id     The Id of the record
+ *
+ * @apiExample {curl} Example usage:
+ *     http://localhost/api/entity1/6c3f3ccf62186320881bf1ff
+ * 
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *
+ {
+    "data": {
+        "_id": "6c3f3ccf62186320881bf1ff",
+        "MyField": "MyField",
+        "MyDescription": "MyDescription",
+        "MyNumberField": "5456345634",
+        "createdAt": "2019-01-16T14:16:47.911Z",
+        "updatedAt": "2019-01-16T14:16:47.911Z",
+        "updatedAtPlugin": "2019-01-16T14:16:47.911Z",
+        "createdAtPlugin": "2019-01-16T14:16:47.911Z",
+        "__v": 0
+    }
+}
+ */
 router.get('/:id', getById)
 router.put('/:id', updateById)
 router.delete('/:id', deleteById)
