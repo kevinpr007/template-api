@@ -78,6 +78,7 @@ describe('Controllers/user.js', () => {
 						pull: jest.fn(),
 					},
 					save: jest.fn(),
+					toAuthJSON: jest.fn(),
 				})
 				.mockResolvedValueOnce(null)
 				.mockRejectedValueOnce(() => {
