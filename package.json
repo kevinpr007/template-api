@@ -4,7 +4,7 @@
   "description": "This is a template using Nodejs and Mongo DB",
   "apidoc": {
     "title": "Custom apiDoc browser title",
-    "url": "http://localhost:3000/api"
+    "url": "http://localhost/api"
   },
   "main": "index.js",
   "scripts": {
@@ -39,12 +39,12 @@
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
     "moment": "^2.23.0",
-    "mongoose": "^5.4.3",
+    "mongoose": "^5.4.4",
     "mongoose-unique-validator": "^2.0.2",
     "nodemailer": "^5.1.1",
     "request-promise": "^4.2.2",
     "uuid": "^3.3.2",
-    "validator": "^10.10.0",
+    "validator": "^10.11.0",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {

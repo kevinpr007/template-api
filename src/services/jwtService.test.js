@@ -1,5 +1,6 @@
+require('dotenv').config()
 const jwt = require('jsonwebtoken')
-const jwtService = require('./jwtService')
+let jwtService = require('./jwtService')
 
 describe('jwtService.js', () => {
 	describe('Test jwt service functions', () => {
@@ -47,14 +48,13 @@ describe('jwtService.js', () => {
 			//Setting
 			expect.assertions(2)
 
-			jwt.verify = jest.fn(() => 'Token-12345')
-			jwtService.verify('user')
+			jwtService = require('./jwtService')
+			let realToken = jwtService.sign({ _id: 12345, username: 'My User Name' })
 
 			//Start Tests
-			expect(jwt.verify).toHaveBeenCalledTimes(1)
-
-			//Required variable can't be null
 			try {
+				let result = jwtService.verify(realToken)
+				expect(result).toBeDefined()
 				jwtService.verify(null)
 			} catch (err) {
 				expect(err).toBeInstanceOf(Error)

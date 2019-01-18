@@ -4,7 +4,7 @@ const factory = (errors) => {
 	const result = {}
 	_.forEach(errors, (val, key) => {
 		let resultValue
-		if (val) {
+		if (val.message) {
 			resultValue = val.message
 		} else {
 			resultValue = val
