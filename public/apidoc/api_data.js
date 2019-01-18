@@ -1013,6 +1013,99 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/entity2",
+    "title": "Insert a new Entity2 record",
+    "name": "_entity2_post",
+    "group": "Entity2",
+    "version": "1.0.0",
+    "description": "<p>This route will be used to insert a record in Entity2</p>",
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>JSON Format.</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Token created by the system.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n     \"Content-Type\": \"application/json\",\n     \"Authorization\": \"Bearer {TOKEN-XXXXXXX}\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "MyString",
+            "description": "<p>The field to be inserted with the new value</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "MyNumber",
+            "description": "<p>The field to be inserted with the new value</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "MyDescription",
+            "description": "<p>The field to be inserted with the new value</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "Entity1_Id",
+            "description": "<p>The field to be inserted with the new value</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    \"MyString\": \"MyString\",\n    \"MyNumber\": 12345,\n    \"MyDescription\": \"MyDescription\",\n    \"Entity1_Id\": \"5c3f3d3068186320881bf209\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n\n {\n    \"data\": {\n        \"_id\": \"1c41ed9v01496s3680b8ceba\",\n        \"MyString\": \"MyString\",\n        \"MyNumber\": 12345,\n        \"MyDescription\": \"MyDescription\",\n        \"Entity1_Id\": \"8c3a3d3060186320881bf201\",\n        \"createdAt\": \"2019-01-18T15:15:43.802Z\",\n        \"updatedAt\": \"2019-01-18T15:15:43.802Z\",\n        \"updatedAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n        \"createdAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n        \"__v\": 0\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/entity2.js",
+    "groupTitle": "Entity2"
+  },
+  {
+    "type": "post",
     "url": "/users/AddRole",
     "title": "Add Role",
     "name": "_users_AddRole",
