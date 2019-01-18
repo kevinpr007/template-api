@@ -71,7 +71,7 @@ router.post('/SignUp', signUp)
  *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
  *     }
  *
- * @apiExample {curl} Example usage:
+ * @apiExample Example usage:
  *     http://localhost/api/users/current_user
  *
  * @apiSuccessExample Success-Response:

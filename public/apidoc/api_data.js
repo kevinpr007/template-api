@@ -594,7 +594,7 @@ define({ "api": [
       {
         "title": "Example usage:",
         "content": "http://localhost/api/entity1?page=1",
-        "type": "curl"
+        "type": "json"
       }
     ],
     "success": {
@@ -613,7 +613,7 @@ define({ "api": [
     "type": "get",
     "url": "/entity1/:id",
     "title": "Search Entity1 by Id",
-    "name": "_entity1__id",
+    "name": "_entity1__id_Get",
     "group": "Entity1",
     "version": "1.0.0",
     "description": "<p>This route will be used to get a record of Entity1 by Id</p>",
@@ -666,7 +666,7 @@ define({ "api": [
       {
         "title": "Example usage:",
         "content": "http://localhost/api/entity1/6c3f3ccf62186320881bf1ff",
-        "type": "curl"
+        "type": "json"
       }
     ],
     "success": {
@@ -674,6 +674,106 @@ define({ "api": [
         {
           "title": "Success-Response:",
           "content": "    HTTP/1.1 200 OK\n\n {\n    \"data\": {\n        \"_id\": \"6c3f3ccf62186320881bf1ff\",\n        \"MyField\": \"MyField\",\n        \"MyDescription\": \"MyDescription\",\n        \"MyNumberField\": \"5456345634\",\n        \"createdAt\": \"2019-01-16T14:16:47.911Z\",\n        \"updatedAt\": \"2019-01-16T14:16:47.911Z\",\n        \"updatedAtPlugin\": \"2019-01-16T14:16:47.911Z\",\n        \"createdAtPlugin\": \"2019-01-16T14:16:47.911Z\",\n        \"__v\": 0\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/entity1.js",
+    "groupTitle": "Entity1"
+  },
+  {
+    "type": "put",
+    "url": "/entity1/:id",
+    "title": "Update Entity1 by Id",
+    "name": "_entity1__id_Put",
+    "group": "Entity1",
+    "version": "1.0.0",
+    "description": "<p>This route will be used to update a record of Entity1 by Id</p>",
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>JSON Format.</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Token created by the system.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n     \"Content-Type\": \"application/json\",\n     \"Authorization\": \"Bearer {TOKEN-XXXXXXX}\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Id of the record</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "MyField",
+            "description": "<p>The field to be update with the new value</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "MyDescription",
+            "description": "<p>The field to be update with the new value</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "MyNumberField",
+            "description": "<p>The field to be update with the new value</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n   \"MyField\": \"MyField_EDITED\",\n   \"MyDescription\": \"MyDescription_EDITED\",\n   \"MyNumberField\": \"12345\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "http://localhost/api/entity1/6c3f3ccf62186320881bf1ff",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "   HTTP/1.1 200 OK\n\n{\n   \"data\": {\n       \"_id\": \"6c3f3ccf62186320881bf1ff\",\n       \"MyField\": \"MyField_EDITED\",\n       \"MyDescription\": \"MyDescription_EDITED\",\n       \"MyNumberField\": \"12345\",\n       \"createdAt\": \"2019-01-16T14:16:47.911Z\",\n       \"updatedAt\": \"2019-01-18T14:41:33.399Z\",\n       \"updatedAtPlugin\": \"2019-01-16T14:16:47.911Z\",\n       \"createdAtPlugin\": \"2019-01-16T14:16:47.911Z\",\n       \"__v\": 0\n   }\n}",
           "type": "json"
         }
       ]
@@ -962,7 +1062,7 @@ define({ "api": [
       {
         "title": "Example usage:",
         "content": "http://localhost/api/users/current_user",
-        "type": "curl"
+        "type": "json"
       }
     ],
     "success": {
