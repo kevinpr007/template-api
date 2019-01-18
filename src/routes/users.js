@@ -123,18 +123,19 @@ router.get('/current_user', authenticate, currentUser)
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *
- *      {
- *           "data": {
- *              "_id": "8c40ba62c5fe7020e4f295dd",
- *              "email": "test21@test.com",
- *              "username": "test21",
- *              "roles": [
- *                  "User",
- *                  "Admin"
- *              ],
- *              "confirmed": true
- *          }
- *      }
+ {
+    "data": {
+        "_id": "5c421b41abd0630fc834b397",
+        "email": "test21@test.com",
+        "username": "test21",
+        "roles": [
+            "User",
+            "Admin"
+        ],
+        "confirmed": true,
+        "token": "eaJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzQyMGI0MWFiZDA2MzBmYzgzNGIzOTciLCJlbWFpbCI6InRlc3QyMUB0ZXN0LmNvbSIsInVzZXJuYW1lIjoidGVzdDIxIiwicm9sZXMiOlsiVXNlciIsIkFkbWluIl0sImNvbmZpcm1lZCI6dHJ1ZSwiaWF0IjoxNTQ3ODM0NDE4LCJuYmYiOjE1NDc4MzQ0MTgsImV4cCI6MTU2NTgzNDQxOCwiYXVkIjoidW5pcXVlLWNsaWVudC1pZC1oYXNoIDogSWRlbnRpZmllcyB0aGUgcmVjaXBpZW50cyB0aGF0IHRoZSBKV1QgaXMgaW50ZW5kZWQgZm9yLiIsImlzcyI6IlRlbXBsYXRlIEFQSSIsInN1YiI6InN1YmplY3QifQ.5dDvqMejuZcYQ4VBkoQmzCHCozPdxMivybjutrHoy0A"
+    }
+}
  *
  */
 router.post('/AddRole', authenticate, addRoleToUser)
@@ -170,17 +171,18 @@ router.post('/AddRole', authenticate, addRoleToUser)
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *
- *      {
- *           "data": {
- *               "_id": "9c40ba62c5fe7020e4f295dd",
- *              "email": "test21@test.com",
- *              "username": "test21",
- *              "roles": [
- *                  "User"
- *              ],
- *              "confirmed": true
- *          }
- *      }
+{
+    "data": {
+        "_id": "1c420b41abd0630fc834b397",
+        "email": "test21@test.com",
+        "username": "test21",
+        "roles": [
+            "User"
+        ],
+        "confirmed": true,
+        "token": "eyJhbGciOi4IUzI1NiIaInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzQyMGI0MWFiZDA2MzBmYzgzNGIzOTciLCJlbWFpbCI6InRlc3QyMUB0ZXN0LmNvbSIsInVzZXJuYW1lIjoidGVzdDIxIiwicm9sZXMiOlsiVXNlciJdLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTU0NzgzNDQ0MywibmJmIjoxNTQ3ODM0NDQzLCJleHAiOjE1NjU4MzQ0NDMsImF1ZCI6InVuaXF1ZS1jbGllbnQtaWQtaGFzaCA6IElkZW50aWZpZXMgdGhlIHJlY2lwaWVudHMgdGhhdCB0aGUgSldUIGlzIGludGVuZGVkIGZvci4iLCJpc3MiOiJUZW1wbGF0ZSBBUEkiLCJzdWIiOiJzdWJqZWN0In0.si9lsKxck_ea6XZbwCSO2mqim5IniSctIQcTnHFGe3g"
+    }
+}
  *
  */
 router.post('/RemoveRole', authenticate, RemoveRoleFromUser)

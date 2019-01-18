@@ -52,128 +52,6 @@
     "groupTitle": "Admin"
   },
   {
-    "type": "get",
-    "url": "/addSeed",
-    "title": "Add Seed",
-    "name": "addSeed_XXXXXXXXXXXX",
-    "group": "Admin",
-    "version": "1.0.0",
-    "description": "<p>This is the Description. It is multiline capable.</p> <p>Last line of Description.</p>",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "examples": [
-      {
-        "title": "Example usage:",
-        "content": "curl -i http://localhost/user/4711",
-        "type": "curl"
-      }
-    ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "access-key",
-            "description": "<p>Users unique access-key.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Accept-Encoding\": \"Accept-Encoding: gzip, deflate\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": true,
-            "field": "firstname",
-            "description": "<p>Optional Firstname of the User.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "lastname",
-            "description": "<p>Mandatory Lastname.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "country",
-            "defaultValue": "DE",
-            "description": "<p>Mandatory with default value &quot;DE&quot;.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": true,
-            "field": "age",
-            "defaultValue": "18",
-            "description": "<p>Optional Age with default 18.</p>"
-          }
-        ],
-        "Login": [
-          {
-            "group": "Login",
-            "type": "String",
-            "optional": false,
-            "field": "pass",
-            "description": "<p>Only logged in users can post this. In generated documentation a separate &quot;Login&quot; Block will be generated.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n  \"id\": 4711\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "firstname",
-            "description": "<p>Firstname of the User.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "lastname",
-            "description": "<p>Lastname of the User.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "src/utils/doc_references.js",
-    "groupTitle": "Admin"
-  },
-  {
     "type": "post",
     "url": "/auth/RefreshToken",
     "title": "Refresh Token",
@@ -1426,7 +1304,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n\n {\n      \"data\": {\n         \"_id\": \"8c40ba62c5fe7020e4f295dd\",\n         \"email\": \"test21@test.com\",\n         \"username\": \"test21\",\n         \"roles\": [\n             \"User\",\n             \"Admin\"\n         ],\n         \"confirmed\": true\n     }\n }",
+          "content": "    HTTP/1.1 200 OK\n\n {\n    \"data\": {\n        \"_id\": \"5c421b41abd0630fc834b397\",\n        \"email\": \"test21@test.com\",\n        \"username\": \"test21\",\n        \"roles\": [\n            \"User\",\n            \"Admin\"\n        ],\n        \"confirmed\": true,\n        \"token\": \"eaJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzQyMGI0MWFiZDA2MzBmYzgzNGIzOTciLCJlbWFpbCI6InRlc3QyMUB0ZXN0LmNvbSIsInVzZXJuYW1lIjoidGVzdDIxIiwicm9sZXMiOlsiVXNlciIsIkFkbWluIl0sImNvbmZpcm1lZCI6dHJ1ZSwiaWF0IjoxNTQ3ODM0NDE4LCJuYmYiOjE1NDc4MzQ0MTgsImV4cCI6MTU2NTgzNDQxOCwiYXVkIjoidW5pcXVlLWNsaWVudC1pZC1oYXNoIDogSWRlbnRpZmllcyB0aGUgcmVjaXBpZW50cyB0aGF0IHRoZSBKV1QgaXMgaW50ZW5kZWQgZm9yLiIsImlzcyI6IlRlbXBsYXRlIEFQSSIsInN1YiI6InN1YmplY3QifQ.5dDvqMejuZcYQ4VBkoQmzCHCozPdxMivybjutrHoy0A\"\n    }\n}",
           "type": "json"
         }
       ]
@@ -1505,7 +1383,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n\n {\n      \"data\": {\n          \"_id\": \"9c40ba62c5fe7020e4f295dd\",\n         \"email\": \"test21@test.com\",\n         \"username\": \"test21\",\n         \"roles\": [\n             \"User\"\n         ],\n         \"confirmed\": true\n     }\n }",
+          "content": "    HTTP/1.1 200 OK\n\n{\n    \"data\": {\n        \"_id\": \"1c420b41abd0630fc834b397\",\n        \"email\": \"test21@test.com\",\n        \"username\": \"test21\",\n        \"roles\": [\n            \"User\"\n        ],\n        \"confirmed\": true,\n        \"token\": \"eyJhbGciOi4IUzI1NiIaInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzQyMGI0MWFiZDA2MzBmYzgzNGIzOTciLCJlbWFpbCI6InRlc3QyMUB0ZXN0LmNvbSIsInVzZXJuYW1lIjoidGVzdDIxIiwicm9sZXMiOlsiVXNlciJdLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTU0NzgzNDQ0MywibmJmIjoxNTQ3ODM0NDQzLCJleHAiOjE1NjU4MzQ0NDMsImF1ZCI6InVuaXF1ZS1jbGllbnQtaWQtaGFzaCA6IElkZW50aWZpZXMgdGhlIHJlY2lwaWVudHMgdGhhdCB0aGUgSldUIGlzIGludGVuZGVkIGZvci4iLCJpc3MiOiJUZW1wbGF0ZSBBUEkiLCJzdWIiOiJzdWJqZWN0In0.si9lsKxck_ea6XZbwCSO2mqim5IniSctIQcTnHFGe3g\"\n    }\n}",
           "type": "json"
         }
       ]

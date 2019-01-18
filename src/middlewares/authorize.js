@@ -13,7 +13,11 @@ module.exports = (roles = []) => {
 		if (roles.length && !roles.some((r) => req.currentUser.roles.includes(r))) {
 			return res
 				.status(HttpStatus.UNAUTHORIZED)
-				.json(globalErrorFactory.factory('Unauthorized user'))
+				.json(
+					globalErrorFactory.factory(
+						`Unauthorized user. You must have at least one of this roles (${roles}).`
+					)
+				)
 		}
 
 		next()

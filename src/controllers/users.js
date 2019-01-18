@@ -50,7 +50,7 @@ const addRoleToUser = async (req, res, next) => {
 					user.roles.push(role)
 					user.save()
 				}
-				const data = setDataFactory('data', userFactory(user))
+				const data = setDataFactory('data', user.toAuthJSON())
 				res.json(data)
 			} else {
 				res
@@ -78,7 +78,7 @@ const RemoveRoleFromUser = async (req, res, next) => {
 					user.roles.pull(role)
 					user.save()
 				}
-				const data = setDataFactory('data', userFactory(user))
+				const data = setDataFactory('data', user.toAuthJSON())
 				res.json(data)
 			} else {
 				res

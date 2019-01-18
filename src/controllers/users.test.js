@@ -24,6 +24,7 @@ describe('Controllers/user.js', () => {
 				.mockResolvedValueOnce({
 					roles: ['User'],
 					save: jest.fn(),
+					toAuthJSON: jest.fn(),
 				})
 				.mockResolvedValueOnce(null)
 				.mockRejectedValueOnce(() => {
