@@ -67,6 +67,54 @@ router.use(authorize(USER))
  *		}
  */
 router.get('/', defaultVariables, getAll)
+
+/**
+ * @api {post} /entity1 Insert a new Entity1 record 
+ * @apiName /entity1/post
+ * @apiGroup Entity1
+ * @apiVersion 1.0.0
+ *
+ * @apiDescription This route will be used to insert a record in Entity1
+ *
+ * @apiPermission User
+ *
+ * @apiHeader {String} Content-Type JSON Format.
+ * @apiHeader {String} Authorization Token created by the system.
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *          "Content-Type": "application/json",
+ *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
+ *     }
+ * 
+ * @apiParam {String} MyField     The field to be update with the new value
+ * @apiParam {String} MyDescription     The field to be update with the new value
+ * @apiParam {String} MyNumberField     The field to be update with the new value
+ *
+ * @apiParamExample {json} Request-Example:
+ {
+    "MyField": "MyField",
+    "MyDescription": "MyDescription",
+    "MyNumberField": "5456345634"
+ }
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *
+ {
+    "data": {
+        "_id": "1c41et81bc84572f608ae1bc",
+        "MyField": "MyField",
+        "MyDescription": "MyDescription",
+        "MyNumberField": "5456345634",
+        "createdAt": "2019-01-18T15:02:29.911Z",
+        "updatedAt": "2019-01-18T15:02:29.911Z",
+        "updatedAtPlugin": "2019-01-18T15:02:29.911Z",
+        "createdAtPlugin": "2019-01-18T15:02:29.911Z",
+        "__v": 0
+    }
+}
+ */
 router.post('/', insert)
 
 /**

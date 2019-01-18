@@ -855,6 +855,92 @@
   },
   {
     "type": "post",
+    "url": "/entity1",
+    "title": "Insert a new Entity1 record",
+    "name": "_entity1_post",
+    "group": "Entity1",
+    "version": "1.0.0",
+    "description": "<p>This route will be used to insert a record in Entity1</p>",
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>JSON Format.</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Token created by the system.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n     \"Content-Type\": \"application/json\",\n     \"Authorization\": \"Bearer {TOKEN-XXXXXXX}\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "MyField",
+            "description": "<p>The field to be update with the new value</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "MyDescription",
+            "description": "<p>The field to be update with the new value</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "MyNumberField",
+            "description": "<p>The field to be update with the new value</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n   \"MyField\": \"MyField\",\n   \"MyDescription\": \"MyDescription\",\n   \"MyNumberField\": \"5456345634\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n\n {\n    \"data\": {\n        \"_id\": \"1c41et81bc84572f608ae1bc\",\n        \"MyField\": \"MyField\",\n        \"MyDescription\": \"MyDescription\",\n        \"MyNumberField\": \"5456345634\",\n        \"createdAt\": \"2019-01-18T15:02:29.911Z\",\n        \"updatedAt\": \"2019-01-18T15:02:29.911Z\",\n        \"updatedAtPlugin\": \"2019-01-18T15:02:29.911Z\",\n        \"createdAtPlugin\": \"2019-01-18T15:02:29.911Z\",\n        \"__v\": 0\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/entity1.js",
+    "groupTitle": "Entity1"
+  },
+  {
+    "type": "post",
     "url": "/users/AddRole",
     "title": "Add Role",
     "name": "_users_AddRole",
