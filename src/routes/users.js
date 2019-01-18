@@ -3,6 +3,8 @@ const authenticate = require('../middlewares/authenticate')
 const { signUp } = require('../controllers/users')
 const { currentUser } = require('../controllers/auth')
 const { addRoleToUser, RemoveRoleFromUser } = require('../controllers/users')
+const authorize = require('../middlewares/authorize')
+const { ADMIN } = require('../utils/constant')
 
 const router = express.Router()
 
@@ -100,7 +102,7 @@ router.get('/current_user', authenticate, currentUser)
  *
  * @apiDescription This route will be used to add a new role to an user
  *
- * @apiPermission none
+ * @apiPermission Admin
  *
  * @apiHeader {String} Content-Type JSON Format.
  * @apiHeader {String} Authorization Token created by the system.
@@ -138,7 +140,7 @@ router.get('/current_user', authenticate, currentUser)
 }
  *
  */
-router.post('/AddRole', authenticate, addRoleToUser)
+router.post('/AddRole', authenticate, authorize(ADMIN), addRoleToUser)
 
 /**
  * @api {post} /users/RemoveRole Remove Role
@@ -148,7 +150,7 @@ router.post('/AddRole', authenticate, addRoleToUser)
  *
  * @apiDescription This route will be used to remove a role from the user
  *
- * @apiPermission none
+ * @apiPermission Admin
  *
  * @apiHeader {String} Content-Type JSON Format.
  * @apiHeader {String} Authorization Token created by the system.
@@ -185,6 +187,6 @@ router.post('/AddRole', authenticate, addRoleToUser)
 }
  *
  */
-router.post('/RemoveRole', authenticate, RemoveRoleFromUser)
+router.post('/RemoveRole', authenticate, authorize(ADMIN), RemoveRoleFromUser)
 
 module.exports = router

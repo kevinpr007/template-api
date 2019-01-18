@@ -1243,7 +1243,7 @@ define({ "api": [
     "description": "<p>This route will be used to add a new role to an user</p>",
     "permission": [
       {
-        "name": "none"
+        "name": "Admin"
       }
     ],
     "header": {
@@ -1322,7 +1322,7 @@ define({ "api": [
     "description": "<p>This route will be used to remove a role from the user</p>",
     "permission": [
       {
-        "name": "none"
+        "name": "Admin"
       }
     ],
     "header": {
