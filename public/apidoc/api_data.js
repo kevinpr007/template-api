@@ -610,6 +610,78 @@ define({ "api": [
     "groupTitle": "Entity1"
   },
   {
+    "type": "delete",
+    "url": "/entity1/:id",
+    "title": "Delete Entity1 by Id",
+    "name": "_entity1__id_Delete",
+    "group": "Entity1",
+    "version": "1.0.0",
+    "description": "<p>This route will be used to delete a record of Entity1 by Id</p>",
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>JSON Format.</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Token created by the system.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n     \"Content-Type\": \"application/json\",\n     \"Authorization\": \"Bearer {TOKEN-XXXXXXX}\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Id of the record</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "http://localhost/api/entity1/6c3f3ccf62186320881bf1ff",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/entity1.js",
+    "groupTitle": "Entity1"
+  },
+  {
     "type": "get",
     "url": "/entity1/:id",
     "title": "Search Entity1 by Id",
