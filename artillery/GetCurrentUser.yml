@@ -1,0 +1,43 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 10
+      arrivalRate: 5
+      name: "Starting the application"
+    - duration: 20
+      arrivalRate: 5
+      rampTo: 10
+      name: "Warm up the application"
+    - duration: 30
+      arrivalRate: 15
+      name: "Sustained max load"
+  defaults:
+    headers:
+      Content-Type: 'application/json'
+  variables:
+      email:
+        - "test21@test.com"
+      password:
+        - "test21"
+  ensure:
+    maxErrorRate: 1
+  processor: "./general_artillery.js"
+scenarios:
+  - name: "Get Current User Test"
+    flow:
+      - post:
+          url: '/api/auth/login'
+          json:
+            email: '{{ email }}'
+            password: '{{ password }}'
+          capture:
+            json: "$.data.token"
+            as: "token"
+      - get:
+          url: '/api/users/current_user'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+          capture:
+            json: "$.data._id"
+            as: "_id"
+      - log: " - Token: {{ token }} - _id: - {{ _id }}"     

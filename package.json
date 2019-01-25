@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.js",
-    "prettier": "prettier --config ./.prettierrc --write ./src/**/*.js",
+    "prettier": "prettier --config ./.prettierrc --write ./src/**/*.js ./artillery/**/*.js",
     "eslint": "eslint ./src/**/*.js",
     "test": "jest --coverage --coverageDirectory=output/coverage/jest",
     "doc": "apidoc -i src/ -o public/apidoc/",
