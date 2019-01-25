@@ -1,0 +1,30 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 10
+      arrivalRate: 5
+      name: "Starting the application"
+    - duration: 20
+      arrivalRate: 5
+      rampTo: 10
+      name: "Warm up the application"
+    - duration: 30
+      arrivalRate: 15
+      name: "Sustained max load"
+  defaults:
+    headers:
+      Content-Type: 'application/json'
+  ensure:
+    maxErrorRate: 1
+  processor: "./general_artillery.js"
+scenarios:
+  - name: "SignUp Test"
+    flow:
+      - function: "SignUpGenerateData"
+      - post:          
+          url: '/api/users/SignUp'
+          json:
+            email: '{{ email }}'
+            password: '{{ password }}'
+            username: '{{ username }}'
+      - log: " - Email: {{ email }} - Password: {{ password }} - Username: {{ username }}"     

@@ -15,28 +15,34 @@ function setup() {
 	)
 }
 
+function sendEmail(tranport, email) {
+	if (process.env.NODE_ENV !== 'Artillery') {
+		tranport.sendMailAsync(email)
+	}
+}
+
 function sendConfirmationEmailValidation(user) {
 	const tranport = setup()
 	const email = emailFactory.confirmationEmailValidation(user)
-	tranport.sendMailAsync(email)
+	sendEmail(tranport, email)
 }
 
 function sendConfirmationEmail(user) {
 	const tranport = setup()
 	const email = emailFactory.confirmationEmail(user)
-	tranport.sendMailAsync(email)
+	sendEmail(tranport, email)
 }
 
 function sendResetPasswordEmailValidation(user) {
 	const tranport = setup()
 	const email = emailFactory.resetPasswordEmailValidation(user)
-	tranport.sendMailAsync(email)
+	sendEmail(tranport, email)
 }
 
 function sendResetPasswordEmail(user) {
 	const tranport = setup()
 	const email = emailFactory.resetPasswordEmail(user)
-	tranport.sendMailAsync(email)
+	sendEmail(tranport, email)
 }
 
 module.exports = {
