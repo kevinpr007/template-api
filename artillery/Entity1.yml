@@ -1,0 +1,73 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 10
+      arrivalRate: 5
+      name: "Starting the application"
+    - duration: 20
+      arrivalRate: 5
+      rampTo: 10
+      name: "Warm up the application"
+    - duration: 30
+      arrivalRate: 15
+      name: "Sustained max load"
+  defaults:
+    headers:
+      Content-Type: 'application/json'
+  variables:
+      email:
+        - "test21@test.com"
+      password:
+        - "test21"
+  ensure:
+    maxErrorRate: 1
+  processor: "./general_artillery.js"
+scenarios:
+  - name: "Entity1 Tests"
+    flow:
+      - post:
+          url: '/api/auth/login'
+          json:
+            email: '{{ email }}'
+            password: '{{ password }}'
+          capture:
+            json: "$.data.token"
+            as: "token"
+      - get:
+          url: '/api/entity1'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+          capture:
+            json: "$.data[0].MyField"
+            as: "MyField"
+      - post:
+          url: '/api/entity1'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+          json:
+            MyField: 'MyField'
+            MyDescription: 'MyDescription'
+            MyNumberField: '5456345634'
+          capture:
+            json: "$.data._id"
+            as: "_id"
+      - get:
+          url: '/api/entity1/{{_id}}'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+          capture:
+            json: "$.data.MyField"
+            as: "SearchID"
+      - put:
+          url: '/api/entity1/{{_id}}'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+          json:
+            MyField: 'MyField_Updated'
+            MyDescription: 'MyDescription_Updated'
+            MyNumberField: '12345789'
+      - delete:
+          url: '/api/entity1/{{_id}}'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+      - log: " - Token: {{ token }} - _id: - {{ _id }} - SearchID: {{SearchID}}"
