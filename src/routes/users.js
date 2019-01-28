@@ -14,7 +14,7 @@ const router = express.Router()
  * @apiGroup Users
  * @apiVersion 1.0.0
  *
- * @apiDescription This route will be used for create users on the system.
+ * @apiDescription This route will be used for create users on the system. //TODO: SDFHKDHSKJDHSKJ
  *
  * @apiPermission none
  *
@@ -25,9 +25,9 @@ const router = express.Router()
  *          "Content-Type": "application/json"
  *     }
  *
- * @apiParam {String} email     Email used in the system as primary key.
+ * @apiParam {String} email     Email used in the application as primary key.
  * @apiParam {String} password  Password required on the system.
- * @apiParam {String} username  Username used in the system.
+ * @apiParam {String} username  Username used in the application.
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -125,19 +125,19 @@ router.get('/current_user', authenticate, currentUser)
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *
- {
-    "data": {
-        "_id": "5c421b41abd0630fc834b397",
-        "email": "test21@test.com",
-        "username": "test21",
-        "roles": [
-            "User",
-            "Admin"
-        ],
-        "confirmed": true,
-        "token": "eaJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzQyMGI0MWFiZDA2MzBmYzgzNGIzOTciLCJlbWFpbCI6InRlc3QyMUB0ZXN0LmNvbSIsInVzZXJuYW1lIjoidGVzdDIxIiwicm9sZXMiOlsiVXNlciIsIkFkbWluIl0sImNvbmZpcm1lZCI6dHJ1ZSwiaWF0IjoxNTQ3ODM0NDE4LCJuYmYiOjE1NDc4MzQ0MTgsImV4cCI6MTU2NTgzNDQxOCwiYXVkIjoidW5pcXVlLWNsaWVudC1pZC1oYXNoIDogSWRlbnRpZmllcyB0aGUgcmVjaXBpZW50cyB0aGF0IHRoZSBKV1QgaXMgaW50ZW5kZWQgZm9yLiIsImlzcyI6IlRlbXBsYXRlIEFQSSIsInN1YiI6InN1YmplY3QifQ.5dDvqMejuZcYQ4VBkoQmzCHCozPdxMivybjutrHoy0A"
-    }
-}
+ * {
+ *    "data": {
+ *        "_id": "5c421b41abd0630fc834b397",
+ *        "email": "test21@test.com",
+ *        "username": "test21",
+ *        "roles": [
+ *            "User",
+ *            "Admin"
+ *        ],
+ *        "confirmed": true,
+ *        "token": "eaJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzQyMGI0MWFiZDA2MzBmYzgzNGIzOTciLCJlbWFpbCI6InRlc3QyMUB0ZXN0LmNvbSIsInVzZXJuYW1lIjoidGVzdDIxIiwicm9sZXMiOlsiVXNlciIsIkFkbWluIl0sImNvbmZpcm1lZCI6dHJ1ZSwiaWF0IjoxNTQ3ODM0NDE4LCJuYmYiOjE1NDc4MzQ0MTgsImV4cCI6MTU2NTgzNDQxOCwiYXVkIjoidW5pcXVlLWNsaWVudC1pZC1oYXNoIDogSWRlbnRpZmllcyB0aGUgcmVjaXBpZW50cyB0aGF0IHRoZSBKV1QgaXMgaW50ZW5kZWQgZm9yLiIsImlzcyI6IlRlbXBsYXRlIEFQSSIsInN1YiI6InN1YmplY3QifQ.5dDvqMejuZcYQ4VBkoQmzCHCozPdxMivybjutrHoy0A"
+ *    }
+ * }
  *
  */
 router.post('/AddRole', authenticate, authorize(ADMIN), addRoleToUser)

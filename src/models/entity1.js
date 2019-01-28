@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const timestampPlugin = require('./plugins/timestamp')
 
+const MyNumberFieldValidation = (value) => {
+	return validator.isNumeric(value)
+}
+
 let schema = new mongoose.Schema(
 	{
 		MyField: {
@@ -19,9 +23,7 @@ let schema = new mongoose.Schema(
 			type: String,
 			required: false,
 			validate: {
-				validator: (value) => {
-					return validator.isNumeric(value)
-				},
+				validator: MyNumberFieldValidation,
 				message: (props) => `${props.value} is not a valid number.`,
 			},
 		},

@@ -12,6 +12,7 @@ const {
 	updateById,
 	deleteById,
 } = require('../controllers/entity1')
+
 const router = express.Router()
 
 router.use(authenticate)
@@ -69,7 +70,7 @@ router.use(authorize(USER))
 router.get('/', defaultVariables, getAll)
 
 /**
- * @api {post} /entity1 Insert a new Entity1 record 
+ * @api {post} /entity1 Insert a new Entity1 record
  * @apiName /entity1/post
  * @apiGroup Entity1
  * @apiVersion 1.0.0
@@ -86,34 +87,34 @@ router.get('/', defaultVariables, getAll)
  *          "Content-Type": "application/json",
  *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
  *     }
- * 
- * @apiParam {String} MyField     The field to be inserted with the new value
+ *
+ * @apiParam {String} MyField           The field to be inserted with the new value
  * @apiParam {String} MyDescription     The field to be inserted with the new value
  * @apiParam {String} MyNumberField     The field to be inserted with the new value
  *
  * @apiParamExample {json} Request-Example:
- {
-    "MyField": "MyField",
-    "MyDescription": "MyDescription",
-    "MyNumberField": "5456345634"
- }
+ * {
+ *    "MyField": "MyField",
+ *    "MyDescription": "MyDescription",
+ *    "MyNumberField": "5456345634"
+ * }
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *
- {
-    "data": {
-        "_id": "1c41et81bc84572f608ae1bc",
-        "MyField": "MyField",
-        "MyDescription": "MyDescription",
-        "MyNumberField": "5456345634",
-        "createdAt": "2019-01-18T15:02:29.911Z",
-        "updatedAt": "2019-01-18T15:02:29.911Z",
-        "updatedAtPlugin": "2019-01-18T15:02:29.911Z",
-        "createdAtPlugin": "2019-01-18T15:02:29.911Z",
-        "__v": 0
-    }
-}
+ * {
+ *    "data": {
+ *        "_id": "1c41et81bc84572f608ae1bc",
+ *        "MyField": "MyField",
+ *        "MyDescription": "MyDescription",
+ *        "MyNumberField": "5456345634",
+ *        "createdAt": "2019-01-18T15:02:29.911Z",
+ *        "updatedAt": "2019-01-18T15:02:29.911Z",
+ *        "updatedAtPlugin": "2019-01-18T15:02:29.911Z",
+ *        "createdAtPlugin": "2019-01-18T15:02:29.911Z",
+ *        "__v": 0
+ *    }
+ * }
  */
 router.post('/', insert)
 
@@ -135,28 +136,28 @@ router.post('/', insert)
  *          "Content-Type": "application/json",
  *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
  *     }
- * 
+ *
  * @apiParam {Number} id     The Id of the record
  *
  * @apiExample Example usage:
  *     http://localhost/api/entity1/6c3f3ccf62186320881bf1ff
- * 
+ *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *
- {
-    "data": {
-        "_id": "6c3f3ccf62186320881bf1ff",
-        "MyField": "MyField",
-        "MyDescription": "MyDescription",
-        "MyNumberField": "5456345634",
-        "createdAt": "2019-01-16T14:16:47.911Z",
-        "updatedAt": "2019-01-16T14:16:47.911Z",
-        "updatedAtPlugin": "2019-01-16T14:16:47.911Z",
-        "createdAtPlugin": "2019-01-16T14:16:47.911Z",
-        "__v": 0
-    }
-}
+ * {
+ *    "data": {
+ *        "_id": "6c3f3ccf62186320881bf1ff",
+ *        "MyField": "MyField",
+ *        "MyDescription": "MyDescription",
+ *        "MyNumberField": "5456345634",
+ *        "createdAt": "2019-01-16T14:16:47.911Z",
+ *        "updatedAt": "2019-01-16T14:16:47.911Z",
+ *        "updatedAtPlugin": "2019-01-16T14:16:47.911Z",
+ *        "createdAtPlugin": "2019-01-16T14:16:47.911Z",
+ *        "__v": 0
+ *    }
+ * }
  */
 router.get('/:id', getById)
 
@@ -178,38 +179,38 @@ router.get('/:id', getById)
  *          "Content-Type": "application/json",
  *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
  *     }
- * 
- * @apiParam {Number} id     The Id of the record
- * @apiParam {String} MyField     The field to be update with the new value
+ *
+ * @apiParam {Number} id                The Id of the record
+ * @apiParam {String} MyField           The field to be update with the new value
  * @apiParam {String} MyDescription     The field to be update with the new value
  * @apiParam {String} MyNumberField     The field to be update with the new value
- * 
+ *
  * @apiExample Example usage:
  *     http://localhost/api/entity1/6c3f3ccf62186320881bf1ff
  *
  * @apiParamExample {json} Request-Example:
- {
-    "MyField": "MyField_EDITED",
-    "MyDescription": "MyDescription_EDITED",
-    "MyNumberField": "12345"
- }
- * 
+ * {
+ *    "MyField": "MyField_EDITED",
+ *    "MyDescription": "MyDescription_EDITED",
+ *    "MyNumberField": "12345"
+ * }
+ *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *
- {
-    "data": {
-        "_id": "6c3f3ccf62186320881bf1ff",
-        "MyField": "MyField_EDITED",
-        "MyDescription": "MyDescription_EDITED",
-        "MyNumberField": "12345",
-        "createdAt": "2019-01-16T14:16:47.911Z",
-        "updatedAt": "2019-01-18T14:41:33.399Z",
-        "updatedAtPlugin": "2019-01-16T14:16:47.911Z",
-        "createdAtPlugin": "2019-01-16T14:16:47.911Z",
-        "__v": 0
-    }
- }
+ * {
+ *    "data": {
+ *        "_id": "6c3f3ccf62186320881bf1ff",
+ *        "MyField": "MyField_EDITED",
+ *        "MyDescription": "MyDescription_EDITED",
+ *        "MyNumberField": "12345",
+ *        "createdAt": "2019-01-16T14:16:47.911Z",
+ *        "updatedAt": "2019-01-18T14:41:33.399Z",
+ *        "updatedAtPlugin": "2019-01-16T14:16:47.911Z",
+ *        "createdAtPlugin": "2019-01-16T14:16:47.911Z",
+ *        "__v": 0
+ *    }
+ * }
  */
 router.put('/:id', updateById)
 

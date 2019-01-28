@@ -1,7 +1,7 @@
 const HttpStatus = require('http-status-codes')
 const globalErrorFactory = require('../utils/globalErrorFactory')
 
-module.exports = (roles = []) => {
+const authorize = (roles = []) => {
 	// roles param can be a single role string (e.g. Role.User or 'User')
 	// or an array of roles (e.g. [Role.Admin, Role.User] or ['Admin', 'User'])
 	if (typeof roles === 'string') {
@@ -9,7 +9,7 @@ module.exports = (roles = []) => {
 	}
 
 	// authorize based on user role
-	let authorize = (req, res, next) => {
+	let authorizeValidation = (req, res, next) => {
 		if (roles.length && !roles.some((r) => req.currentUser.roles.includes(r))) {
 			return res
 				.status(HttpStatus.UNAUTHORIZED)
@@ -23,5 +23,7 @@ module.exports = (roles = []) => {
 		next()
 	}
 
-	return authorize
+	return authorizeValidation
 }
+
+module.exports = authorize

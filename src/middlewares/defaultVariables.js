@@ -1,4 +1,4 @@
-module.exports = (req, res, next) => {
+const defaultVariables = (req, res, next) => {
 	req.query.page = parseInt(req.query.page || 1)
 	req.query.limit = parseInt(process.env.REST_Limit_Page)
 
@@ -13,3 +13,5 @@ module.exports = (req, res, next) => {
 	// }
 	next()
 }
+
+module.exports = defaultVariables

@@ -1,4 +1,4 @@
-module.exports = (user) => {
+const userFactory = (user) => {
 	return {
 		_id: user._id,
 		email: user.email,
@@ -7,3 +7,5 @@ module.exports = (user) => {
 		confirmed: user.confirmed,
 	}
 }
+
+module.exports = userFactory

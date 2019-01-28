@@ -27,8 +27,8 @@ const router = express.Router()
  *          "Content-Type": "application/json"
  *     }
  *
- * @apiParam {String} email		Email registered in the system.
- * @apiParam {String} password	Password used in the system.
+ * @apiParam {String} email		Email registered in the application.
+ * @apiParam {String} password	Password used in the account system.
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -60,7 +60,7 @@ router.post('/login', login)
  * @apiGroup Auth
  * @apiVersion 1.0.0
  *
- * @apiDescription This route will be used to validate and active your email
+ * @apiDescription This route will be used to validate and activate your email
  *
  * @apiPermission none
  *
@@ -127,8 +127,8 @@ router.post('/reset_password_request', resetPasswordRequest)
  *          "Content-Type": "application/json"
  *     }
  *
- * @apiParam {String} password	The new password to be use in the system
- * @apiParam {String} token		This token will be used to validate the user in the system
+ * @apiParam {String} password	The new password to be use in the application
+ * @apiParam {String} token		This token will be used to validate the user in the application
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -159,7 +159,7 @@ router.post('/reset_password', resetPassword)
  *          "Content-Type": "application/json"
  *     }
  *
- * @apiParam {String} token		This token is used to validate the key in the system
+ * @apiParam {String} token		This token is used to validate the key in the application
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -189,7 +189,7 @@ router.post('/validate_token', validateToken)
  *          "Content-Type": "application/json"
  *     }
  *
- * @apiParam {String} token		This token will be used to validate and send the new token.
+ * @apiParam {String} token		This token will be used to validate and send a new token.
  *
  * @apiParamExample {json} Request-Example:
  *     {

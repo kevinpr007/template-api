@@ -1,4 +1,4 @@
-module.exports = (schema, options) => {
+const timestamp = (schema, options) => {
 	// Add the two fields to the schema
 	schema.add({
 		createdAtPlugin: Date,
@@ -18,3 +18,5 @@ module.exports = (schema, options) => {
 		next()
 	})
 }
+
+module.exports = timestamp

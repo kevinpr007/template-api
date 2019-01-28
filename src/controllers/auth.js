@@ -130,7 +130,7 @@ const resetPassword = async (req, res, next) => {
 const validateToken = async (req, res, next) => {
 	try {
 		const { token } = req.body
-		const { err, decodedToken } = jwtService.verify(token)
+		const { err } = jwtService.verify(token)
 
 		if (err) {
 			res

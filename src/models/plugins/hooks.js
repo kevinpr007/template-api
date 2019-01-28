@@ -1,4 +1,4 @@
-module.exports = (schema, options) => {
+const hooks = (schema, options) => {
 	// Create a pre-save hook
 	schema.pre('save', function(next) {
 		// Set a values
@@ -30,3 +30,5 @@ module.exports = (schema, options) => {
 		next()
 	})
 }
+
+module.exports = hooks

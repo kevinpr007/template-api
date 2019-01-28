@@ -38,6 +38,10 @@ const ResetPasswordSign = (user) => {
 	)
 }
 
+const resultVerify = (err, decodedToken) => {
+	return { err, decodedToken }
+}
+
 const verify = (token) => {
 	if (!token) {
 		throw new Error(ERROR_PARAMS_CANT_BE_NULL)
@@ -47,9 +51,7 @@ const verify = (token) => {
 		token,
 		process.env.JWT_SECRET,
 		JWTVariableFactory,
-		(err, decodedToken) => {
-			return { err, decodedToken }
-		}
+		resultVerify
 	)
 }
 

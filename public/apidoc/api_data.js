@@ -6,7 +6,7 @@ define({ "api": [
     "name": "_admin_addSeed",
     "group": "Admin",
     "version": "1.0.0",
-    "description": "<p>This route will be used to create all default entities informations on the system.</p>",
+    "description": "<p>This route will be used to create all default entities information on the system.</p>",
     "permission": [
       {
         "name": "Admin"
@@ -92,7 +92,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "token",
-            "description": "<p>This token will be used to validate and send the new token.</p>"
+            "description": "<p>This token will be used to validate and send a new token.</p>"
           }
         ]
       },
@@ -123,7 +123,7 @@ define({ "api": [
     "name": "_auth_confirmation",
     "group": "Auth",
     "version": "1.0.0",
-    "description": "<p>This route will be used to validate and active your email</p>",
+    "description": "<p>This route will be used to validate and activate your email</p>",
     "permission": [
       {
         "name": "none"
@@ -202,14 +202,14 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "email",
-            "description": "<p>Email registered in the system.</p>"
+            "description": "<p>Email registered in the application.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p>Password used in the system.</p>"
+            "description": "<p>Password used in the account system.</p>"
           }
         ]
       },
@@ -274,14 +274,14 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p>The new password to be use in the system</p>"
+            "description": "<p>The new password to be use in the application</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "token",
-            "description": "<p>This token will be used to validate the user in the system</p>"
+            "description": "<p>This token will be used to validate the user in the application</p>"
           }
         ]
       },
@@ -391,7 +391,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "token",
-            "description": "<p>This token is used to validate the key in the system</p>"
+            "description": "<p>This token is used to validate the key in the application</p>"
           }
         ]
       },
@@ -623,7 +623,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n\n {\n    \"data\": {\n        \"_id\": \"6c3f3ccf62186320881bf1ff\",\n        \"MyField\": \"MyField\",\n        \"MyDescription\": \"MyDescription\",\n        \"MyNumberField\": \"5456345634\",\n        \"createdAt\": \"2019-01-16T14:16:47.911Z\",\n        \"updatedAt\": \"2019-01-16T14:16:47.911Z\",\n        \"updatedAtPlugin\": \"2019-01-16T14:16:47.911Z\",\n        \"createdAtPlugin\": \"2019-01-16T14:16:47.911Z\",\n        \"__v\": 0\n    }\n}",
+          "content": "    HTTP/1.1 200 OK\n\n{\n   \"data\": {\n       \"_id\": \"6c3f3ccf62186320881bf1ff\",\n       \"MyField\": \"MyField\",\n       \"MyDescription\": \"MyDescription\",\n       \"MyNumberField\": \"5456345634\",\n       \"createdAt\": \"2019-01-16T14:16:47.911Z\",\n       \"updatedAt\": \"2019-01-16T14:16:47.911Z\",\n       \"updatedAtPlugin\": \"2019-01-16T14:16:47.911Z\",\n       \"createdAtPlugin\": \"2019-01-16T14:16:47.911Z\",\n       \"__v\": 0\n   }\n}",
           "type": "json"
         }
       ]
@@ -723,7 +723,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "   HTTP/1.1 200 OK\n\n{\n   \"data\": {\n       \"_id\": \"6c3f3ccf62186320881bf1ff\",\n       \"MyField\": \"MyField_EDITED\",\n       \"MyDescription\": \"MyDescription_EDITED\",\n       \"MyNumberField\": \"12345\",\n       \"createdAt\": \"2019-01-16T14:16:47.911Z\",\n       \"updatedAt\": \"2019-01-18T14:41:33.399Z\",\n       \"updatedAtPlugin\": \"2019-01-16T14:16:47.911Z\",\n       \"createdAtPlugin\": \"2019-01-16T14:16:47.911Z\",\n       \"__v\": 0\n   }\n}",
+          "content": "    HTTP/1.1 200 OK\n\n{\n   \"data\": {\n       \"_id\": \"6c3f3ccf62186320881bf1ff\",\n       \"MyField\": \"MyField_EDITED\",\n       \"MyDescription\": \"MyDescription_EDITED\",\n       \"MyNumberField\": \"12345\",\n       \"createdAt\": \"2019-01-16T14:16:47.911Z\",\n       \"updatedAt\": \"2019-01-18T14:41:33.399Z\",\n       \"updatedAtPlugin\": \"2019-01-16T14:16:47.911Z\",\n       \"createdAtPlugin\": \"2019-01-16T14:16:47.911Z\",\n       \"__v\": 0\n   }\n}",
           "type": "json"
         }
       ]
@@ -809,7 +809,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n\n {\n    \"data\": {\n        \"_id\": \"1c41et81bc84572f608ae1bc\",\n        \"MyField\": \"MyField\",\n        \"MyDescription\": \"MyDescription\",\n        \"MyNumberField\": \"5456345634\",\n        \"createdAt\": \"2019-01-18T15:02:29.911Z\",\n        \"updatedAt\": \"2019-01-18T15:02:29.911Z\",\n        \"updatedAtPlugin\": \"2019-01-18T15:02:29.911Z\",\n        \"createdAtPlugin\": \"2019-01-18T15:02:29.911Z\",\n        \"__v\": 0\n    }\n}",
+          "content": "    HTTP/1.1 200 OK\n\n{\n   \"data\": {\n       \"_id\": \"1c41et81bc84572f608ae1bc\",\n       \"MyField\": \"MyField\",\n       \"MyDescription\": \"MyDescription\",\n       \"MyNumberField\": \"5456345634\",\n       \"createdAt\": \"2019-01-18T15:02:29.911Z\",\n       \"updatedAt\": \"2019-01-18T15:02:29.911Z\",\n       \"updatedAtPlugin\": \"2019-01-18T15:02:29.911Z\",\n       \"createdAtPlugin\": \"2019-01-18T15:02:29.911Z\",\n       \"__v\": 0\n   }\n}",
           "type": "json"
         }
       ]
@@ -881,7 +881,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n\n {\n    \"data\": [\n        {\n            \"_id\": \"1c3f3dad64186320881bf202\",\n            \"MyString\": \"MyString\",\n            \"MyNumber\": 12345,\n            \"MyDescription\": \"MyDescription\",\n            \"Entity1_Id\": \"5c3f3d3068586320881bf209\",\n            \"createdAt\": \"2019-01-16T14:20:45.453Z\",\n            \"updatedAt\": \"2019-01-16T14:20:45.453Z\",\n            \"updatedAtPlugin\": \"2019-01-16T14:20:45.453Z\",\n            \"createdAtPlugin\": \"2019-01-16T14:20:45.453Z\",\n            \"__v\": 0\n        }\n    ],\n    \"Pagination\": {\n        \"currentPage\": 1,\n        \"pages\": 21,\n        \"count\": 201\n    }\n}",
+          "content": "    HTTP/1.1 200 OK\n\n{\n   \"data\": [\n       {\n           \"_id\": \"1c3f3dad64186320881bf202\",\n           \"MyString\": \"MyString\",\n           \"MyNumber\": 12345,\n           \"MyDescription\": \"MyDescription\",\n           \"Entity1_Id\": \"5c3f3d3068586320881bf209\",\n           \"createdAt\": \"2019-01-16T14:20:45.453Z\",\n           \"updatedAt\": \"2019-01-16T14:20:45.453Z\",\n           \"updatedAtPlugin\": \"2019-01-16T14:20:45.453Z\",\n           \"createdAtPlugin\": \"2019-01-16T14:20:45.453Z\",\n           \"__v\": 0\n       }\n   ],\n   \"Pagination\": {\n       \"currentPage\": 1,\n       \"pages\": 21,\n       \"count\": 201\n   }\n}",
           "type": "json"
         }
       ]
@@ -1025,7 +1025,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n\n{\n    \"data\": {\n        \"_id\": \"1c41ed9f01496b3680b8ceba\",\n        \"MyString\": \"MyString\",\n        \"MyNumber\": 12345,\n        \"MyDescription\": \"MyDescription\",\n        \"Entity1_Id\": \"ac3f3d3068126320881bc209\",\n        \"createdAt\": \"2019-01-18T15:15:43.802Z\",\n        \"updatedAt\": \"2019-01-18T15:15:43.802Z\",\n        \"updatedAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n        \"createdAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n        \"__v\": 0\n    }\n}",
+          "content": "    HTTP/1.1 200 OK\n\n{\n   \"data\": {\n       \"_id\": \"1c41ed9f01496b3680b8ceba\",\n       \"MyString\": \"MyString\",\n       \"MyNumber\": 12345,\n       \"MyDescription\": \"MyDescription\",\n       \"Entity1_Id\": \"ac3f3d3068126320881bc209\",\n       \"createdAt\": \"2019-01-18T15:15:43.802Z\",\n       \"updatedAt\": \"2019-01-18T15:15:43.802Z\",\n       \"updatedAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n       \"createdAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n       \"__v\": 0\n   }\n}",
           "type": "json"
         }
       ]
@@ -1116,7 +1116,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": " {\n    \"MyString\": \"MyString_EDITEDDDDDD\",\n    \"MyNumber\": 12345,\n    \"MyDescription\": \"MyDescription_EDITED\",\n    \"Entity1_Id\": \"1c20a272c1vd536fa0c3d055\"\n}",
+          "content": "{\n   \"MyString\": \"MyString_EDITEDDDDDD\",\n   \"MyNumber\": 12345,\n   \"MyDescription\": \"MyDescription_EDITED\",\n   \"Entity1_Id\": \"1c20a272c1vd536fa0c3d055\"\n}",
           "type": "json"
         }
       ]
@@ -1132,7 +1132,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n\n {\n    \"data\": {\n        \"_id\": \"1c41ed9f01496b3680b8ceba\",\n        \"MyString\": \"MyString_EDITEDDDDDD\",\n        \"MyNumber\": 12345,\n        \"MyDescription\": \"MyDescription_EDITED\",\n        \"Entity1_Id\": \"1c20a272c1vd536fa0c3d055\",\n        \"createdAt\": \"2019-01-18T15:15:43.802Z\",\n        \"updatedAt\": \"2019-01-18T15:25:53.822Z\",\n        \"updatedAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n        \"createdAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n        \"__v\": 0\n    }\n}",
+          "content": "    HTTP/1.1 200 OK\n\n{\n   \"data\": {\n       \"_id\": \"1c41ed9f01496b3680b8ceba\",\n       \"MyString\": \"MyString_EDITEDDDDDD\",\n       \"MyNumber\": 12345,\n       \"MyDescription\": \"MyDescription_EDITED\",\n       \"Entity1_Id\": \"1c20a272c1vd536fa0c3d055\",\n       \"createdAt\": \"2019-01-18T15:15:43.802Z\",\n       \"updatedAt\": \"2019-01-18T15:25:53.822Z\",\n       \"updatedAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n       \"createdAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n       \"__v\": 0\n   }\n}",
           "type": "json"
         }
       ]
@@ -1216,7 +1216,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    \"MyString\": \"MyString\",\n    \"MyNumber\": 12345,\n    \"MyDescription\": \"MyDescription\",\n    \"Entity1_Id\": \"5c3f3d3068186320881bf209\"\n}",
+          "content": "{\n   \"MyString\": \"MyString\",\n   \"MyNumber\": 12345,\n   \"MyDescription\": \"MyDescription\",\n   \"Entity1_Id\": \"5c3f3d3068186320881bf209\"\n}",
           "type": "json"
         }
       ]
@@ -1225,7 +1225,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n\n {\n    \"data\": {\n        \"_id\": \"1c41ed9v01496s3680b8ceba\",\n        \"MyString\": \"MyString\",\n        \"MyNumber\": 12345,\n        \"MyDescription\": \"MyDescription\",\n        \"Entity1_Id\": \"8c3a3d3060186320881bf201\",\n        \"createdAt\": \"2019-01-18T15:15:43.802Z\",\n        \"updatedAt\": \"2019-01-18T15:15:43.802Z\",\n        \"updatedAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n        \"createdAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n        \"__v\": 0\n    }\n}",
+          "content": "    HTTP/1.1 200 OK\n\n{\n   \"data\": {\n       \"_id\": \"1c41ed9v01496s3680b8ceba\",\n       \"MyString\": \"MyString\",\n       \"MyNumber\": 12345,\n       \"MyDescription\": \"MyDescription\",\n       \"Entity1_Id\": \"8c3a3d3060186320881bf201\",\n       \"createdAt\": \"2019-01-18T15:15:43.802Z\",\n       \"updatedAt\": \"2019-01-18T15:15:43.802Z\",\n       \"updatedAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n       \"createdAtPlugin\": \"2019-01-18T15:15:43.802Z\",\n       \"__v\": 0\n   }\n}",
           "type": "json"
         }
       ]
@@ -1304,7 +1304,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n\n {\n    \"data\": {\n        \"_id\": \"5c421b41abd0630fc834b397\",\n        \"email\": \"test21@test.com\",\n        \"username\": \"test21\",\n        \"roles\": [\n            \"User\",\n            \"Admin\"\n        ],\n        \"confirmed\": true,\n        \"token\": \"eaJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzQyMGI0MWFiZDA2MzBmYzgzNGIzOTciLCJlbWFpbCI6InRlc3QyMUB0ZXN0LmNvbSIsInVzZXJuYW1lIjoidGVzdDIxIiwicm9sZXMiOlsiVXNlciIsIkFkbWluIl0sImNvbmZpcm1lZCI6dHJ1ZSwiaWF0IjoxNTQ3ODM0NDE4LCJuYmYiOjE1NDc4MzQ0MTgsImV4cCI6MTU2NTgzNDQxOCwiYXVkIjoidW5pcXVlLWNsaWVudC1pZC1oYXNoIDogSWRlbnRpZmllcyB0aGUgcmVjaXBpZW50cyB0aGF0IHRoZSBKV1QgaXMgaW50ZW5kZWQgZm9yLiIsImlzcyI6IlRlbXBsYXRlIEFQSSIsInN1YiI6InN1YmplY3QifQ.5dDvqMejuZcYQ4VBkoQmzCHCozPdxMivybjutrHoy0A\"\n    }\n}",
+          "content": "    HTTP/1.1 200 OK\n\n{\n   \"data\": {\n       \"_id\": \"5c421b41abd0630fc834b397\",\n       \"email\": \"test21@test.com\",\n       \"username\": \"test21\",\n       \"roles\": [\n           \"User\",\n           \"Admin\"\n       ],\n       \"confirmed\": true,\n       \"token\": \"eaJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzQyMGI0MWFiZDA2MzBmYzgzNGIzOTciLCJlbWFpbCI6InRlc3QyMUB0ZXN0LmNvbSIsInVzZXJuYW1lIjoidGVzdDIxIiwicm9sZXMiOlsiVXNlciIsIkFkbWluIl0sImNvbmZpcm1lZCI6dHJ1ZSwiaWF0IjoxNTQ3ODM0NDE4LCJuYmYiOjE1NDc4MzQ0MTgsImV4cCI6MTU2NTgzNDQxOCwiYXVkIjoidW5pcXVlLWNsaWVudC1pZC1oYXNoIDogSWRlbnRpZmllcyB0aGUgcmVjaXBpZW50cyB0aGF0IHRoZSBKV1QgaXMgaW50ZW5kZWQgZm9yLiIsImlzcyI6IlRlbXBsYXRlIEFQSSIsInN1YiI6InN1YmplY3QifQ.5dDvqMejuZcYQ4VBkoQmzCHCozPdxMivybjutrHoy0A\"\n   }\n}",
           "type": "json"
         }
       ]
@@ -1398,7 +1398,7 @@ define({ "api": [
     "name": "_users_SignUp",
     "group": "Users",
     "version": "1.0.0",
-    "description": "<p>This route will be used for create users on the system.</p>",
+    "description": "<p>This route will be used for create users on the system. //TODO: SDFHKDHSKJDHSKJ</p>",
     "permission": [
       {
         "name": "none"
@@ -1432,7 +1432,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "email",
-            "description": "<p>Email used in the system as primary key.</p>"
+            "description": "<p>Email used in the application as primary key.</p>"
           },
           {
             "group": "Parameter",
@@ -1446,7 +1446,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "username",
-            "description": "<p>Username used in the system.</p>"
+            "description": "<p>Username used in the application.</p>"
           }
         ]
       },

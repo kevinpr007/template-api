@@ -3,8 +3,8 @@ const authenticate = require('../middlewares/authenticate')
 const refreshTokenJWT = require('../middlewares/refreshTokenJWT')
 const authorize = require('../middlewares/authorize')
 const { ADMIN } = require('../utils/constant')
-
 const { addSeed } = require('../controllers/admin')
+
 const router = express.Router()
 
 router.use(authenticate)
@@ -17,7 +17,7 @@ router.use(authorize(ADMIN))
  * @apiGroup Admin
  * @apiVersion 1.0.0
  *
- * @apiDescription This route will be used to create all default entities informations on the system.
+ * @apiDescription This route will be used to create all default entities information on the system.
  *
  * @apiPermission Admin
  *

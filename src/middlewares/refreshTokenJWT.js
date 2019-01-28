@@ -1,7 +1,7 @@
 const moment = require('moment')
 const jwtService = require('../services/jwtService')
 
-module.exports = (req, res, next) => {
+const refreshTokenJWT = (req, res, next) => {
 	const token = req.decodedToken
 
 	if (token) {
@@ -17,3 +17,5 @@ module.exports = (req, res, next) => {
 
 	next()
 }
+
+module.exports = refreshTokenJWT

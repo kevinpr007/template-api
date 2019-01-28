@@ -12,6 +12,7 @@ const {
 	updateById,
 	deleteById,
 } = require('../controllers/entity2')
+
 const router = express.Router()
 
 router.use(authenticate)
@@ -45,32 +46,32 @@ router.use(authorize(USER))
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *
- {
-    "data": [
-        {
-            "_id": "1c3f3dad64186320881bf202",
-            "MyString": "MyString",
-            "MyNumber": 12345,
-            "MyDescription": "MyDescription",
-            "Entity1_Id": "5c3f3d3068586320881bf209",
-            "createdAt": "2019-01-16T14:20:45.453Z",
-            "updatedAt": "2019-01-16T14:20:45.453Z",
-            "updatedAtPlugin": "2019-01-16T14:20:45.453Z",
-            "createdAtPlugin": "2019-01-16T14:20:45.453Z",
-            "__v": 0
-        }
-    ],
-    "Pagination": {
-        "currentPage": 1,
-        "pages": 21,
-        "count": 201
-    }
-}
+ * {
+ *    "data": [
+ *        {
+ *            "_id": "1c3f3dad64186320881bf202",
+ *            "MyString": "MyString",
+ *            "MyNumber": 12345,
+ *            "MyDescription": "MyDescription",
+ *            "Entity1_Id": "5c3f3d3068586320881bf209",
+ *            "createdAt": "2019-01-16T14:20:45.453Z",
+ *            "updatedAt": "2019-01-16T14:20:45.453Z",
+ *            "updatedAtPlugin": "2019-01-16T14:20:45.453Z",
+ *            "createdAtPlugin": "2019-01-16T14:20:45.453Z",
+ *            "__v": 0
+ *        }
+ *    ],
+ *    "Pagination": {
+ *        "currentPage": 1,
+ *        "pages": 21,
+ *        "count": 201
+ *    }
+ * }
  */
 router.get('/', defaultVariables, getAll)
 
 /**
- * @api {post} /entity2 Insert a new Entity2 record 
+ * @api {post} /entity2 Insert a new Entity2 record
  * @apiName /entity2/post
  * @apiGroup Entity2
  * @apiVersion 1.0.0
@@ -87,37 +88,37 @@ router.get('/', defaultVariables, getAll)
  *          "Content-Type": "application/json",
  *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
  *     }
- * 
- * @apiParam {String} MyString     The field to be inserted with the new value
- * @apiParam {String} MyNumber     The field to be inserted with the new value
- * @apiParam {String} MyDescription     The field to be inserted with the new value
- * @apiParam {String} Entity1_Id     The field to be inserted with the new value
+ *
+ * @apiParam {String} MyString      The field to be inserted with the new value
+ * @apiParam {String} MyNumber      The field to be inserted with the new value
+ * @apiParam {String} MyDescription The field to be inserted with the new value
+ * @apiParam {String} Entity1_Id    The field to be inserted with the new value
  *
  * @apiParamExample {json} Request-Example:
-{
-    "MyString": "MyString",
-    "MyNumber": 12345,
-    "MyDescription": "MyDescription",
-    "Entity1_Id": "5c3f3d3068186320881bf209"
-}
+ * {
+ *    "MyString": "MyString",
+ *    "MyNumber": 12345,
+ *    "MyDescription": "MyDescription",
+ *    "Entity1_Id": "5c3f3d3068186320881bf209"
+ * }
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *
- {
-    "data": {
-        "_id": "1c41ed9v01496s3680b8ceba",
-        "MyString": "MyString",
-        "MyNumber": 12345,
-        "MyDescription": "MyDescription",
-        "Entity1_Id": "8c3a3d3060186320881bf201",
-        "createdAt": "2019-01-18T15:15:43.802Z",
-        "updatedAt": "2019-01-18T15:15:43.802Z",
-        "updatedAtPlugin": "2019-01-18T15:15:43.802Z",
-        "createdAtPlugin": "2019-01-18T15:15:43.802Z",
-        "__v": 0
-    }
-}
+ * {
+ *    "data": {
+ *        "_id": "1c41ed9v01496s3680b8ceba",
+ *        "MyString": "MyString",
+ *        "MyNumber": 12345,
+ *        "MyDescription": "MyDescription",
+ *        "Entity1_Id": "8c3a3d3060186320881bf201",
+ *        "createdAt": "2019-01-18T15:15:43.802Z",
+ *        "updatedAt": "2019-01-18T15:15:43.802Z",
+ *        "updatedAtPlugin": "2019-01-18T15:15:43.802Z",
+ *        "createdAtPlugin": "2019-01-18T15:15:43.802Z",
+ *        "__v": 0
+ *    }
+ * }
  */
 router.post('/', insert)
 
@@ -139,29 +140,29 @@ router.post('/', insert)
  *          "Content-Type": "application/json",
  *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
  *     }
- * 
+ *
  * @apiParam {Number} id     The Id of the record
  *
  * @apiExample Example usage:
  *     http://localhost/api/entity2/1c41ed9f01496b3680b8ceba
- * 
+ *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *
-{
-    "data": {
-        "_id": "1c41ed9f01496b3680b8ceba",
-        "MyString": "MyString",
-        "MyNumber": 12345,
-        "MyDescription": "MyDescription",
-        "Entity1_Id": "ac3f3d3068126320881bc209",
-        "createdAt": "2019-01-18T15:15:43.802Z",
-        "updatedAt": "2019-01-18T15:15:43.802Z",
-        "updatedAtPlugin": "2019-01-18T15:15:43.802Z",
-        "createdAtPlugin": "2019-01-18T15:15:43.802Z",
-        "__v": 0
-    }
-}
+ * {
+ *    "data": {
+ *        "_id": "1c41ed9f01496b3680b8ceba",
+ *        "MyString": "MyString",
+ *        "MyNumber": 12345,
+ *        "MyDescription": "MyDescription",
+ *        "Entity1_Id": "ac3f3d3068126320881bc209",
+ *        "createdAt": "2019-01-18T15:15:43.802Z",
+ *        "updatedAt": "2019-01-18T15:15:43.802Z",
+ *        "updatedAtPlugin": "2019-01-18T15:15:43.802Z",
+ *        "createdAtPlugin": "2019-01-18T15:15:43.802Z",
+ *        "__v": 0
+ *    }
+ * }
  */
 router.get('/:id', getById)
 
@@ -183,41 +184,41 @@ router.get('/:id', getById)
  *          "Content-Type": "application/json",
  *          "Authorization": "Bearer {TOKEN-XXXXXXX}"
  *     }
- * 
- * @apiParam {Number} id     The Id of the record
- * @apiParam {String} MyString     The field to be update with the new value
- * @apiParam {String} MyNumber     The field to be update with the new value
- * @apiParam {String} MyDescription     The field to be update with the new value
- * @apiParam {String} Entity1_Id     The field to be update with the new value
- * 
+ *
+ * @apiParam {Number} id            The Id of the record
+ * @apiParam {String} MyString      The field to be update with the new value
+ * @apiParam {String} MyNumber      The field to be update with the new value
+ * @apiParam {String} MyDescription The field to be update with the new value
+ * @apiParam {String} Entity1_Id    The field to be update with the new value
+ *
  * @apiExample Example usage:
  *     http://localhost:3000/api/entity2/1c41ed9f01496b3680b8ceba
  *
  * @apiParamExample {json} Request-Example:
- {
-    "MyString": "MyString_EDITEDDDDDD",
-    "MyNumber": 12345,
-    "MyDescription": "MyDescription_EDITED",
-    "Entity1_Id": "1c20a272c1vd536fa0c3d055"
-}
- * 
+ * {
+ *    "MyString": "MyString_EDITEDDDDDD",
+ *    "MyNumber": 12345,
+ *    "MyDescription": "MyDescription_EDITED",
+ *    "Entity1_Id": "1c20a272c1vd536fa0c3d055"
+ * }
+ *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *
- {
-    "data": {
-        "_id": "1c41ed9f01496b3680b8ceba",
-        "MyString": "MyString_EDITEDDDDDD",
-        "MyNumber": 12345,
-        "MyDescription": "MyDescription_EDITED",
-        "Entity1_Id": "1c20a272c1vd536fa0c3d055",
-        "createdAt": "2019-01-18T15:15:43.802Z",
-        "updatedAt": "2019-01-18T15:25:53.822Z",
-        "updatedAtPlugin": "2019-01-18T15:15:43.802Z",
-        "createdAtPlugin": "2019-01-18T15:15:43.802Z",
-        "__v": 0
-    }
-}
+ * {
+ *    "data": {
+ *        "_id": "1c41ed9f01496b3680b8ceba",
+ *        "MyString": "MyString_EDITEDDDDDD",
+ *        "MyNumber": 12345,
+ *        "MyDescription": "MyDescription_EDITED",
+ *        "Entity1_Id": "1c20a272c1vd536fa0c3d055",
+ *        "createdAt": "2019-01-18T15:15:43.802Z",
+ *        "updatedAt": "2019-01-18T15:25:53.822Z",
+ *        "updatedAtPlugin": "2019-01-18T15:15:43.802Z",
+ *        "createdAtPlugin": "2019-01-18T15:15:43.802Z",
+ *        "__v": 0
+ *    }
+ * }
  */
 router.put('/:id', updateById)
 

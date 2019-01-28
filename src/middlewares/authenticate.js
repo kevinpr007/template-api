@@ -7,7 +7,7 @@ const {
 	ERROR_INVALID_TOKEN,
 } = require('../utils/constant')
 
-module.exports = (req, res, next) => {
+const authenticate = (req, res, next) => {
 	const header = req.headers.authorization
 	const TOKEN_PARAMETER_POSITION = 1
 
@@ -47,3 +47,5 @@ module.exports = (req, res, next) => {
 			.json(globalErrorFactory.factory(ERROR_TOKEN_NOT_FOUND))
 	}
 }
+
+module.exports = authenticate

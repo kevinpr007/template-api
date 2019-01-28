@@ -4,6 +4,10 @@ const Entity1 = require('../models/entity1')
 const Entity2 = require('../models/entity2')
 const User = require('../models/user')
 
+const mongooseResponse = (err, docs) => {
+	console.log(docs)
+}
+
 const addSeed = async (req, res, next) => {
 	try {
 		let toPushEntity1 = []
@@ -16,9 +20,7 @@ const addSeed = async (req, res, next) => {
 			})
 			toPushEntity1.push(entity)
 		}
-		Entity1.collection.insert(toPushEntity1, (err, docs) => {
-			console.log(docs)
-		})
+		Entity1.collection.insert(toPushEntity1, mongooseResponse)
 
 		let toPushEntity2 = []
 
@@ -30,9 +32,7 @@ const addSeed = async (req, res, next) => {
 			})
 			toPushEntity2.push(entity)
 		}
-		Entity2.collection.insert(toPushEntity2, (err, docs) => {
-			console.log(docs)
-		})
+		Entity2.collection.insert(toPushEntity2, mongooseResponse)
 
 		let toPushUser = []
 
@@ -46,9 +46,7 @@ const addSeed = async (req, res, next) => {
 			})
 			toPushUser.push(entity)
 		}
-		User.collection.insert(toPushUser, (err, docs) => {
-			console.log(docs)
-		})
+		User.collection.insert(toPushUser, mongooseResponse)
 		res.status(HttpStatus.OK).json()
 	} catch (err) {
 		next(err)
