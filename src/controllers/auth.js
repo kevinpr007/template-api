@@ -164,7 +164,7 @@ const RefreshToken = async (req, res, next) => {
 				.json(globalErrorFactory.factory(ERROR_TOKEN_NOT_VALID, err))
 		} else if (decodedToken) {
 			const decodedRefreshToken = jwtService.sign(decodedToken)
-			res.set('X-JWT-Refresh-Token', decodedRefreshToken)
+			res.set('x-jwt-refresh-token', decodedRefreshToken)
 			res.json()
 		} else {
 			res

@@ -13,7 +13,7 @@
     "eslint": "eslint ./src/**/*.js",
     "test": "jest --coverage --coverageDirectory=output/coverage/jest",
     "doc": "apidoc -i src/ -o public/apidoc/",
-    "prof": "node --prof src/index.js"
+    "prof": "set NODE_ENV=Artillery&&node --prof src/index.js"
   },
   "repository": {
     "type": "git",
