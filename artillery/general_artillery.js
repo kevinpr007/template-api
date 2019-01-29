@@ -7,15 +7,15 @@ function setInformation(context, events, done) {
 	return done()
 }
 
-function SignUpGenerateData(context, events, done) {
+function signUpGenerateData(context, events, done) {
 	i = i + 1
-	context.vars.email = `test${i}@test.com`
-	context.vars.password = `test${i}@test.com`
-	context.vars.username = `test${i}@test.com`
+	context.vars.email = `artillery${i}@test.com`
+	context.vars.password = `artillery${i}@test.com`
+	context.vars.username = `artillery${i}@test.com`
 	return done()
 }
 
 module.exports = {
 	setInformation,
-	SignUpGenerateData,
+	signUpGenerateData,
 }

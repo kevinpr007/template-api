@@ -3,7 +3,6 @@ const User = require('../models/User')
 const globalErrorFactory = require('../utils/globalErrorFactory')
 const { sendConfirmationEmailValidation } = require('../utils/email/mailer')
 const setDataFactory = require('../utils/setDataFactory')
-const userFactory = require('../utils/userFactory')
 const {
 	ROLES,
 	ERROR_USER_NOT_FOUND,

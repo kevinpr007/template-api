@@ -14,7 +14,7 @@ const router = express.Router()
  * @apiGroup Users
  * @apiVersion 1.0.0
  *
- * @apiDescription This route will be used for create users on the system. //TODO: SDFHKDHSKJDHSKJ
+ * @apiDescription This route will be used for create users in the system.
  *
  * @apiPermission none
  *
@@ -26,7 +26,7 @@ const router = express.Router()
  *     }
  *
  * @apiParam {String} email     Email used in the application as primary key.
- * @apiParam {String} password  Password required on the system.
+ * @apiParam {String} password  Password required in the system.
  * @apiParam {String} username  Username used in the application.
  *
  * @apiParamExample {json} Request-Example:

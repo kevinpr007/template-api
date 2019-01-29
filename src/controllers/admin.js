@@ -36,7 +36,7 @@ const addSeed = async (req, res, next) => {
 
 		let toPushUser = []
 
-		for (let i = 0; i < 15; i++) {
+		for (let i = 0; i < 100; i++) {
 			let entity = new User({
 				email: faker.internet.email(),
 				username: faker.internet.userName(),

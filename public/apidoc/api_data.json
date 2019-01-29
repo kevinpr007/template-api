@@ -6,7 +6,7 @@
     "name": "_admin_addSeed",
     "group": "Admin",
     "version": "1.0.0",
-    "description": "<p>This route will be used to create all default entities information on the system.</p>",
+    "description": "<p>This route will be used to create all default entities information in the system.</p>",
     "permission": [
       {
         "name": "Admin"
@@ -108,7 +108,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n\t   X-JWT-Refresh-Token: ayJhbYciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzQwYmE5MmM1ZmU3MDIwZTRmMjk1ZGQiLCJlbWFpbCI6InRlc3QyMUB0ZXN0LmNvbSIsInVzZXJuYW1lIjoidGVzdDIxIiwicm9sZXMiOlsiVXNlciJdLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTU0Nzc1MzE5MywibmJmIjoxNTQ3NzUzMTkzLCJleHAiOjE1NjU3NTMxOTMsImF1ZCI6InVuaXF1ZS1jbGllbnQtaWQtaGFzaCA6IElkZW50aWZpZXMgdGhlIHJlY2lwaWVudHMgdGhhdCB0aGUgSldUIGlzIGludGVuZGVkIGZvci4iLCJpc3MiOiJUZW1wbGF0ZSBBUEkiLCJzdWIiOiJzdWJqZWN0In0.GkLc5xWJ2v2TIZRBbJ4swkE_weuXiF-N_nCprnpIbBM",
+          "content": "    HTTP/1.1 200 OK\n\t   x-jwt-refresh-token: ayJhbYciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzQwYmE5MmM1ZmU3MDIwZTRmMjk1ZGQiLCJlbWFpbCI6InRlc3QyMUB0ZXN0LmNvbSIsInVzZXJuYW1lIjoidGVzdDIxIiwicm9sZXMiOlsiVXNlciJdLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTU0Nzc1MzE5MywibmJmIjoxNTQ3NzUzMTkzLCJleHAiOjE1NjU3NTMxOTMsImF1ZCI6InVuaXF1ZS1jbGllbnQtaWQtaGFzaCA6IElkZW50aWZpZXMgdGhlIHJlY2lwaWVudHMgdGhhdCB0aGUgSldUIGlzIGludGVuZGVkIGZvci4iLCJpc3MiOiJUZW1wbGF0ZSBBUEkiLCJzdWIiOiJzdWJqZWN0In0.GkLc5xWJ2v2TIZRBbJ4swkE_weuXiF-N_nCprnpIbBM",
           "type": "json"
         }
       ]
@@ -1398,7 +1398,7 @@
     "name": "_users_SignUp",
     "group": "Users",
     "version": "1.0.0",
-    "description": "<p>This route will be used for create users on the system. //TODO: SDFHKDHSKJDHSKJ</p>",
+    "description": "<p>This route will be used for create users in the system.</p>",
     "permission": [
       {
         "name": "none"
@@ -1439,7 +1439,7 @@
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p>Password required on the system.</p>"
+            "description": "<p>Password required in the system.</p>"
           },
           {
             "group": "Parameter",

@@ -20,7 +20,7 @@ config:
 scenarios:
   - name: "SignUp Test"
     flow:
-      - function: "SignUpGenerateData"
+      - function: "signUpGenerateData"
       - post:          
           url: '/api/users/SignUp'
           json:

@@ -1,0 +1,155 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 10
+      arrivalRate: 25
+      name: "Starting the application"
+    - duration: 30
+      arrivalRate: 25
+      rampTo: 75
+      name: "Warm up the application"
+    - duration: 180
+      arrivalRate: 100
+      name: "Sustained max load"
+  defaults:
+    headers:
+      Content-Type: 'application/json'
+  variables:
+      emailFixed:
+        - "test21@test.com"
+      passwordFixed:
+        - "test21"
+  ensure:
+    maxErrorRate: 1
+  processor: "./general_artillery.js"
+scenarios:
+  - name: "Heavy Load Testing Application"
+    flow:
+      - function: "signUpGenerateData"
+      - post:
+          url: '/api/users/SignUp'
+          json:
+            email: '{{ email }}'
+            password: '{{ password }}'
+            username: '{{ username }}'
+      - log: "/api/users/SignUp - Email: {{ email }} - Password: {{ password }} - Username: {{ username }}" 
+      - post:          
+          url: '/api/auth/reset_password_request'
+          json:
+            email: '{{ email }}'
+      - log: "/api/auth/reset_password_request - Email: {{ email }}"         
+      - post:
+          url: '/api/auth/login'
+          json:
+            email: '{{ emailFixed }}'
+            password: '{{ passwordFixed }}'
+          capture:
+            json: "$.data.token"
+            as: "token"
+      - log: "/api/auth/login - {{token}}"
+      - post:
+          url: '/api/auth/validate_token'
+          json:
+            token: '{{ token }}'
+      - log: "/api/auth/validate_token - Token: {{ token }}" 
+      - get:
+          url: '/api/users/current_user'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+          capture:
+            json: "$.data._id"
+            as: "currentUser"
+      - log: "/api/users/current_user - currentUser: - {{ currentUser }}"        
+      - post:
+          url: '/api/auth/RefreshToken'
+          json:
+            token: '{{ token }}'
+          capture:
+            header: "x-jwt-refresh-token"
+            as: "RefToken"
+      - log: "/api/auth/RefreshToken - RefToken: {{ RefToken }}"   
+      - get:
+          url: '/api/entity1'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+          capture:
+            json: "$.data[0].MyField"
+            as: "MyFieldEntity1"
+      - log: "/api/entity1 - GetAll - {{ MyFieldEntity1 }}"
+      - post:
+          url: '/api/entity1'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+          json:
+            MyField: 'MyField'
+            MyDescription: 'MyDescription'
+            MyNumberField: '5456345634'
+          capture:
+            json: "$.data._id"
+            as: "entity1_id"
+      - log: "/api/entity1 - Post - {{entity1_id}}"
+      - get:
+          url: '/api/entity1/{{entity1_id}}'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+          capture:
+            json: "$.data.MyField"
+            as: "SearchID"
+      - log: "/api/entity1/{{entity1_id}} - Get - {{SearchID}}"
+      - put:
+          url: '/api/entity1/{{entity1_id}}'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+          json:
+            MyField: 'MyField_Updated'
+            MyDescription: 'MyDescription_Updated'
+            MyNumberField: '12345789'
+      - log: "/api/entity1/{{entity1_id}} - Put"
+      - delete:
+          url: '/api/entity1/{{entity1_id}}'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+      - log: "/api/entity1/{{entity1_id}} - Delete"
+      - get:
+          url: '/api/entity2'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+          capture:
+            json: "$.data[0].MyString"
+            as: "MyStringEntity2"
+      - log: "/api/entity2 - GetAll - {{ MyStringEntity2 }}"
+      - post:
+          url: '/api/entity2'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+          json:
+            MyString: 'MyString'
+            MyNumber: '12345'
+            MyDescription: 'MyDescription'
+            Entity1_Id: '5c3f3d3068186320881bf209'
+          capture:
+            json: "$.data._id"
+            as: "entity2_id"
+      - log: "/api/entity2 - Post - {{entity2_id}}"
+      - get:
+          url: '/api/entity2/{{entity2_id}}'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+          capture:
+            json: "$.data.createdAt"
+            as: "entity2_createdAt"
+      - log: "/api/entity2/{{entity2_id}} - Get - {{entity2_createdAt}}"
+      - put:
+          url: '/api/entity2/{{entity2_id}}'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+          json:
+            MyString: 'MyString_Updated'
+            MyNumber: '67890'
+            MyDescription: 'MyDescription_Updated'
+      - log: "/api/entity2/{{entity2_id}} - Put"
+      - delete:
+          url: '/api/entity2/{{entity2_id}}'
+          headers:
+            Authorization: 'Bearer {{ token }}'
+      - log: "/api/entity2/{{entity2_id}} - Delete"
