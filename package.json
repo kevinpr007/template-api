@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/kevinpr007/template-api#readme",
   "dependencies": {
-    "bcrypt": "3.0.2",
+    "bcrypt": "3.0.4",
     "bluebird": "3.5.3",
     "body-parser": "1.18.3",
     "bunyan": "1.8.12",
@@ -49,7 +49,6 @@
     "mongoose-unique-validator": "2.0.2",
     "nodemailer": "5.1.1",
     "os": "0.1.1",
-    "request-promise": "4.2.2",
     "uuid": "3.3.2",
     "validator": "10.11.0",
     "xml2js": "0.4.19"
