@@ -17,7 +17,7 @@
     "mydoctor": "set NODE_ENV=Artillery&&clinic doctor -- node ./src/index.js",
     "mybubble": "set NODE_ENV=Artillery&&clinic bubbleprof -- node ./src/index.js",
     "myflame": "set NODE_ENV=Artillery&&clinic flame -- node ./src/index.js",
-    "mydoctortest": "set NODE_ENV=Artillery&&clinic bubbleprof --on-port 'artillery run ./artillery/ValidateToken.yml' -- node ./src/index.js"
+    "mydoctortest": "set NODE_ENV=Artillery&&clinic doctor --on-port 'artillery run ./artillery/ValidateToken.yml' -- node --no-turbo-inlining ./src/index.js"
   },
   "repository": {
     "type": "git",

@@ -16,6 +16,7 @@
 require('dotenv').config()
 
 //General Imports
+global.Promise = require("bluebird")
 const express = require('express')
 const helmet = require('helmet')
 const cors = require('cors')
